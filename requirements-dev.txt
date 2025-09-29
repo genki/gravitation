@@ -1,0 +1,7 @@
+# Dev tools (optional but recommended)
+ruff>=0.4
+black>=24.0
+
+# Test tools
+pytest>=8.0
+pytest-cov>=5.0

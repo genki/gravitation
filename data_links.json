@@ -1,0 +1,23 @@
+{
+  "NGC3198": {
+    "HI": {
+      "source": "HALOGAS",
+      "url": "https://example.invalid/halogas/NGC3198"
+    },
+    "Halpha": {
+      "source": "SINGS/IRSA",
+      "url": "https://example.invalid/irsa/sings/NGC3198/Halpha"
+    }
+  },
+  "NGC2403": {
+    "HI": {
+      "source": "THINGS",
+      "url": "https://example.invalid/things/NGC2403"
+    },
+    "Halpha": {
+      "source": "SINGS/IRSA",
+      "url": "https://example.invalid/irsa/sings/NGC2403/Halpha"
+    }
+  }
+}
+

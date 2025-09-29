@@ -73,3 +73,66 @@ node_modules/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Secrets/credentials — never commit
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+id_rsa*
+id_ecdsa*
+id_ed25519*
+.ssh/
+.netrc
+secrets.*
+*.token
+*.apikey
+.aws/
+.azure/
+.gcp/
+.kube/
+
+# Binary build artifacts
+*.o
+*.so
+*.a
+*.dll
+*.exe
+*.dylib
+
+# Language/tool caches (already have Python; add more)
+.tox/
+.nox/
+.pdm-cache/
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+.parcel-cache/
+
+# Site/doc builds (rebuildable)
+site/
+
+# Temp/swap/backup files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.orig
+*~
+
+# OS trash
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Raw external datasets (keep out of repo)
+KiDS-450_COSMIC_SHEAR_DATA_RELEASE/
+# Chandra/ciao raw event trees under cluster data
+**/data/cluster/**/ciao/
+**/data/cluster/**/primary/
+**/data/cluster/**/secondary/
+**/data/cluster/**/repro/
+

@@ -42,6 +42,7 @@ dist/
 *.dylib
 # Editors/IDEs
 ehthumbs.db
+# Ensure logs and *.log inside reports are not ignored by generic rules
 .env
 .env/
 # Environments and secrets
@@ -91,6 +92,7 @@ obj/
 # OS trash
 *.out
 out/
+# Override: include everything under server/public/reports
 *.p12
 paper/figures/*.png
 paper/figures/*.svg
@@ -121,10 +123,13 @@ secrets.*
 # Secrets (never commit)
 server/certs/
 server/public/notifications/
+!server/public/reports/
+!server/public/reports/**
 !server/public/reports/bench_*.json
 server/public/reports/cluster/
 !server/public/reports/data_catalog.json
 !server/public/reports/*_holdout.json
+!server/public/reports/**/*.log
 server/public/reports/logs/
 !server/public/reports/ws_vs_phieta_summary.json
 server/public/site-lastmod.js

@@ -17,7 +17,7 @@ data/
 /tmp/
 # Virtualenv and caches
 .venv/
-__pycache__/
+__pycache__
 *.pyc
 tmp/
 # High-churn runtime outputs kept outside git (archived snapshots in archives/)

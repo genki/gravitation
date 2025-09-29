@@ -12,13 +12,16 @@ bin/
 # Binary build artifacts
 build/
 # Build artifacts (fast to regenerate) — ignore
+# Build outputs (generic)
 .cache/
+# C/C++/CMake
 # Chandra/ciao raw event trees under cluster data
 checkpoints/
 # CMake
 cmake-build-*/
 CMakeCache.txt
 CMakeFiles/
+# Consolidated local ignore (migrated from ~/.gitignore_global)
 .coverage
 coverage/
 # Coverage artifacts
@@ -40,6 +43,7 @@ dist/
 # Editors/IDEs
 ehthumbs.db
 .env
+.env/
 # Environments and secrets
 *.exe
 # Figures generated on the fly in reports (keep images tracked via LFS)
@@ -54,6 +58,7 @@ id_ed25519*
 id_rsa*
 .ipynb_checkpoints/
 # Java/Gradle/Maven
+# JS bundlers
 # JS bundlers (unanchored)
 # Keep heavy deliverables (long runs) — include via negation
 *.key
@@ -66,6 +71,7 @@ lightning_logs/
 .mamba/
 memo/private/
 # ML experiment outputs
+# ML experiments
 mlruns/
 .mvn/
 .mypy_cache/
@@ -102,10 +108,12 @@ __pycache__/
 *.py[cod]
 *.pyo
 .pytest_cache/
+# Python caches
 # Python caches and temp
 # Raw external datasets (keep out of repo)
 # Reports: JSON outputs are ignored by default, except for heavy deliverables listed below
 # Root-only static site builds (avoid ignoring server/public)
+# Root-only static site builds (prevent collision with server/public)
 .ruff_cache/
 runs/
 secrets.*
@@ -151,6 +159,7 @@ tmp/
 .venv/
 /.venv/
 # Virtualenv and caches
+# Virtual envs
 .vite/
 .vscode/
 wandb/

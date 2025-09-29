@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ja-JP"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CV(shared μ(k))</title><link rel="stylesheet" href="../styles.css"></head><body><header class="site-header"><div class="wrap"><div class="brand">研究進捗</div><nav class="nav"><a href="../index.html">ホーム</a><a href="index.html">レポート</a><a href="../state_of_the_art/index.html">SOTA</a></nav></div></header><main class="wrap"><h1>共有 μ(k) 5-fold 交差検証</h1>
+<div class=card><small>対象: 全サンプル（BL含む） / モード: 共有(ε,k0,m,gas)</small></div>
+<p>grid: ε=[0.1, 0.3, 1.0], k0=[0.02, 0.05, 0.1, 0.2] [kpc⁻¹], m=[2, 3, 4], gas=[1.0, 1.33], λ_an=[0.0, 0.3, 0.6]</p>
+<div class=card><p>Aggregate test: χ² GR=3068.545334350186 / ULM=1563.3036487418 (改善×1.9628594462885411), ΔAICc=-1467.4390990469415 / rχ² GR=8.182787558267162 / ULM=4.342510135393889</p><p><small><b>reduced χ²</b> = χ²/(N−k)。fold合算ではfoldごとのNとkを加算して算出。</small></p></div>
+<table><thead><tr><th>Fold</th><th>Train best (ε,k0,m,gas)</th><th>Test χ² (GR/ULM)</th><th>rχ² (GR/ULM)</th><th>AICc_GR (n,k)</th><th>AICc_ULM (n,k)</th><th>ΔAICc</th><th>ELPD_test (GR/ULM)</th></tr></thead><tbody>
+<tr><td>#1</td><td>(ε=1.0, k0=0.02, m=2.0, gas=1.33, λ_an=0.0)</td><td>88.16698840469297 / 78.64952293887477</td><td>8.015 / 9.831</td><td>90.567 (12,1)</td><td>92.364 (12,4)</td><td>1.7968202484674975</td><td>-44.1 / -39.3</td></tr>
+<tr><td>#2</td><td>(ε=1.0, k0=0.05, m=2.0, gas=1.33, λ_an=0.0)</td><td>337.1043080554202 / 313.45594201085424</td><td>8.026 / 8.037</td><td>339.202 (43,1)</td><td>322.509 (43,4)</td><td>-16.693295441228372</td><td>-168.6 / -156.7</td></tr>
+<tr><td>#3</td><td>(ε=1.0, k0=0.02, m=2.0, gas=1.33, λ_an=0.0)</td><td>597.5771483232821 / 544.3123431956463</td><td>8.300 / 7.889</td><td>599.633 (73,1)</td><td>552.901 (73,4)</td><td>-46.73290786168707</td><td>-298.8 / -272.2</td></tr>
+<tr><td>#4</td><td>(ε=1.0, k0=0.02, m=2.0, gas=1.33, λ_an=0.0)</td><td>1022.8484447833953 / 313.4429202982124</td><td>8.183 / 2.569</td><td>1029.042 (128,3)</td><td>326.137 (128,6)</td><td>-702.9048579962466</td><td>-511.4 / -156.7</td></tr>
+<tr><td>#5</td><td>(ε=1.0, k0=0.02, m=2.0, gas=1.33, λ_an=0.0)</td><td>1022.8484447833953 / 313.4429202982124</td><td>8.183 / 2.569</td><td>1029.042 (128,3)</td><td>326.137 (128,6)</td><td>-702.9048579962466</td><td>-511.4 / -156.7</td></tr>
+</tbody></table>
+<h2>対象銀河ID（3件）</h2>
+<div class=card><small>DDO154, NGC2403, NGC3198</small></div>
+<p><a href="../state_of_the_art/used_ids.csv">使用ID一覧(CSV)</a></p></main><footer class="site-footer"><div class="wrap">ローカル配信</div></footer><footer class="site-footer"><div class="wrap"><small>source: data/shared_params.json (sha256:aa694c7f90ea)</small></div></footer></body></html>

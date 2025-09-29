@@ -1,0 +1,22 @@
+<html lang="ja-JP"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Phi·eta fair sweep</title><link rel="stylesheet" href="../styles.css"></head><body>
+<header class="site-header"><div class="wrap"><div class="brand">研究進捗</div><nav class="nav"><a href="../index.html">レポート</a><a href="../state_of_the_art/index.html">SOTA</a></nav></div></header>
+<main class="wrap"><h1>Phi·eta パラメタ（公平: k=2, 同一N/誤差）スイープ</h1>
+<div class=card><p>勝ち数(Phi·eta): 1 / 2（ΔAICc<0勝ち）</p><p>ΔAICc(Phi·eta−W·S) 中央値[IQR]: -55.41 [119.85]</p><p><small>両方式で Υ★とα(κ) を同時最小二乗（k=2）。</small></p></div>
+<div class=card><small>AICc は per‑galaxy の観測点 N と自由度 k に基づき算出。 rχ² は χ²/(N−k) を用い、誤差床は dV_floor=clip(0.03×|Vobs|, 3..7) km/s を適用。</small></div>
+<table><thead><tr><th>Galaxy</th><th>best β</th><th>s[kpc]</th><th>σ_k</th><th>k</th><th>N</th><th>rχ²(IF)</th><th>rχ²(WS)</th><th>ΔAICc</th><th>AICc(IF/WS)</th><th>links</th></tr></thead><tbody>
+<tr><td>NGC3198</td><td>0.30</td><td>0.50</td><td>1.00</td><td>2</td><td>43</td><td>4.64</td><td>3.07</td><td>64.44</td><td><small>194.5 / 130.0</small></td><td><span class="pill-links"><a href="ngc3198_phieta_profile.html">profile</a></span> · <span class="pill-links"><a href="bench_ngc3198.html">bench</a></span> · <span class="pill-links"><a href="ngc3198_JI_vector_panel.html">JI vector</a></span> · <span class="pill-links"><a href="ngc3198_local_stability.html">local stability</a></span> · <span class="pill-links"><a href="ngc3198_outer_slope_stability.html">outer slope</a></span></td></tr>
+<tr><td>NGC2403</td><td>0.60</td><td>0.80</td><td>0.30</td><td>2</td><td>73</td><td>1.93</td><td>4.40</td><td>-175.26</td><td><small>141.4 / 316.6</small></td><td><span class="pill-links"><a href="ngc2403_phieta_profile.html">profile</a></span> · <span class="pill-links"><a href="bench_ngc2403.html">bench</a></span> · <span class="pill-links"><a href="ngc2403_JI_vector_panel.html">JI vector</a></span> · <span class="pill-links"><a href="ngc2403_local_stability.html">local stability</a></span> · <span class="pill-links"><a href="ngc2403_outer_slope_stability.html">outer slope</a></span></td></tr>
+</tbody></table>
+<h2>Quick Panels</h2>
+<div class="card"><p><b>NGC3198: κプロファイル</b></p><img src="ngc3198_phieta_profile.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC3198: J_I ベクトル（β=0/β>0）</b></p><img src="ngc3198_JI_vector_panel.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC3198: ΔAICc ヒート</b></p><img src="ngc3198_local_dAICc_heat.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC3198: 外縁傾き 安定性</b></p><img src="ngc3198_outer_slope_stability.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC3198: ω_cut × 残差（地図）</b></p><img src="ngc3198_wcut_vs_vres_maps.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC2403: κプロファイル</b></p><img src="ngc2403_phieta_profile.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC2403: J_I ベクトル（β=0/β>0）</b></p><img src="ngc2403_JI_vector_panel.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC2403: ΔAICc ヒート</b></p><img src="ngc2403_local_dAICc_heat.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC2403: 外縁傾き 安定性</b></p><img src="ngc2403_outer_slope_stability.png" style="max-width:100%"></div>
+<div class="card"><p><b>NGC2403: ω_cut × 残差（地図）</b></p><img src="ngc2403_wcut_vs_vres_maps.png" style="max-width:100%"></div>
+</main><footer class="site-footer"><div class="wrap"><small>source: data/shared_params.json (sha256:aa694c7f90ea)</small></div></footer></body></html>

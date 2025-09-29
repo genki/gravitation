@@ -1,0 +1,45 @@
+<html lang="ja-JP"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>W·S vs Phi·eta (rep6)</title><link rel="stylesheet" href="../styles.css"></head><body>
+<header class="site-header"><div class="wrap"><div class="brand">研究進捗</div><nav class="nav"><a href="../index.html">レポート</a><a href="../state_of_the_art/index.html">SOTA</a></nav></div></header>
+<main class="wrap"><h1>W·S（界面） vs Phi·eta（情報流）— 代表6銀河</h1>
+<table><thead><tr><th>Galaxy</th><th>AICc (W·S)</th><th>AICc (Phi·eta)</th><th>ΔAICc (Phi·eta − W·S)</th><th>N</th><th>k</th><th>β*</th></tr></thead><tbody>
+<tr><td>DDO154</td><td>14.30</td><td>198.63</td><td>184.33</td><td>12</td><td>2</td><td>nan</td></tr>
+<tr><td>DDO161</td><td>46.86</td><td>419.78</td><td>372.92</td><td>31</td><td>2</td><td>nan</td></tr>
+<tr><td>NGC2403</td><td>326.01</td><td>141.36</td><td>-184.65</td><td>73</td><td>2</td><td>nan</td></tr>
+<tr><td>NGC3198</td><td>131.34</td><td>194.48</td><td>63.14</td><td>43</td><td>2</td><td>0.30</td></tr>
+<tr><td>NGC7331</td><td>10.39</td><td>1003.69</td><td>993.30</td><td>36</td><td>2</td><td>nan</td></tr>
+<tr><td>UGC06787</td><td>109.47</td><td>3152.20</td><td>3042.73</td><td>71</td><td>2</td><td>nan</td></tr>
+</tbody></table>
+<h2>代表比較図（テンプレv2, Total基準）</h2>
+<!-- REP6_FIGS_BEGIN -->
+<style>.rep6-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}</style>
+<div class="rep6-grid">
+<figure style="margin:6px">
+<img src="../assets/rep6/DDO154_rep6.png" alt="DDO154 rep6">
+<figcaption><small>DDO154 — N=12 k=2 AICc=10.3 ΔAICc(IF/GRDM/MOND)=+184.3/+62.7/+44.2</small></figcaption>
+</figure>
+<figure style="margin:6px">
+<img src="../assets/rep6/DDO161_rep6.png" alt="DDO161 rep6">
+<figcaption><small>DDO161 — N=31 k=2 AICc=42.9 ΔAICc(IF/GRDM/MOND)=+304.5/+196.0/+1636.0</small></figcaption>
+</figure>
+<figure style="margin:6px">
+<img src="../assets/rep6/NGC2403_rep6.png" alt="NGC2403 rep6">
+<figcaption><small>NGC2403 — N=73 k=2 AICc=322.0 ΔAICc(IF/GRDM/MOND)=-184.6/-255.9/-248.5</small></figcaption>
+</figure>
+<figure style="margin:6px">
+<img src="../assets/rep6/NGC3198_rep6.png" alt="NGC3198 rep6">
+<figcaption><small>NGC3198 — N=43 k=2 AICc=127.3 ΔAICc(IF/GRDM/MOND)=+63.1/-40.8/+59.4</small></figcaption>
+</figure>
+<figure style="margin:6px">
+<img src="../assets/rep6/NGC7331_rep6.png" alt="NGC7331 rep6">
+<figcaption><small>NGC7331 — N=36 k=2 AICc=6.4 ΔAICc(IF/GRDM/MOND)=+681.7/+9.3/+7.3</small></figcaption>
+</figure>
+<figure style="margin:6px">
+<img src="../assets/rep6/UGC06787_rep6.png" alt="UGC06787 rep6">
+<figcaption><small>UGC06787 — N=71 k=2 AICc=105.5 ΔAICc(IF/GRDM/MOND)=+3042.7/+21.5/+405.1</small></figcaption>
+</figure>
+</div>
+<!-- REP6_FIGS_END -->
+
+
+<div class=card><p>勝率(Phi·eta): 1 / 6 （ΔAICc<0 を勝ちと定義）</p><p>ΔAICc(Phi·eta−W·S) 中央値[IQR]: 278.63 [744.77] ／ 効果量 d≈0.62</p><p><small>誤差床: clip(0.03×Vobs, 3..7) km/s。N・k は両方式で同一（k=2: Υ★ と α(κ) を同時最小二乗）。rng=42 固定。</small></p></div>
+<div class=card><small>指標: AICc を用い、(N,k) と rχ²=χ²/(N−k) を併記します。誤差床は clip(0.03×Vobs, 3..7 km/s)。脚注に PSF/ビーム・マスク・誤差床の定義を固定します。</small></div></main><footer class="site-footer"><div class="wrap"><small>source: data/shared_params.json (sha256:aa694c7f90ea)</small></div></footer></body></html>

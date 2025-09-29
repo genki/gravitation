@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja-JP">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>共有パラメータ比較レポート</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="brand">研究進捗</div>
+      <nav class="nav">
+        <a href="../index.html">ホーム</a>
+        <a href="../memos.html">メモ</a>
+        <a href="../data.html">データ</a>
+        <a href="../paper.html">論文</a>
+        <a href="../reports/index.html">レポート</a>
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+<h1>複数銀河・共有パラメータ比較レポート</h1>
+<p>ソース: data/results/multi_fit_q3_orth_eps0.8_eg015.json</p>
+<div class=card>
+<p>共有パラメータ: λ=15 kpc, A=80, gas_scale=1</p>
+<p>合計χ²: GR=650.53 / ULM=189.83</p>
+<p>AIC: GR=674.53 / ULM=219.83 (ΔAIC=-454.7)</p>
+</div>
+<table><thead><tr><th>Galaxy</th><th>GR</th><th>ULM</th></tr></thead><tbody>
+<tr><td>F561-1</td><td>mu=0.8</td><td>mu=0.434</td></tr>
+<tr><td>F563-V1</td><td>mu=0.8</td><td>mu=0.2</td></tr>
+<tr><td>F567-2</td><td>mu=0.8</td><td>mu=0.8</td></tr>
+<tr><td>F574-2</td><td>mu=0.497</td><td>mu=0.2</td></tr>
+<tr><td>NGC1705</td><td>mu=0.8</td><td>mu=0.8</td></tr>
+<tr><td>NGC2366</td><td>mu=0.8</td><td>mu=0.8</td></tr>
+<tr><td>NGC4389</td><td>mu=0.233</td><td>mu=0.245</td></tr>
+<tr><td>PGC51017</td><td>mu=0.784</td><td>mu=0.241</td></tr>
+<tr><td>UGC02455</td><td>mu=0.2</td><td>mu=0.2</td></tr>
+<tr><td>UGC04305</td><td>mu=0.8</td><td>mu=0.48</td></tr>
+<tr><td>UGC06973</td><td>mu=0.309</td><td>mu=0.33</td></tr>
+<tr><td>UGCA281</td><td>mu=0.8</td><td>mu=0.8</td></tr>
+</tbody></table>
+<h2>F561-1 の比較図</h2>
+<p class="lead">Type: Sm / D: 66.4 Mpc / Inc: 24° / outer slope: 0.00 (flat) / gas frac@Rmax: 0.45 (baryon-balanced)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_F561-1_shared.svg" alt="compare_fit_F561-1_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_F561-1_shared.svg</figcaption></figure>
+<h2>F563-V1 の比較図</h2>
+<p class="lead">Type: Im / D: 54.0 Mpc / Inc: 60° / outer slope: -0.98 (flat) / gas frac@Rmax: 0.79 (gas-rich)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_F563-V1_shared.svg" alt="compare_fit_F563-V1_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_F563-V1_shared.svg</figcaption></figure>
+<h2>F567-2 の比較図</h2>
+<p class="lead">Type: Sm / D: 79.0 Mpc / Inc: 20° / outer slope: 2.14 (rising) / gas frac@Rmax: 0.40 (baryon-balanced)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_F567-2_shared.svg" alt="compare_fit_F567-2_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_F567-2_shared.svg</figcaption></figure>
+<h2>F574-2 の比較図</h2>
+<p class="lead">Type: Sm / D: 89.1 Mpc / Inc: 30° / outer slope: 1.83 (rising) / gas frac@Rmax: 0.75 (gas-rich)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_F574-2_shared.svg" alt="compare_fit_F574-2_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_F574-2_shared.svg</figcaption></figure>
+<h2>NGC1705 の比較図</h2>
+<p class="lead">Type: BCD / D: 5.73 Mpc / Inc: 80° / outer slope: 0.00 (flat) / gas frac@Rmax: 0.40 (baryon-balanced)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_NGC1705_shared.svg" alt="compare_fit_NGC1705_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_NGC1705_shared.svg</figcaption></figure>
+<h2>NGC2366 の比較図</h2>
+<p class="lead">Type: Im / D: 3.27 Mpc / Inc: 68° / outer slope: -1.08 (declining) / gas frac@Rmax: 0.83 (gas-rich)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_NGC2366_shared.svg" alt="compare_fit_NGC2366_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_NGC2366_shared.svg</figcaption></figure>
+<h2>NGC4389 の比較図</h2>
+<p class="lead">Type: Sbc / D: 18.0 Mpc / Inc: 50° / outer slope: 16.21 (rising) / gas frac@Rmax: 0.09 (star-dominated)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_NGC4389_shared.svg" alt="compare_fit_NGC4389_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_NGC4389_shared.svg</figcaption></figure>
+<h2>PGC51017 の比較図</h2>
+<p class="lead">Type: BCD / D: 13.6 Mpc / Inc: 66° / outer slope: 0.15 (flat) / gas frac@Rmax: 0.80 (gas-rich)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_PGC51017_shared.svg" alt="compare_fit_PGC51017_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_PGC51017_shared.svg</figcaption></figure>
+<h2>UGC02455 の比較図</h2>
+<p class="lead">Type: Im / D: 6.92 Mpc / Inc: 51° / outer slope: 17.03 (rising) / gas frac@Rmax: 0.51 (gas-rich)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_UGC02455_shared.svg" alt="compare_fit_UGC02455_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_UGC02455_shared.svg</figcaption></figure>
+<h2>UGC04305 の比較図</h2>
+<p class="lead">Type: Im / D: 3.45 Mpc / Inc: 40° / outer slope: 0.47 (flat) / gas frac@Rmax: 0.68 (gas-rich)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_UGC04305_shared.svg" alt="compare_fit_UGC04305_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_UGC04305_shared.svg</figcaption></figure>
+<h2>UGC06973 の比較図</h2>
+<p class="lead">Type: Sab / D: 18.0 Mpc / Inc: 71° / outer slope: 2.88 (rising) / gas frac@Rmax: 0.08 (star-dominated)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_UGC06973_shared.svg" alt="compare_fit_UGC06973_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_UGC06973_shared.svg</figcaption></figure>
+<h2>UGCA281 の比較図</h2>
+<p class="lead">Type: BCD / D: 5.68 Mpc / Inc: 67° / outer slope: 5.88 (rising) / gas frac@Rmax: 0.31 (baryon-balanced)</p>
+<figure class="card"><img src="../paper/figures/compare_fit_UGCA281_shared.svg" alt="compare_fit_UGCA281_shared.svg" style="max-width:100%;height:auto"><figcaption>compare_fit_UGCA281_shared.svg</figcaption></figure>
+<p>関連: <a href="../figures">図ギャラリー</a> / <a href="../memos.html">メモ一覧</a></p>
+  <div class=card><small>指標: AICc を用い、(N,k) と rχ²=χ²/(N−k) を併記します。誤差床は clip(0.03×Vobs, 3..7 km/s)。脚注に PSF/ビーム・マスク・誤差床の定義を固定します。</small></div></main>
+  <footer class="site-footer">
+    <div class="wrap">ローカル配信(開発用)</div>
+  </footer>
+<footer class="site-footer"><div class="wrap"><small>source: data/shared_params.json (sha256:aa694c7f90ea)</small></div></footer></body>
+</html>

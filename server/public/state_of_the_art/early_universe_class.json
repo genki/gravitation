@@ -1,0 +1,32 @@
+{
+  "available": true,
+  "z": 0.57,
+  "amp_ratio": 0.9938629353453383,
+  "peak_shift": 0.0,
+  "class_version": "3.3.2.0",
+  "shared_params_sha": "aa694c7f90eafa406021a6777311d0914835eb3b6579409d4ebe57781409d1af",
+  "cfg_sha": "f6d2eb057358efd28ef36a7fabfc0f22a10889260de039ef324b4c6c6d5218ef",
+  "class_ini_sha": "4030fcb5987950baf4e04b6cc8a1a37d76da0b50511bdb26686124db4659ae67",
+  "bao": {
+    "chi2_total": 3.8736175912083666,
+    "ndof_total": 6,
+    "p_value_total": 0.6937746338451077,
+    "bao_file": "data/bao/bao_points.yml"
+  },
+  "rsd": {
+    "chi2_late_fdb": 3.790506766781981,
+    "chi2_lcdm": 3.6563650313841936,
+    "ndof_total": 3,
+    "delta_chi2": 0.13414173539778762
+  },
+  "solar": {
+    "mu_at_au": 1.0,
+    "delta_mu": 0.0,
+    "delta_a_m_s2": 0.0,
+    "delta_a_ratio": 0.0,
+    "a_max_m_s2": 1e-13,
+    "k_au_1_per_mpc": 206264806214.2505,
+    "pass_bound": true,
+    "status": "pass"
+  }
+}

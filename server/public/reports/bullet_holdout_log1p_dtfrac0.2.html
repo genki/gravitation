@@ -1,0 +1,28 @@
+<html lang="ja-JP"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>バレットクラスタ ホールドアウト</title><link rel="stylesheet" href="../styles.css"></head><body>
+<header class="site-header"><div class="wrap"><div class="brand">研究進捗</div><nav class="nav"><a href="../index.html">レポート</a><a href="../state_of_the_art/index.html">SOTA</a></nav></div></header>
+<main class="wrap"><h1>最小核(α,β,C) 学習→固定→ホールドアウト</h1>
+<div class=card><p>固定パラメタ: α=0.6, β=0.9, C=0.05, ξ=0.9, p=1, τ_q=0.5, δ_τ/τ=0.2, s_gate=6, Σ_e変換=log1p <small>(sha:fe13bb9f)</small></p></div>
+<div class=card><p><img src="bullet_kappa_panels.png" style="max-width:100%"></p></div>
+<div class=card><h3>κ_tot vs κ_obs</h3><p><img src="bullet_kappa_tot_panels.png" style="max-width:100%"></p><small>判定は κ_FDB と対照（rot/shift/shuffle）に基づく。</small></div>
+<div class=card><p><b>ホールドアウト ΔAICc と対照</b></p><p>best: σ_psf=1.5 pix, w=Σ_e^0.3 / ⟨Σ_e⟩^0.3</p><p>N=12100, k(FDB/rot/shift/shuffle)=2/1/2/0, σ(MAD)=9.12</p><p>AICc(FDB)=1356864.78; controls: rot=6515081.02, shift=1366609.47, shuffle=5109284.74</p><p>ΔAICc(FDB−rot)=-5158216.25, ΔAICc(FDB−shift)=-9744.69, ΔAICc(FDB−shuffle)=-3752419.96</p><p><small>三指標（proxy）: ①ピーク距離(評価)=150 kpc [highpass], ②剪断位相整合=⟨cosΔθ⟩=0.304, ③corr(κ残差, Σ_e)=0.163 / Spearman=0.260 (p=1.8e-185)（負が期待）</small></p><p><small>幾何の統一: FFT相互相関により (dx,dy) を推定しサブピクセル整準して評価（FDBは k=2 に加算）。対照は整準後の予測場に対し、rot=180°回転 (k=1)、shift=固定ラップ(12,-7) pix (k=2)、shuffle=振幅保存の位相ランダム化 (k=0) を適用。</small></p></div>
+<div class=card><small>参考: パイプラインΔAICc（FDB−GR）=-1477.87</small></div>
+<div class=card><h3>β スイープ（AICc 公平管理）</h3><p><img src="bullet_beta_sweep.png" style="max-width:100%"></p><table class="t"><thead><tr><th>β</th><th>N</th><th>AICc(FDB)</th></tr></thead><tbody><tr><td>0.70</td><td>12100</td><td>960569.4</td></tr><tr><td>0.80</td><td>12100</td><td>974369.8</td></tr><tr><td>0.90</td><td>12100</td><td>992434.8</td></tr></tbody></table></div>
+<div class=card><img src="bullet_kappa_pred.png" style="max-width:100%"></div>
+<div class=card><h3>頑健性: マスク閾値（残差×Σ_e Spearman）</h3><table class="t"><thead><tr><th>mask</th><th>N</th><th>spearman r</th><th>p</th></tr></thead><tbody><tr><td>coverage</td><td>12100</td><td>0.091</td><td>1.6e-23</td></tr><tr><td>top50</td><td>12100</td><td>0.091</td><td>1.6e-23</td></tr><tr><td>top75</td><td>3025</td><td>-0.067</td><td>0.00023</td></tr><tr><td>top90</td><td>1210</td><td>-0.084</td><td>0.0033</td></tr></tbody></table><small>共通処理条件（PSF/高通過/整準）を保持し、マスクのみ変更。</small></div>
+<div class=card><h3>偏相関（全球/コア/外縁）</h3><p><img src="bullet_partial_r_bar.png" style="max-width:100%"></p></div>
+<div class=card><h3>AICc / (N,k) / rχ²</h3><table class="t"><thead><tr><th>model</th><th>N</th><th>k</th><th>AICc</th><th>χ²</th><th>rχ²</th></tr></thead><tbody><tr><td>FDB</td><td>12100</td><td>2</td><td>1356864.8</td><td>1356860.8</td><td>112.1558</td></tr><tr><td>rot</td><td>12100</td><td>1</td><td>6515081.0</td><td>6515079.0</td><td>538.4808</td></tr><tr><td>shift</td><td>12100</td><td>2</td><td>1366609.5</td><td>1366605.5</td><td>112.9613</td></tr><tr><td>shuffle</td><td>12100</td><td>0</td><td>5109284.7</td><td>5109284.7</td><td>422.2549</td></tr></tbody></table><small>公平条件: 整準(Δx,Δy)のみ自由度=k=2（rot=1, shift=2, shuffle=0）。PSF/高通過/マスク/ROIは本文に準拠。</small></div>
+<div class=card><h3>影整合指数 S_shadow</h3><p>global=-0.015, core=nan, outer=nan</p><small>Permutation(one‑sided >0): n=0, p_perm=nan</small></div>
+<div class=card><p><img src="bullet_peaks.png" style="max-width:100%"></p></div>
+<div class=card><p><img src="bullet_shear_cos_hist.png" style="max-width:100%"></p></div>
+<div class=card><p><img src="bullet_residual_scatter.png" style="max-width:100%"></p></div>
+<div class=card><small>補助: 高通過ピーク距離=150 kpc, 整準後高通過ピーク距離=124 kpc</small></div>
+<div class=card><small>(N,k): N=12100, k(FDB/rot/shift/shuffle)=2/1/2/0. 基準: ①ピーク距離≤300 kpc（高通過版も参考）, ②⟨cosΔθ⟩≥0.20, ③top10% Spearman<0 ∧ p<0.05 → 判定: ①PASS（高通過:PASS）, ②PASS, ③FAIL</small></div>
+<div class=card><h3>残差×Σ_e の符号（全球 / r≤r50 / r≥r75）</h3><table class="t"><thead><tr><th>ROI</th><th>N</th><th>pearson r</th><th>spearman r</th><th>p</th></tr></thead><tbody><tr><td>global</td><td>12100</td><td>0.163</td><td>0.294</td><td>2.6e-240</td></tr><tr><td>core_r50</td><td>6065</td><td>0.272</td><td>0.445</td><td>3.3e-293</td></tr><tr><td>outer_r75</td><td>3039</td><td>0.073</td><td>0.121</td><td>1.9e-11</td></tr></tbody></table><small>ROI: core=r≤r50（半径中央値内）, outer=r≥r75（外側四分位）。</small></div>
+<div class=card><small>偏相関 r(resid,Σ_e | r) [global/core_r50/outer_r75] = [0.072/0.228/0.064] · 位相乱数対照: n=5000, d=1.64, p_perm(one‑sided, toward negative)=0.956</small></div>
+<div class=card><small>ブロックBootstrap: n=4096, 95% CI for Spearman(global)=[0.169,0.406], block≈27 pix</small></div>
+<div class=card><small>補助(κ_tot=κ_GR+κ_FDB): Spearman(global)=0.223 (p=6.8e-136), top10%=0.008 (p=0.78)</small></div>
+<div class=card><small>処理条件: PSF σ=0.50 pix, 高通過 σ=8 pix, マスク: Σ_e上位75%, ROI(core/outer)=(r≤r50/r≥r75), 整準: FFT相互相関 → (dy,dx)=(16.00,38.00), 対照 wrap(dy,dx)=(12,−7), rng=42</small></div>
+<div class=card><small>銀河ピーク(x,y)=(80,52) ・ ICLピーク(x,y)=(76,49) ・ 環境: lenstool=8.6.6 / ciaover=VERSION File missing!, shared_params_sha=a0e73195</small></div>
+<div class=card><small>整準/対照: xcorr shift (dy,dx)=(16.00,38.00), shift対照 wrap(dy,dx)=(12,-7), rng_seed=42</small></div>
+</main><footer class="site-footer"><div class="wrap"><small>source: data/shared_params.json (sha256:aa694c7f90ea)</small></div></footer></body></html>

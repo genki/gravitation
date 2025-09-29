@@ -46,3 +46,30 @@ server/public/site-lastmod.js
 *.log
 **/logs/
 server/web.log
+
+# Python caches and temp
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+.cache/
+.ipynb_checkpoints/
+
+# Environments and secrets
+.venv/
+.env
+
+# Editors/IDEs
+.vscode/
+.idea/
+
+# Node/npm
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db

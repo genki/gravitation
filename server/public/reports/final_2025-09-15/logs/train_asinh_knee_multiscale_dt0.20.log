@@ -1,4 +1,0 @@
-[train][1/3888] AICc=9.82e+07, Spear=-0.031, score=9.77e+07 | elapsed=0.4m, ETA=1523.0m
-[train][38/3888] AICc=8.69e+07, Spear=-0.035, score=8.64e+07 | elapsed=15.2m, ETA=1538.7m
-[train][76/3888] AICc=7.52e+07, Spear=-0.040, score=7.48e+07 | elapsed=30.4m, ETA=1524.8m
-wrote data/cluster/params_cluster.json

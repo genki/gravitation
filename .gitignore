@@ -114,6 +114,7 @@ __pycache__/
 # Python caches and temp
 # Raw external datasets (keep out of repo)
 # Reports: JSON outputs are ignored by default, except for heavy deliverables listed below
+# Reports: keep everything except logs (*.log) explicitly
 # Root-only static site builds (avoid ignoring server/public)
 # Root-only static site builds (prevent collision with server/public)
 .ruff_cache/
@@ -129,7 +130,7 @@ server/public/notifications/
 server/public/reports/cluster/
 !server/public/reports/data_catalog.json
 !server/public/reports/*_holdout.json
-!server/public/reports/**/*.log
+server/public/reports/**/*.log
 server/public/reports/logs/
 !server/public/reports/ws_vs_phieta_summary.json
 server/public/site-lastmod.js

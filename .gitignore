@@ -43,3 +43,6 @@ server/public/site-lastmod.js
 # HTML pages are deliverables — keep
 # CSV and intermediate tables are ignored
 
+*.log
+**/logs/
+server/web.log

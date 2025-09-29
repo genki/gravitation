@@ -33,7 +33,6 @@ server/public/state_of_the_art/audit*.json
 server/public/site-lastmod.js
 
 # Reports: JSON outputs are ignored by default, except for heavy deliverables listed below
-server/public/reports/*.json
 # Keep heavy deliverables (long runs) — include via negation
 !server/public/reports/*_holdout.json
 !server/public/reports/bench_*.json
@@ -43,5 +42,4 @@ server/public/reports/*.json
 # Figures generated on the fly in reports (keep images tracked via LFS)
 # HTML pages are deliverables — keep
 # CSV and intermediate tables are ignored
-server/public/reports/*.csv
 

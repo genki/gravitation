@@ -1,0 +1,10 @@
+[#] env logs at 2025-09-29T01:48:47Z
+
+[ciaover]
+VERSION File missing!
+
+[lenstool -v]
+8.6.6
+
+[shared params sha]
+6ac5ee586e37b9faf52f58c4ebbb4294b38ee587deb631d20cc97e3ddc10d28f

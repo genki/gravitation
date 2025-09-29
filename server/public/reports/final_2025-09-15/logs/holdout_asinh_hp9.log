@@ -1,0 +1,25 @@
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:180: UserWarning: Glyph 20104 (\N{CJK UNIFIED IDEOGRAPH-4E88}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_pred, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:180: UserWarning: Glyph 28204 (\N{CJK UNIFIED IDEOGRAPH-6E2C}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_pred, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:180: UserWarning: Glyph 65288 (\N{FULLWIDTH LEFT PARENTHESIS}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_pred, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:180: UserWarning: Glyph 22266 (\N{CJK UNIFIED IDEOGRAPH-56FA}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_pred, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:180: UserWarning: Glyph 23450 (\N{CJK UNIFIED IDEOGRAPH-5B9A}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_pred, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:180: UserWarning: Glyph 12497 (\N{KATAKANA LETTER PA}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_pred, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:180: UserWarning: Glyph 12521 (\N{KATAKANA LETTER RA}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_pred, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:180: UserWarning: Glyph 65289 (\N{FULLWIDTH RIGHT PARENTHESIS}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_pred, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:346: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  fig.tight_layout(); fig.savefig(png_panels, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:346: UserWarning: Glyph 31561 (\N{CJK UNIFIED IDEOGRAPH-7B49}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_panels, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:346: UserWarning: Glyph 39640 (\N{CJK UNIFIED IDEOGRAPH-9AD8}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_panels, dpi=140); plt.close(fig)
+/home/vagrant/gravitation/scripts/reports/make_bullet_holdout.py:346: UserWarning: Glyph 32218 (\N{CJK UNIFIED IDEOGRAPH-7DDA}) missing from current font.
+  fig.tight_layout(); fig.savefig(png_panels, dpi=140); plt.close(fig)
+wrote server/public/reports/bullet_holdout.html

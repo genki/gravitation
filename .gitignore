@@ -136,3 +136,4 @@ KiDS-450_COSMIC_SHEAR_DATA_RELEASE/
 **/data/cluster/**/secondary/
 **/data/cluster/**/repro/
 
+*.out

@@ -1,185 +1,157 @@
-/.venv/
-__pycache__/
-*.pyc
-paper/figures/*.svg
-paper/figures/*.png
 
-# Secrets (never commit)
-.env
-memo/private/
-
-# Data (large/generated)
-data/
-
-# Coverage artifacts
-.coverage
-
-/tmp/
-# Virtualenv and caches
-.venv/
-__pycache__
-*.pyc
-tmp/
-# High-churn runtime outputs kept outside git (archived snapshots in archives/)
-server/public/reports/logs/
-server/public/reports/cluster/
-# Node/process pid/meta if any
-*.pid
-
+*~
+*.a
+# Additional build output dirs (unanchored)
+.angular/cache/
+*.apikey
+# Auto-added ignores (2025-09-30T03:50:24+09:00)
+.aws/
+.azure/
+*.bak
+bin/
+# Binary build artifacts
+build/
 # Build artifacts (fast to regenerate) — ignore
-server/public/state_of_the_art/jobs.html
-server/public/state_of_the_art/holdout_progress.html
-server/public/state_of_the_art/audit*.json
-server/public/site-lastmod.js
-
-# Reports: JSON outputs are ignored by default, except for heavy deliverables listed below
-# Keep heavy deliverables (long runs) — include via negation
-!server/public/reports/*_holdout.json
-!server/public/reports/bench_*.json
-!server/public/reports/data_catalog.json
-!server/public/reports/ws_vs_phieta_summary.json
-
-# Figures generated on the fly in reports (keep images tracked via LFS)
-# HTML pages are deliverables — keep
+.cache/
+# Chandra/ciao raw event trees under cluster data
+checkpoints/
+# CMake
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+.coverage
+coverage/
+# Coverage artifacts
+coverage.xml
+*.crt
 # CSV and intermediate tables are ignored
-
+data/
+**/data/cluster/**/ciao/
+**/data/cluster/**/primary/
+**/data/cluster/**/repro/
+**/data/cluster/**/secondary/
+# Data (large/generated)
+Desktop.ini
+dist/
+*.dll
+/docs/_build/
+.DS_Store
+*.dylib
+# Editors/IDEs
+ehthumbs.db
+.env
+# Environments and secrets
+*.exe
+# Figures generated on the fly in reports (keep images tracked via LFS)
+.gcp/
+.gradle/
+# High-churn runtime outputs kept outside git (archived snapshots in archives/)
+# HTML pages are deliverables — keep
+# IaC
+.idea/
+id_ecdsa*
+id_ed25519*
+id_rsa*
+.ipynb_checkpoints/
+# Java/Gradle/Maven
+# JS bundlers (unanchored)
+# Keep heavy deliverables (long runs) — include via negation
+*.key
+KiDS-450_COSMIC_SHEAR_DATA_RELEASE/
+.kube/
+# Language/tool caches (already have Python; add more)
+lightning_logs/
 *.log
 **/logs/
-server/web.log
-
-# Python caches and temp
+.mamba/
+memo/private/
+# ML experiment outputs
+mlruns/
+.mvn/
+.mypy_cache/
+.netrc
+.next/
+node_modules/
+# Node/npm
+# Node/process pid/meta if any
+.nox/
+.npm/
+.nuxt/
+.nyc_output/
+*.o
+obj/
+*.orig
+# OS files
+# OS trash
+*.out
+out/
+*.p12
+paper/figures/*.png
+paper/figures/*.svg
+.par
+.parcel-cache/
+.pdm-cache/
+*.pem
+*.pfx
+*.pid
+.pnpm-store/
+/public/
+*.pyc
+__pycache__
 __pycache__/
 *.py[cod]
 *.pyo
 .pytest_cache/
-.mypy_cache/
-.ruff_cache/
-.coverage
-coverage.xml
-.cache/
-.ipynb_checkpoints/
-
-# Environments and secrets
-.venv/
-.env
-
-# Editors/IDEs
-.vscode/
-.idea/
-
-# Node/npm
-node_modules/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Secrets/credentials — never commit
-*.pem
-*.key
-*.crt
-*.p12
-*.pfx
-id_rsa*
-id_ecdsa*
-id_ed25519*
-.ssh/
-.netrc
-secrets.*
-*.token
-*.apikey
-.aws/
-.azure/
-.gcp/
-.kube/
-
-# Binary build artifacts
-*.o
-*.so
-*.a
-*.dll
-*.exe
-*.dylib
-
-# Language/tool caches (already have Python; add more)
-.tox/
-.nox/
-.pdm-cache/
-node_modules/
-.npm/
-.yarn/
-.pnpm-store/
-.parcel-cache/
-
-# Site/doc builds (rebuildable)
-site/
-
-# Temp/swap/backup files
-*.tmp
-*.temp
-*.bak
-*.swp
-*.swo
-*.orig
-*~
-
-# OS trash
-.Trashes
-ehthumbs.db
-Desktop.ini
-
+# Python caches and temp
 # Raw external datasets (keep out of repo)
-KiDS-450_COSMIC_SHEAR_DATA_RELEASE/
-# Chandra/ciao raw event trees under cluster data
-**/data/cluster/**/ciao/
-**/data/cluster/**/primary/
-**/data/cluster/**/secondary/
-**/data/cluster/**/repro/
-
-*.out
+# Reports: JSON outputs are ignored by default, except for heavy deliverables listed below
 # Root-only static site builds (avoid ignoring server/public)
-/public/
-/docs/_build/
+.ruff_cache/
+runs/
+secrets.*
+# Secrets/credentials — never commit
+# Secrets (never commit)
+server/certs/
+server/public/notifications/
+!server/public/reports/bench_*.json
+server/public/reports/cluster/
+!server/public/reports/data_catalog.json
+!server/public/reports/*_holdout.json
+server/public/reports/logs/
+!server/public/reports/ws_vs_phieta_summary.json
+server/public/site-lastmod.js
+server/public/state_of_the_art/audit*.json
+server/public/state_of_the_art/holdout_progress.html
+server/public/state_of_the_art/jobs.html
+server/web.log
 /_site/
-
-# Additional build output dirs (unanchored)
-build/
-dist/
-target/
-out/
-bin/
-obj/
-
-# CMake
-CMakeFiles/
-CMakeCache.txt
-cmake-build-*/
-
-# Java/Gradle/Maven
-.gradle/
-.mvn/
-
-# JS bundlers (unanchored)
-.next/
-.nuxt/
-.svelte-kit/
-.vite/
-.turbo/
-.angular/cache/
+site/
+# Site/doc builds (rebuildable)
+*.so
+.ssh/
 .storybook-static/
-coverage/
-.nyc_output/
-
-# IaC
+.svelte-kit/
+*.swo
+*.swp
+target/
+*.temp
+# Temp/swap/backup files
 .terraform/
 .terragrunt-cache/
-
-# Vagrant
+Thumbs.db
+*.tmp
+/tmp/
+tmp/
+*.token
+.tox/
+.Trashes
+.turbo/
 .vagrant/
-
-# ML experiment outputs
+# Vagrant
+.venv/
+/.venv/
+# Virtualenv and caches
+.vite/
+.vscode/
 wandb/
-lightning_logs/
-mlruns/
-checkpoints/
-runs/
+.yarn/

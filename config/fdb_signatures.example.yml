@@ -1,0 +1,12 @@
+# Example configuration for scripts/galaxies/run_signatures_batch.py
+# Each target entry must provide the residual, sigma_e, omega_cut maps and pix scale.
+targets:
+  - name: NGC3198 (placeholder)
+    residual: data/cluster/Bullet/kappa_obs.fits
+    sigma_e: data/cluster/Bullet/sigma_e.fits
+    omega_cut: data/cluster/Bullet/omega_cut.fits
+    pix_kpc: 0.5
+    bands: "4:8,8:16"
+    rr_quantile: 0.85
+    out: server/public/reports/galaxies/NGC3198_signatures.json
+    enabled: false

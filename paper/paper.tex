@@ -1,0 +1,47 @@
+% arXiv-ready minimal TeX (revtex4-2)
+\documentclass[twocolumn,nofootinbib]{revtex4-2}
+\usepackage{amsmath,amssymb,graphicx,hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\newcommand{\ulw}{\mathrm{ULW}}
+\newcommand{\fdb}{\mathrm{FDB}}
+\begin{document}
+\title{"Apparent Gravitation from FDB of ULW-EM"\\vspace{0.3em}\normalsize "Fair Tests on NGC 3198/2403 and Cross-Validation"}
+\author{First Last}
+\affiliation{Institute}
+\date{\today}
+\begin{abstract}
+We present a minimal formulation of Future--Decoherence Bias (FDB) of the ultra-long electromagnetic mode (ULM; formerly ULW-EM) that produces apparent gravitation from observable baryons and the electron-density geometry. Under a strict fair-comparison protocol (common $n$, common error floor, common penalty AICc), FDB improves fits and recovers $1/r^2$ at outer radii. Shared $\mu(k)$ is fixed ($\epsilon=1.0, $k_0=0.2\,\mathrm{kpc}^{-1}$, $m=2.0$, $\mathrm{gas\_scale}=1.33$); only $\Upsilon_\*$ and $a_2$ vary per galaxy.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+Context of GR+DM vs apparent-gravity hypothesis; contributions of this work.
+
+\section{Theory (Minimal)}
+Two-layer split: isotropic GR-equivalent from $(\rho_\*,\rho_\mathrm{gas})$ and an additional interface $\Sigma$ term from iso-$\omega_\mathrm{cut}$ surfaces; Lambert kernel as default.
+
+\section{Data and Preprocessing}
+SPARC 3.6$\mu$m mass, HI+He gas, H$\alpha\rightarrow$EM$\rightarrow n_e\rightarrow\omega_\mathrm{cut}$; velocity fields and tilted rings.
+
+\section{Experimental Design (Fair Comparison)}
+Common $n$, error floor, and AICc; baselines (GR, MOND, GR+DM with c--M prior). FDB uses fixed shared $\mu(k)$.
+
+\section{Results: Benchmarks}
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/ngc3198_outer_gravity.png}
+  \caption{NGC 3198: $g(R)R^2$ with outer linear fit (slope and 95\% CI).}
+\end{figure}
+
+\section{Cross-Validation Summary}
+Aggregate $\Delta\mathrm{AICc} = -16123.7$ ( $N=2284$; $k_\mathrm{GR}=100$, $k_\mathrm{ULW}=115$ ).
+
+\section{Negative-control Tests / Sensitivity / Ablations}
+Electron-density perturbation null tests and error-floor/$H_{\rm cut}$ sensitivity.
+
+\section{Discussion and Conclusions}
+Geometry, outer recovery; limits and future work. Reproducibility fingerprints: shared\_params.json=, cv\_shared\_summary.json=.
+
+\bibliographystyle{apsrev4-2}
+\bibliography{refs}
+\end{document}

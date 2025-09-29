@@ -1,0 +1,22 @@
+[Unit]
+Description=Gravitation SOTA Web Server (HTTP on 3131)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=vagrant
+WorkingDirectory=/home/vagrant/gravitation
+Environment=HOST=0.0.0.0
+Environment=PORT=3131
+Environment=USE_TLS=0
+Environment=NO_TLS=1
+# HTTP運用時は証明書生成をスキップ（NO_TLS=1）。
+ExecStartPre=/bin/bash -lc '[ "${NO_TLS:-0}" = "1" ] || { test -f server/certs/dev.crt -a -f server/certs/dev.key || scripts/gen_dev_cert.sh; }'
+ExecStart=/usr/bin/env python3 server/server.py
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+

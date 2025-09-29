@@ -1,0 +1,53 @@
+# Geometry catalog for FDB volume forward model inputs.
+# Values follow SPARC (Lelli+2016) tilted-ring fits unless otherwise noted.
+# Each entry should record photometric inclination (deg), position angle (deg),
+# and an estimated vertical scale height (kpc) for the stellar disc used when
+# lifting surface brightness maps to a 3D emissivity distribution.
+
+defaults:
+  thickness_model: exponential
+  scale_height_kpc: 0.30           # fallback when galaxy-specific value is unknown
+  notes: |
+    Use exponential vertical profile exp(-|z|/h_z). Replace with sech² or user
+    profile when dedicated measurements exist. Scale heights should be updated
+    once photometric decompositions are available.
+
+galaxies:
+  NGC3198:
+    inclination_deg: 72.3
+    position_angle_deg: 215.0
+    scale_height_kpc: 0.30
+    thickness_model: exponential
+    sources:
+      inclination: "Lelli+2016 (SPARC)"
+      position_angle: "Lelli+2016 (SPARC)"
+      scale_height: "van der Kruit & Searle 1981; adopt 0.30 kpc pending new fit"
+    notes: |
+      Halo-gas warp beyond ~22 kpc should be modelled with two-zone inclination
+      if higher fidelity is required. A dedicated fit is pending.
+
+  NGC2403:
+    inclination_deg: 62.5
+    position_angle_deg: 124.0
+    scale_height_kpc: 0.25
+    thickness_model: exponential
+    sources:
+      inclination: "Lelli+2016 (SPARC)"
+      position_angle: "Lelli+2016 (SPARC)"
+      scale_height: "de Grijs & Peletier 1997; adopt 0.25 kpc"
+    notes: |
+      Mild flaring reported beyond ~10 kpc. Update once HI thickness map is
+      ingested; keep single scale height for initial FDB-volume tests.
+
+  TEMPLATE_FILL_ME:
+    inclination_deg: null
+    position_angle_deg: null
+    scale_height_kpc: null
+    thickness_model: exponential
+    sources:
+      inclination: "TODO"
+      position_angle: "TODO"
+      scale_height: "TODO"
+    notes: |
+      Placeholder entry for galaxies without geometry yet. Replace nulls with
+      measured values and remove from catalog when populated.

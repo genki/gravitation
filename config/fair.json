@@ -1,0 +1,106 @@
+{
+  "version": "2025-09-21",
+  "bullet_cluster": {
+    "description": "公平条件: Bullet Cluster FDB vs rot/shift/shuffle (学習固定→ホールドアウト)",
+    "wls": {
+      "sigma0": 0.6,
+      "c": 0.6,
+      "trim_frac": 0.09,
+      "trim_iter": 2,
+      "block_pix": 4,
+      "max_lag": 8
+    },
+    "alignment": {
+      "method": "lanczos3",
+      "dy_pix": 28,
+      "dx_pix": 48,
+      "rng": 42
+    },
+    "wrap_shift": {
+      "dy": 12,
+      "dx": -7
+    },
+    "rng": {
+      "seed": 42
+    },
+    "psf_sigma": 1.5,
+    "highpass_sigma": 1.0,
+    "mask": {
+      "type": "sigma_e_top_fraction",
+      "fraction": 0.70
+    },
+    "roi": {
+      "core_r50": true,
+      "outer_r75": true
+    },
+    "counts": {
+      "N": 7396,
+      "N_eff": 489,
+      "block_pix": 4
+    },
+    "k_map": {
+      "FDB": 2,
+      "rot": 1,
+      "shift": 2,
+      "shuffle": 0
+    },
+    "commands": {
+      "report": "PYTHONPATH=. python scripts/reports/make_bullet_holdout.py"
+    },
+    "shadow": {
+      "edge_quantiles": [
+        0.7
+      ],
+      "edge_count": 256,
+      "se_quantile": 0.7,
+      "sn_quantile": 0.9,
+      "rr_quantile": 0.78,
+      "perm_min": 12000,
+      "block_size": 28,
+      "morph_close": 2,
+      "morph_open": 1,
+      "morph_clean_min": 0,
+      "weight_power": 0.0
+    }
+  },
+  "benchmarks": {
+    "modelling": {
+      "mu_prior": {
+        "epsilon": 1.0,
+        "k0": 0.2,
+        "m": 2.0
+      },
+      "gas_scale": 1.33
+    },
+    "ngc3198": {
+      "counts": {
+        "N": 43,
+        "N_eff": 43
+      },
+      "k": {
+        "GR": 1,
+        "MOND": 1,
+        "GRDM": 3,
+        "FDB": 4
+      },
+      "commands": {
+        "report": "PYTHONPATH=. python scripts/benchmarks/run_ngc3198_fullbench.py"
+      }
+    },
+    "ngc2403": {
+      "counts": {
+        "N": 73,
+        "N_eff": 73
+      },
+      "k": {
+        "GR": 1,
+        "MOND": 1,
+        "GRDM": 3,
+        "FDB": 4
+      },
+      "commands": {
+        "report": "PYTHONPATH=. python scripts/benchmarks/run_ngc2403_fullbench.py"
+      }
+    }
+  }
+}

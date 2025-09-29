@@ -1,0 +1,18 @@
+title: "Apparent Gravitation from FDB of ULW-EM"
+subtitle: "Fair Tests on NGC 3198/2403 and Cross-Validation"
+params:
+  mu_eps: 1.0
+  mu_k0: 0.2
+  mu_m: 2.0
+  gas_scale: 1.33
+  delta_aicc: -1038.0
+  N_total: 2284
+  k_sum_gr: 100
+  k_sum_ulw: 115
+fingerprints:
+  shared_params_json: aa694c7f90ea
+  cv_shared_summary_json: 5ad7d86c373e
+bullet:
+  offset_model_xray_kpc: 1053.3860596826003
+  offset_model_gal_kpc: 471.64376900418097
+  scale_kpc_per_pix: 16.17724781509946

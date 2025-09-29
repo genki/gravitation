@@ -1,0 +1,16 @@
+\section{Methods}
+\subsection{ULW--EM solver (minimal)}
+We use a phenomenological builder for the effective potential $\Phi_{\rm eff}$
+consistent with the information\,potential formulation (\S\ref{sec:theory}).
+Concretely, we solve a Yukawa\,screened Poisson equation
+$(\nabla^2-\lambda^{-2})\,\phi=\beta\,j_{\rm EM}$ on a 2D grid by FFT, set
+$\Phi_{\rm eff}=\eta\,\phi$, and compute the apparent acceleration
+$\vec g_{\rm app}=-\nabla\Phi_{\rm eff}$. Circular averages yield
+$g_R(R)$ and $v_c(R)=\sqrt{R\,g_R}$. A reference implementation is provided in
+\texttt{src/models/fdbl.py}. A dependency\,free demo (synthetic exponential
+disk to SVG) is available as \texttt{scripts/demo\_fdbl.py}.
+
+Inputs for $j_{\rm EM}$ will be estimated from WISE (W1/W2) and GALEX
+(FUV/NUV) in subsequent stages; here we use an exponential disk trial to
+illustrate the response and produce a figure for qualitative assessment.
+We integrate MaNGA LOGCUBE and MAPS to estimate baryonic mass distributions, derive rotation curves, and normalize observed velocities ($V_{\rm obs}$). Parameter inference uses joint fits across multiple galaxies with coverage targets and regularization informed by RJ spectral ratios.

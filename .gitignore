@@ -137,3 +137,49 @@ KiDS-450_COSMIC_SHEAR_DATA_RELEASE/
 **/data/cluster/**/repro/
 
 *.out
+# Root-only static site builds (avoid ignoring server/public)
+/public/
+/docs/_build/
+/_site/
+
+# Additional build output dirs (unanchored)
+build/
+dist/
+target/
+out/
+bin/
+obj/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+
+# Java/Gradle/Maven
+.gradle/
+.mvn/
+
+# JS bundlers (unanchored)
+.next/
+.nuxt/
+.svelte-kit/
+.vite/
+.turbo/
+.angular/cache/
+.storybook-static/
+coverage/
+.nyc_output/
+
+# IaC
+.terraform/
+.terragrunt-cache/
+
+# Vagrant
+.vagrant/
+
+# ML experiment outputs
+wandb/
+lightning_logs/
+mlruns/
+checkpoints/
+runs/

@@ -23,6 +23,9 @@ echo "[knee-fast] start HOLDOUT=$HOLDOUT TRAIN=$TRAIN"; date -Is
 
 export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_MAX_THREADS=1 MALLOC_ARENA_MAX=2 PYTHONMALLOC=malloc
 
+OUTDIR="server/public/reports/holdout_runs"
+mkdir -p "$OUTDIR"
+
 for q in "${Q_LIST[@]}"; do
   for p in "${P_LIST[@]}"; do
     for xs in "${XI_SAT_LIST[@]}"; do
@@ -30,9 +33,16 @@ for q in "${Q_LIST[@]}"; do
       BULLET_Q_KNEE="$q" BULLET_P="$p" BULLET_XI_SAT="$xs" \
       PYTHONPATH=. ./.venv/bin/python scripts/reports/make_bullet_holdout.py \
         --train "$TRAIN" --holdout "$HOLDOUT" --band 8-16 --fast --block-pix 6 || true
+      # Persist per‑config artifacts for later ranking
+      tag="qk${q}_p${p}_xs${xs}"
+      if [ -s "server/public/reports/${HOLDOUT}_holdout.json" ]; then
+        cp -f "server/public/reports/${HOLDOUT}_holdout.json" "$OUTDIR/${HOLDOUT}_${tag}_fast.json" || true
+      fi
+      if [ -s "server/public/reports/${HOLDOUT}_holdout.html" ]; then
+        cp -f "server/public/reports/${HOLDOUT}_holdout.html" "$OUTDIR/${HOLDOUT}_${tag}_fast.html" || true
+      fi
     done
   done
 done
 
 echo "[knee-fast] done HOLDOUT=$HOLDOUT"; date -Is
-

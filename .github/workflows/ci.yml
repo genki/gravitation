@@ -1,9 +1,8 @@
-name: CI
+name: CI (disabled)
 
+# CIは使わない方針のため自動トリガを停止
+# 必要時のみ手動実行できるように workflow_dispatch のみに制限
 on:
-  push:
-    branches: [ main ]
-  pull_request:
   workflow_dispatch: {}
 
 jobs:
@@ -29,4 +28,3 @@ jobs:
       - name: Shared params fingerprint audit
         run: |
           python scripts/qa/audit_shared_sha.py
-

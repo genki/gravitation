@@ -1383,86 +1383,125 @@ def main() -> int:
         if rsd_summary_block:
             card.append(rsd_summary_block)
 
-        # WL 2PCF lightweight likelihood (ΔAICc≈0 sanity)
-        wl_summary_block = ''
-        wl_payload_path = Path('server/public/state_of_the_art/data/wl_likelihood.json')
-        if wl_payload_path.exists():
+        cosmo_summary_path = Path('server/public/state_of_the_art/cosmo_formal_summary.json')
+        if cosmo_summary_path.exists():
             try:
-                wl_payload = json.loads(wl_payload_path.read_text(encoding='utf-8'))
-                fdb = wl_payload.get('late_fdb'); lcdm = wl_payload.get('lcdm')
-                if fdb and lcdm:
-                    chi2_fdb = float(fdb.get('chi2_total', float('nan')))
-                    chi2_lcdm = float(lcdm.get('chi2_total', float('nan')))
-                    ndof = int(fdb.get('ndof_total', 0))
-                    delta = chi2_fdb - chi2_lcdm
-                    wl_summary_block = (
-                        f"<p><b>WL 2PCF（KiDS‑450 tomo1‑1, 軽量）</b>: χ²={chi2_fdb:.2f} / dof={ndof}, "
-                        f"ΛCDM χ²={chi2_lcdm:.2f}, Δχ²={delta:.2f}（ΔAICc≈0 の想定確認）</p>"
-                    )
+                cosmo_payload = json.loads(cosmo_summary_path.read_text(encoding='utf-8'))
+                wl_stats = cosmo_payload.get('wl', {}).get('stats', {})
+                cmb_stats = cosmo_payload.get('cmb', {})
+                if wl_stats:
+                    card.append('<div class=card><h3>WL 2PCF（KiDS-450 tomo1-1 正式）</h3>'
+                                '<table class="t"><thead><tr><th>モデル</th><th>χ²</th><th>AICc</th><th>rχ²</th></tr></thead><tbody>'
+                                + ''.join(
+                                    f"<tr><td>{h(model)}</td><td>{stats.get('chi2', float('nan')):.2f}</td>"
+                                    f"<td>{stats.get('AICc', float('nan')):.2f}</td><td>{stats.get('rchi2', float('nan')):.2f}</td></tr>"
+                                    for model, stats in wl_stats.items()
+                                )
+                                + '</tbody></table></div>')
+                if cmb_stats:
+                    lcdm = cmb_stats.get('lcdm', {})
+                    fdb = cmb_stats.get('late_fdb', {})
+                    card.append('<div class=card><h3>CMB ピーク（Boomerang-2001 正式）</h3>'
+                                '<table class="t"><thead><tr><th>モデル</th><th>ℓ₁</th><th>ΔT²(ℓ₁)[μK²]</th><th>ℓ₂</th><th>ΔT²(ℓ₂)[μK²]</th></tr></thead>'
+                                f"<tbody><tr><td>ΛCDM</td><td>{lcdm.get('ell_peak1', '-')}</td><td>{lcdm.get('peak1', float('nan')):.2f}</td>"
+                                f"<td>{lcdm.get('ell_peak2', '-')}</td><td>{lcdm.get('peak2', float('nan')):.2f}</td></tr>"
+                                f"<tr><td>Late‑FDB</td><td>{fdb.get('ell_peak1', '-')}</td><td>{fdb.get('peak1', float('nan')):.2f}</td>"
+                                f"<td>{fdb.get('ell_peak2', '-')}</td><td>{fdb.get('peak2', float('nan')):.2f}</td></tr></tbody></table></div>")
+                # 詳細カード/サマリへの導線
+                links = []
+                if Path('server/public/state_of_the_art/wl_2pcf_formal.html').exists():
+                    links.append('<a href="../state_of_the_art/wl_2pcf_formal.html">WL 2PCF 詳細</a>')
+                if Path('server/public/state_of_the_art/cmb_peaks_formal.html').exists():
+                    links.append('<a href="../state_of_the_art/cmb_peaks_formal.html">CMB ピーク詳細</a>')
+                if cosmo_summary_path.exists():
+                    links.append('<a href="../state_of_the_art/cosmo_formal_summary.json">summary JSON</a>')
+                if Path('server/public/state_of_the_art/wl_2pcf_tomo_preview.html').exists():
+                    links.append('<a href="../state_of_the_art/wl_2pcf_tomo_preview.html">WL tomo(preview)</a>')
+                if links:
+                    card.append('<div class="card pill-links"><p>' + ' '.join(links) + '</p></div>')
+                cosmology_pending_notes.clear()
             except Exception:
-                wl_summary_block = ''
-        if wl_summary_block:
-            card.append(wl_summary_block)
-
-        # CMB peaks lightweight likelihood (ΔAICc≈0 sanity)
-        cmb_summary_block = ''
-        cmb_payload_path = Path('server/public/state_of_the_art/data/cmb_likelihood.json')
-        if cmb_payload_path.exists():
-            try:
-                cmb_payload = json.loads(cmb_payload_path.read_text(encoding='utf-8'))
-                fdb = cmb_payload.get('late_fdb'); lcdm = cmb_payload.get('lcdm')
-                if fdb and lcdm:
-                    chi2_fdb = float(fdb.get('chi2_total', float('nan')))
-                    chi2_lcdm = float(lcdm.get('chi2_total', float('nan')))
-                    ndof = int(fdb.get('ndof_total', 0))
-                    delta = chi2_fdb - chi2_lcdm
-                    cmb_summary_block = (
-                        f"<p><b>CMB ピーク（Boomerang‑2001, 軽量）</b>: χ²={chi2_fdb:.2f} / dof={ndof}, "
-                        f"ΛCDM χ²={chi2_lcdm:.2f}, Δχ²={delta:.2f}（ΔAICc≈0 の想定確認）</p>"
-                    )
-            except Exception:
-                cmb_summary_block = ''
-        if cmb_summary_block:
-            card.append(cmb_summary_block)
-
-        wl_data_path = Path('data/weak_lensing/kids450_xi_tomo11.yml')
-        if wl_data_path.exists():
-            try:
-                wl_payload = yaml.safe_load(wl_data_path.read_text(encoding='utf-8'))
-                datasets = wl_payload.get('datasets') or []
-                if datasets:
-                    ds = datasets[0]
-                    theta = ds.get('theta_arcmin') or []
-                    n_bins = len(theta)
-                    if theta:
-                        theta_min = float(theta[0])
-                        theta_max = float(theta[-1])
-                        card.append(
-                            f"<p><b>弱レンズ2PCF</b>: KiDS-450 tomo1-1 — θ≈{theta_min:.2f}–{theta_max:.1f} arcmin, n={n_bins} (観測ベクトル整備済み; モデル照合は次フェーズ)。</p>"
+                cosmology_pending_notes.append('WL 2PCF / CMB ピーク — ΔAICc≈0 の図表掲示が未完了。軽量尤度のモデル照合と公開図の作成が必要。')
+        else:
+            # 軽量版サマリにフォールバック
+            wl_summary_block = ''
+            wl_payload_path = Path('server/public/state_of_the_art/data/wl_likelihood.json')
+            if wl_payload_path.exists():
+                try:
+                    wl_payload = json.loads(wl_payload_path.read_text(encoding='utf-8'))
+                    fdb = wl_payload.get('late_fdb'); lcdm = wl_payload.get('lcdm')
+                    if fdb and lcdm:
+                        chi2_fdb = float(fdb.get('chi2_total', float('nan')))
+                        chi2_lcdm = float(lcdm.get('chi2_total', float('nan')))
+                        ndof = int(fdb.get('ndof_total', 0))
+                        delta = chi2_fdb - chi2_lcdm
+                        wl_summary_block = (
+                            f"<p><b>WL 2PCF（KiDS‑450 tomo1‑1, 軽量）</b>: χ²={chi2_fdb:.2f} / dof={ndof}, "
+                            f"ΛCDM χ²={chi2_lcdm:.2f}, Δχ²={delta:.2f}（ΔAICc≈0 の想定確認）</p>"
                         )
-                        cosmology_pending_notes.append('WL 2PCF — ΔAICc≈0 の図表未掲示（軽量尤度のモデル照合と公開図作成が必要）')
-            except Exception:
-                pass
+                except Exception:
+                    wl_summary_block = ''
+            if wl_summary_block:
+                card.append(wl_summary_block)
 
-        cmb_data_path = Path('data/cmb/peak_ratios.yml')
-        if cmb_data_path.exists():
-            try:
-                cmb_payload = yaml.safe_load(cmb_data_path.read_text(encoding='utf-8'))
-                cmb_datasets = cmb_payload.get('datasets') or []
-                if cmb_datasets:
-                    ds = cmb_datasets[0]
-                    peaks = ds.get('data') or []
-                    ell_values = [row[0] for row in peaks if isinstance(row, (list, tuple)) and len(row) >= 1]
-                    if ell_values:
-                        ell_text = ', '.join(f"{float(ell):.0f}" for ell in ell_values)
-                        card.append(
-                            f"<p><b>CMBピーク</b>: {h(ds.get('name', ''))} — ℓ={ell_text} (観測セット整備済み; モデル照合は次フェーズ)。</p>"
+            cmb_summary_block = ''
+            cmb_payload_path = Path('server/public/state_of_the_art/data/cmb_likelihood.json')
+            if cmb_payload_path.exists():
+                try:
+                    cmb_payload = json.loads(cmb_payload_path.read_text(encoding='utf-8'))
+                    fdb = cmb_payload.get('late_fdb'); lcdm = cmb_payload.get('lcdm')
+                    if fdb and lcdm:
+                        chi2_fdb = float(fdb.get('chi2_total', float('nan')))
+                        chi2_lcdm = float(lcdm.get('chi2_total', float('nan')))
+                        ndof = int(fdb.get('ndof_total', 0))
+                        delta = chi2_fdb - chi2_lcdm
+                        cmb_summary_block = (
+                            f"<p><b>CMB ピーク（Boomerang‑2001, 軽量）</b>: χ²={chi2_fdb:.2f} / dof={ndof}, "
+                            f"ΛCDM χ²={chi2_lcdm:.2f}, Δχ²={delta:.2f}（ΔAICc≈0 の想定確認）</p>"
                         )
-                        cosmology_pending_notes.append('CMB ピーク — ΔAICc≈0 の図表未掲示（Late‑FDB と ΛCDM の比較図化が未完了）')
-            except Exception:
-                pass
-        if not cosmology_pending_notes:
-            cosmology_pending_notes.append('WL 2PCF / CMB ピーク — ΔAICc≈0 の図表掲示が未完了。軽量尤度のモデル照合と公開図の作成が必要。')
+                except Exception:
+                    cmb_summary_block = ''
+            if cmb_summary_block:
+                card.append(cmb_summary_block)
+
+            wl_data_path = Path('data/weak_lensing/kids450_xi_tomo11.yml')
+            if wl_data_path.exists():
+                try:
+                    wl_payload = yaml.safe_load(wl_data_path.read_text(encoding='utf-8'))
+                    datasets = wl_payload.get('datasets') or []
+                    if datasets:
+                        ds = datasets[0]
+                        theta = ds.get('theta_arcmin') or []
+                        n_bins = len(theta)
+                        if theta:
+                            theta_min = float(theta[0])
+                            theta_max = float(theta[-1])
+                            card.append(
+                                f"<p><b>弱レンズ2PCF</b>: KiDS-450 tomo1-1 — θ≈{theta_min:.2f}–{theta_max:.1f} arcmin, n={n_bins} (観測ベクトル整備済み; モデル照合は次フェーズ)。</p>"
+                            )
+                            cosmology_pending_notes.append('WL 2PCF — ΔAICc≈0 の図表未掲示（軽量尤度のモデル照合と公開図作成が必要）')
+                except Exception:
+                    pass
+
+            cmb_data_path = Path('data/cmb/peak_ratios.yml')
+            if cmb_data_path.exists():
+                try:
+                    cmb_payload = yaml.safe_load(cmb_data_path.read_text(encoding='utf-8'))
+                    cmb_datasets = cmb_payload.get('datasets') or []
+                    if cmb_datasets:
+                        ds = cmb_datasets[0]
+                        peaks = ds.get('data') or []
+                        ell_values = [row[0] for row in peaks if isinstance(row, (list, tuple)) and len(row) >= 1]
+                        if ell_values:
+                            ell_text = ', '.join(f"{float(ell):.0f}" for ell in ell_values)
+                            card.append(
+                                f"<p><b>CMBピーク</b>: {h(ds.get('name', ''))} — ℓ={ell_text} (観測セット整備済み; モデル照合は次フェーズ)。</p>"
+                            )
+                            cosmology_pending_notes.append('CMB ピーク — ΔAICc≈0 の図表未掲示（Late‑FDB と ΛCDM の比較図化が未完了）')
+                except Exception:
+                    pass
+            if not cosmology_pending_notes:
+                cosmology_pending_notes.append('WL 2PCF / CMB ピーク — ΔAICc≈0 の図表掲示が未完了。軽量尤度のモデル照合と公開図の作成が必要。')
         if solar_summary_block:
             card.append(solar_summary_block)
         try:
@@ -1814,16 +1853,38 @@ def main() -> int:
             if Path('server/public/reports/wcut_error_note.html').exists():
                 quick.append('<a href="../reports/wcut_error_note.html">ω_cut 誤差伝播</a>')
                 # Lightweight WL/CMB sanity cards (ΔAICc≈0)
-                if Path('server/public/state_of_the_art/wl_2pcf.html').exists():
-                    quick.append('<a href="../state_of_the_art/wl_2pcf.html">WL 2PCF(軽)</a>')
-                if Path('server/public/state_of_the_art/cmb_peaks.html').exists():
-                    quick.append('<a href="../state_of_the_art/cmb_peaks.html">CMBピーク(軽)</a>')
+            if Path('server/public/state_of_the_art/wl_2pcf_formal.html').exists():
+                quick.append('<a href="../state_of_the_art/wl_2pcf_formal.html">WL 2PCF(正式)</a>')
+            elif Path('server/public/state_of_the_art/wl_2pcf.html').exists():
+                quick.append('<a href="../state_of_the_art/wl_2pcf.html">WL 2PCF(軽)</a>')
+            if Path('server/public/state_of_the_art/wl_2pcf_tomo_proto.html').exists():
+                quick.append('<a href="../state_of_the_art/wl_2pcf_tomo_proto.html">WL tomo(proto)</a>')
+            if Path('server/public/state_of_the_art/cmb_peaks_formal.html').exists():
+                quick.append('<a href="../state_of_the_art/cmb_peaks_formal.html">CMBピーク(正式)</a>')
+            elif Path('server/public/state_of_the_art/cmb_peaks.html').exists():
+                quick.append('<a href="../state_of_the_art/cmb_peaks.html">CMBピーク(軽)</a>')
                 if Path('server/public/state_of_the_art/holdout_progress.html').exists():
                     quick.append('<a href="../state_of_the_art/holdout_progress.html">HO進捗</a>')
                 if Path('server/public/state_of_the_art/jobs.html').exists():
                     quick.append('<a href="../state_of_the_art/jobs.html">Jobs</a>')
             if Path('server/public/reports/data_catalog.html').exists():
                 quick.append('<a href="../reports/data_catalog.html">データ目録</a>')
+            # A-3 knee summaries (if available)
+            try:
+                a3links = []
+                if Path('server/public/reports/AbellS1063_a3_summary.html').exists():
+                    a3links.append('<a href="../reports/AbellS1063_a3_summary.html">AbellS1063 A‑3サマリ</a>')
+                if Path('server/public/reports/MACSJ0416_a3_summary.html').exists():
+                    a3links.append('<a href="../reports/MACSJ0416_a3_summary.html">MACSJ0416 A‑3サマリ</a>')
+                # A-4 summaries (if available)
+                if Path('server/public/reports/AbellS1063_a4_summary.html').exists():
+                    a3links.append('<a href="../reports/AbellS1063_a4_summary.html">AbellS1063 A‑4サマリ</a>')
+                if Path('server/public/reports/MACSJ0416_a4_summary.html').exists():
+                    a3links.append('<a href="../reports/MACSJ0416_a4_summary.html">MACSJ0416 A‑4サマリ</a>')
+                if a3links:
+                    quick.extend(a3links)
+            except Exception:
+                pass
             if quick:
                 body.append('<div class="card pill-links"><p>' + ''.join(quick) + '</p></div>')
         except Exception:
@@ -2195,13 +2256,37 @@ def main() -> int:
         ciao = Path.home() / '.mamba/envs/ciao-4.17/bin/ciaover'
         rows_env.append('<tr><td>CIAO</td><td><code>~/.mamba/envs/ciao-4.17</code></td>'
                         f"<td>{'OK' if ciao.exists() else '—'}</td><td></td></tr>")
-        # Python lenstools (package)
+        # Python lenstools (package) — local or external-env
+        external_info = Path('server/public/reports/env/lenstools_info.json')
+        external_txt = Path('server/public/reports/env/lenstools_attempt_20250930.log')
         try:
             import importlib
             importlib.import_module('lenstools')
-            rows_env.append('<tr><td>Python lenstools</td><td><code>pip install lenstools</code></td><td>OK</td><td></td></tr>')
+            rows_env.append('<tr><td>Python lenstools</td><td><code>pip install lenstools</code></td><td>OK（ローカル）</td><td></td></tr>')
         except Exception:
-            rows_env.append('<tr><td>Python lenstools</td><td><code>pip install lenstools</code></td><td>未導入</td><td></td></tr>')
+            if external_info.exists():
+                try:
+                    meta = json.loads(external_info.read_text(encoding='utf-8'))
+                except Exception:
+                    meta = {}
+                ver = meta.get('lenstools') or meta.get('version') or ''
+                plat = meta.get('platform') or ''
+                rows_env.append('<tr><td>Python lenstools</td><td><code>外部env</code></td>'
+                                f"<td>導入済（{ver} / {plat}）</td>"
+                                f"<td><a href='../reports/env/lenstools_info.json'>info</a></td></tr>")
+            else:
+                rows_env.append('<tr><td>Python lenstools</td><td><code>pip install lenstools</code></td><td>未導入</td>'
+                                f"<td>{'<a href=\'../reports/env/lenstools_attempt_20250930.log\'>attempt log</a>' if external_txt.exists() else ''}</td></tr>")
+        # Optional: generic environment logs (ciaover / lenstool -v)
+        env_logs_txt = Path('server/public/reports/env_logs.txt')
+        env_logs_json = Path('server/public/reports/env_logs.json')
+        if env_logs_txt.exists() or env_logs_json.exists():
+            ln = []
+            if env_logs_txt.exists():
+                ln.append("<a href='../reports/env_logs.txt'>env_logs.txt</a>")
+            if env_logs_json.exists():
+                ln.append("<a href='../reports/env_logs.json'>env_logs.json</a>")
+            rows_env.append('<tr><td>環境ログ</td><td>ciaover / lenstool -v</td><td>収集済</td><td>' + ' / '.join(ln) + '</td></tr>')
         body.append('<h2>環境とツール</h2>')
         body.append('<div class=card><table><thead><tr><th>項目</th><th>場所</th><th>状態</th><th></th></tr></thead><tbody>'
                     + "\n".join(rows_env) + '</tbody></table>'

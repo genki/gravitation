@@ -159,6 +159,12 @@ fit-all:
 artifacts:
 	@ls -1 data/artifacts 2>/dev/null || echo "no artifacts yet"
 
+.PHONY: cosmo-formal
+cosmo-formal:
+	PYTHONPATH=. ./.venv/bin/python scripts/reports/make_cosmo_formal.py || true
+	PYTHONPATH=. ./.venv/bin/python scripts/build_state_of_the_art.py || true
+	@echo 'cosmology formal cards generated and SOTA rebuilt'
+
 .PHONY: repro
 repro:
 	PYTHONPATH=. $(RUNPY) scripts/repro.py

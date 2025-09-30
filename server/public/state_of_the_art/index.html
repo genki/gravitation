@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="x-last-updated-epoch" content="1759135936746">
+  <meta name="x-last-updated-epoch" content="1759273127427">
   <title>State of the Art</title>
   <link rel="stylesheet" href="../styles.css">
-  <script defer src="../site-lastmod.js?v=1759135936746"></script>
+  <script defer src="../site-lastmod.js?v=1759273127427"></script>
   <script>window.MathJax={tex:{inlineMath:[['$','$'],['\(','\)']]}};</script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -21,7 +21,7 @@
       </nav>
     </div>
   </header>
-  <div class="wrap"><small class="lastmod-static">更新(サーバ時刻): 2025-09-29 17:52</small></div>
+  <div class="wrap"><small class="lastmod-static">更新(サーバ時刻): 2025-10-01 07:58</small></div>
   <main class="wrap">
 <h1>State of the Art</h1>
 <div class="card">
@@ -85,7 +85,7 @@ https://zenodo.org/record/3715549/files/NGC2403-HR_mom1m.fits?download=1
 <div class="card"><h2>進捗ライト（KPI）</h2><table class="kpi"><thead><tr><th>KPI</th><th>最新状況</th></tr></thead><tbody><tr><td><span class="kpi-light amber"></span> KPI‑1 A/B</td><td>NGC3198: ΔAICc=63.14 (k=2)</td></tr><tr><td><span class="kpi-light green"></span> KPI‑2 銀河確定版</td><td>3198/2403: 外縁1/r²・Hα・ω_cut 掲載</td></tr><tr><td><span class="kpi-light green"></span> KPI‑3 対照検証</td><td>rotate: n=300, d=0.00; translate: n=200, d=0.02; shuffle: n=2000, d=0.60</td></tr><tr><td><span class="kpi-light green"></span> KPI‑4 代表6</td><td>表を再計算して更新済み</td></tr></tbody></table></div>
 <div class=card><small>指標: AICc を用い、(N,k) と rχ²=χ²/(N−k) を併記します。誤差床は clip(0.03×Vobs, 3..7 km/s)。脚注に PSF/ビーム・マスク・誤差床の定義を固定します。</small></div>
 <footer class="site-footer"><div class="wrap"><small>source: data/shared_params.json (sha256:aa694c7f90ea)</small></div></footer>
-<div class="card pill-links"><p><a href="../reports/bench_ngc2403.html">bench NGC2403</a><a href="../reports/bench_ngc3198.html">bench NGC3198</a><a href="../reports/bench_ugc06787.html">bench UGC06787</a><a href="../reports/ws_vs_phieta_fair.html">A/B (W·S vs Φ×η)</a><a href="../reports/wcut_error_note.html">ω_cut 誤差伝播</a><a href="../state_of_the_art/wl_2pcf.html">WL 2PCF(軽)</a><a href="../state_of_the_art/cmb_peaks.html">CMBピーク(軽)</a><a href="../state_of_the_art/holdout_progress.html">HO進捗</a><a href="../state_of_the_art/jobs.html">Jobs</a><a href="../reports/data_catalog.html">データ目録</a></p></div>
+<div class="card pill-links"><p><a href="../reports/bench_ngc2403.html">bench NGC2403</a><a href="../reports/bench_ngc3198.html">bench NGC3198</a><a href="../reports/bench_ugc06787.html">bench UGC06787</a><a href="../reports/ws_vs_phieta_fair.html">A/B (W·S vs Φ×η)</a><a href="../reports/wcut_error_note.html">ω_cut 誤差伝播</a><a href="../state_of_the_art/wl_2pcf_formal.html">WL 2PCF(正式)</a><a href="../state_of_the_art/wl_2pcf_tomo_proto.html">WL tomo(proto)</a><a href="../state_of_the_art/cmb_peaks_formal.html">CMBピーク(正式)</a><a href="../reports/data_catalog.html">データ目録</a><a href="../reports/AbellS1063_a3_summary.html">AbellS1063 A‑3サマリ</a><a href="../reports/MACSJ0416_a3_summary.html">MACSJ0416 A‑3サマリ</a><a href="../reports/AbellS1063_a4_summary.html">AbellS1063 A‑4サマリ</a><a href="../reports/MACSJ0416_a4_summary.html">MACSJ0416 A‑4サマリ</a></p></div>
 <div class=card><p><a href="../reports/ngc3198_wcut_corr.html">NGC3198: ω_cut×残差 相関</a> / <a href="../reports/ngc2403_wcut_corr.html">NGC2403: ω_cut×残差 相関</a></p></div>
 <div class="card pill-links"><p><a href="../reports/ngc2403_outer_slope_stability.html">NGC2403: 外縁傾き安定性</a> <a href="../reports/ngc3198_outer_slope_stability.html">NGC3198: 外縁傾き安定性</a> <a href="../reports/ngc2403_local_stability.html">NGC2403: ΔAICc局所安定</a></p></div>
 <div class=card><p><a href="../reports/ngc3198_kappaC_fit.html">NGC3198: κ,C のフィット</a> / <a href="../reports/ngc2403_kappaC_fit.html">NGC2403: κ,C のフィット</a></p></div>
@@ -98,17 +98,18 @@ https://zenodo.org/record/3715549/files/NGC2403-HR_mom1m.fits?download=1
 <div class=card><p><a href="../reports/phieta_hits.html">Phi·eta スイープ — ΔAICc≤−6 ヒット集計</a></p></div>
 <div class=card><p><a href="../reports/bullet_holdout.html">バレットクラスタ ホールドアウト（固定α,β,C）</a></p><p><small>学習→固定→適用の最小核パイプライン。ΔAICcと簡易対照を併記。</small></p></div>
 <div class=card><p><b>バレットKPI</b>: ΔAICc(FDB−rot)=-6.79e+07 → 達成, ΔAICc(FDB−shift)=-6.74e+06 → 達成, S_shadow=0.378 (p_perm=0.0022) → 達成</p><p><small>主要指標: ①ピーク距離=23.8 pix / 385 kpc (top-mask=23.8 pix, HP=61.6 pix), ②⟨cosΔθ⟩=0.392, ③corr(κ残差, Σ_e)=-0.483</small></p><p><small>分層: top10% Spearman=-0.229 (n=1210), top25% Spearman=-0.301 (n=3025)</small></p></div>
-<div class=card><h3>追加ホールドアウト（学習: Abell1689/CL0024）</h3><ul><li><b>AbellS1063</b> (N=372100, N_eff=22750) — ΔAICc(FDB−rot)=-1.04e+05 (達成), ΔAICc(FDB−shift)=-1.20e+04 (達成), S_shadow=-0.031 (p=0.57, 未達) [<a href='../reports/cluster/AbellS1063_holdout.html'>結果</a>]</li><li><b>MACSJ0416</b> (N=136206, N_eff=8933) — ΔAICc(FDB−rot)=-1.20e+06 (達成), ΔAICc(FDB−shift)=-5.79e+04 (達成), S_shadow=0.123 (p=0.24, 未達) [<a href='../reports/cluster/MACSJ0416_holdout.html'>結果</a>]</li></ul></div>
+<div class=card><h3>追加ホールドアウト（学習: Abell1689/CL0024）</h3><ul><li><b>AbellS1063</b> (N=372100, N_eff=22743) — ΔAICc(FDB−rot)=-9.47e+04 (達成), ΔAICc(FDB−shift)=-1.10e+04 (達成), S_shadow=-0.049 (p=0.61, 未達) [<a href='../reports/cluster/AbellS1063_holdout.html'>結果</a>]</li><li><b>MACSJ0416</b> (N=136206, N_eff=8933) — ΔAICc(FDB−rot)=-1.19e+06 (達成), ΔAICc(FDB−shift)=-5.87e+04 (達成), S_shadow=0.095 (p=0.4, 未達) [<a href='../reports/cluster/MACSJ0416_holdout.html'>結果</a>]</li></ul></div>
 <div class=card><p><a href="bullet_exec.html">バレット実行指示（単一MD版）</a> — このファイルが最新・唯一の指示書</p></div>
 <div class=card><h3>クラスタ・ホールドアウト 必要データ</h3><ul><li>data/cluster/Abell1689/omega_cut.fits, sigma_e.fits, <b>kappa_obs.fits</b></li><li>data/cluster/CL0024/omega_cut.fits, sigma_e.fits, <b>kappa_obs.fits</b></li><li>data/cluster/Bullet/omega_cut.fits, sigma_e.fits (<small>ホールドアウト</small>)</li></ul><p><small>各FITSヘッダに <code>PIXKPC</code>（[kpc/px]）を含めてください。Abell1689/CL0024 の観測κについては、<b>Lenstool 公式モデル tarball</b>（a1689.tar.gz / cl0024.tar.gz）のご提供（または添付ID）をお願いします。受領→展開→lenstool→FITS→PIXKPC→配置の順で整備します。</small></p></div>
-<div class=card><h3>現在の課題</h3><ul><li>Abell S1063 — S_shadow=-0.031 (p=0.57) で方向性未達。Σモデル再設計と FAST→FULL 検証が必要。</li><li>MACS J0416 — S_shadow=0.123 (p=0.24) が未達 (WCS/PSF/ROI 再監査と再ホールドアウトが必要)。</li></ul></div>
+<div class=card><h3>現在の課題</h3><ul><li>Abell S1063 — S_shadow=-0.049 (p=0.61) で方向性未達。Σモデル再設計と FAST→FULL 検証が必要。</li><li>MACS J0416 — S_shadow=0.095 (p=0.4) が未達 (WCS/PSF/ROI 再監査と再ホールドアウトが必要)。</li></ul></div>
 <h2>環境とツール</h2>
 <div class=card><table><thead><tr><th>項目</th><th>場所</th><th>状態</th><th></th></tr></thead><tbody><tr><td>PATH hook (~/.bashrc)</td><td><code>tools/profile.d/gravitation-paths.sh</code></td><td>OK</td><td></td></tr>
 <tr><td>profile script</td><td><code>tools/profile.d/gravitation-paths.sh</code></td><td>OK</td><td></td></tr>
 <tr><td>Lenstool</td><td><code>.mamba/envs/lenstool_env/bin/lenstool</code></td><td>found</td><td></td></tr>
 <tr><td>wrapper</td><td><code>bin/lenstool</code></td><td>OK</td><td></td></tr>
 <tr><td>CIAO</td><td><code>~/.mamba/envs/ciao-4.17</code></td><td>OK</td><td></td></tr>
-<tr><td>Python lenstools</td><td><code>pip install lenstools</code></td><td>未導入</td><td></td></tr></tbody></table><p><small>使用例: <code>lenstool -v</code> / <code>ciao-on</code> → <code>ciaover</code></small></p></div>
+<tr><td>Python lenstools</td><td><code>外部env</code></td><td>導入済（1.2 / podman-python:3.9）</td><td><a href='../reports/env/lenstools_info.json'>info</a></td></tr>
+<tr><td>環境ログ</td><td>ciaover / lenstool -v</td><td>収集済</td><td><a href='../reports/env_logs.txt'>env_logs.txt</a> / <a href='../reports/env_logs.json'>env_logs.json</a></td></tr></tbody></table><p><small>使用例: <code>lenstool -v</code> / <code>ciao-on</code> → <code>ciaover</code></small></p></div>
 <div class=card><h3>研究評価と次アクション（最新）</h3><ol><li><b>ULM‑P/D の語彙と設計</b> — 共有ハイパラ（ε=1, k0=0.2 kpc⁻¹, m=2, gas_scale=1.33）と公平比較（同一 n・誤差床・AICc/rχ²）が整理されています。ULM 系は総じて χ² が小さく枠組みとして整合的です。</li><li><b>Early‑Universe（Late‑FDB）</b> — μ(a,k) の最小モデルと稀少尾倍率表を掲出。Fig‑EU1c は CLASS 3.3.2.0 実行に更新済み。</li><li><b>A/B 公平比較（界面 W·S vs 情報流 Φ×η）</b> — 公平（k=2）集計を公開。NGC2403 では Φ×η が優位、NGC3198 は W·S 優位。代表表とヒット集計の探索条件差異が疑われます。</li><li><b>単一銀河ベンチ</b> — NGC2403 は FDB が突出改善。外縁 1/r² 復帰や Hα・ω_cut の確定図系も整備済み。</li><li><b>κ–C–Υ★ / 幾何核</b> — 等高線・Solar 上限・Padé 近似など、ミクロ閉包/幾何核の詰めに向けた素地あり。</li><li><b>対照検証</b> — シャッフルで劣化、回転/平行移動は中央値≈0で妥当。Hα/EM は n 小で統計力限定。</li><li><b>バレット・ホールドアウト</b> — 稼働中。固定(α,β,C)で ΔAICc を掲出: FDB−rot=-67859426.9, FDB−shift=-6743814.9, FDB−shuffle=123080056.6; (N,k)=N=7396, k(FDB/rot/shift/shuffle)=2/1/2/0。 三指標は脚注に閾値と PASS/FAIL を表示。</li></ol><h4>具体指示（優先度順）</h4><ol><li><b>学習κの整備</b> — Abell1689/CL0024 の <code>kappa_obs.fits</code> を Lenstool モデルから生成・配置し、(α,β,C) を学習→固定→Bullet に適用（KPI: ΔAICc（FDB−shift）≤0；rot/shuffle<0、三指標合格）。</li><li><b>NGC3198 の公平A/B再走</b> — W·S と Φ×η でレンジ・解像度・初期値を完全一致化し、Padé最適化核を Φ×η に採用。目標: ΔAICc ≤ −6 を達成。</li><li><b>確定図の恒常化</b> — NGC3198/2403 で外縁傾き95%CI、Hα・ω_cut重畳、∇ω_cut と a_FDB の相関を常設（NGC3198のNaNはマスク/サンプル処理を修正）。</li><li><b>ω_cut 誤差伝播の明文化</b> — 本文/脚注に δ関係と ON/OFF 感度（T_e, [NII], 消光, L）を要約し、残差相関の主張域を明示。</li><li><b>Υ★–κ–C 90%CL 表示</b> — 等高線に加え、中心値・誤差・相関係数の表と AU スケール上限の式を脚注に併記。</li><li><b>数値ダッシュボード整備</b> — A/B の ΔAICc, rχ², (N,k) を同表化。対照は median/IQR/d/n を箱ひげ＋表で常設。</li><li><b>環境依存 W(n_e, ω_cut) のトグル</b> — 主結論は W=1、ON/OFF 比較スイッチで相関・ΔAICc の差分を可視化。</li><li><b>Early‑Universe 本計算化</b> — CLASS 連携の再現手順（version/sha/ini）を整備し、稀少尾倍率との交差表示を継続更新。</li><li><b>データ不足の最小化</b> — 「必要データ」に tarball 受領依頼と運用フロー（受領→展開→lenstool→FITS→PIXKPC→配置）を明記。</li><li><b>再現メタの常設</b> — フッタに shared_params の sha、AICc/(N,k)/rχ²、誤差床、PSF/ビーム、使用ID/MD5 を自動掲出（順次対応）。</li></ol><p><small>注: Bullet の σ_e/ω_cut は 0.5–2 keV 露光補正モザイク（CIAO 4.17）から正式生成済み。学習κ整備後にホールドアウトを解禁します。</small></p></div>
 <div class=card><p><a href="../reports/ulw_h_demos.html">ULM‑P/D 図版デモ（P‑only）</a> — ρ, a₂, Φ_eff と回転曲線分解 <small>(formerly ULM‑h/l)</small></p></div>
 <div class=card><small><b>用語</b>: 本稿では超長電磁モードを <b>ULM</b> と呼ぶ（旧称 ULM‑EM）。分枝は <b>ULM‑P</b>（ω>ω_cut; propagating）と <b>ULM‑D</b>（ω<ω_cut; diffusive）。</small></div>

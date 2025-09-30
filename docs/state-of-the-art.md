@@ -1,5 +1,5 @@
 # State of the Art（SOTA）
-Last updated: 2025-09-29 10:48 +0900
+Last updated: 2025-10-01 07:58 +0900
 
 注: 本リポジトリで用いる FDB は Future Decoherence Bias の略称です。
 ULM（旧称 ULW‑EM）の将来デコヒーレンスに起因する見かけの引力（見かけの加速度）を指し、FDB3 は

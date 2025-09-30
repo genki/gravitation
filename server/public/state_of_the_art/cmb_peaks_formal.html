@@ -1,0 +1,11 @@
+<html lang="ja-JP"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CMB ピーク（Boomerang-2001）正式版</title><link rel="stylesheet" href="../styles.css"></head><body>
+<header class="site-header"><div class="wrap"><div class="brand">研究進捗</div><nav class="nav"><a href="../index.html">レポート</a><a href="../state_of_the_art/index.html">SOTA</a></nav></div></header>
+<main class="wrap"><h1>CMB ピーク（Boomerang‑2001）— CLASS 解析</h1>
+<div class=card><p>CLASS (lensed_cl) から TT スペクトルを算出し、第1/第2ピークの位置と高さを抽出しました。Late‑FDB は再結合以降で μ(a,k) が立ち上がるため、ピーク形状の差分は極小です。</p></div>
+<div class=card><table class="t"><thead><tr><th>モデル</th><th>ℓ₁</th><th>ΔT²(ℓ₁)</th><th>ℓ₂</th><th>ΔT²(ℓ₂)</th></tr></thead><tbody>
+<tr><td>ΛCDM</td><td>220</td><td>767.47</td><td>536</td><td>348.61</td></tr>
+<tr><td>Late‑FDB</td><td>220</td><td>767.47</td><td>536</td><td>348.61</td></tr>
+</tbody></table></div>
+<div class=card><small>CLASS設定: output=tCl,lCl, l_max_scalars=3000。μ(a,k) の補正は現在 growth 限定のため、再結合期には影響しない。</small></div>
+<div class=card><small>指標: AICc を用い、(N,k) と rχ²=χ²/(N−k) を併記します。誤差床は clip(0.03×Vobs, 3..7 km/s)。脚注に PSF/ビーム・マスク・誤差床の定義を固定します。</small></div></main><footer class="site-footer"><div class="wrap"><small>source: CLASS (classy)</small></div></footer><footer class="site-footer"><div class="wrap"><small>source: data/shared_params.json (sha256:aa694c7f90ea)</small></div></footer></body></html>

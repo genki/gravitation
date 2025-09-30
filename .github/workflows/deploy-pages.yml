@@ -1,8 +1,8 @@
-name: Deploy Pages
+name: Deploy Pages (disabled)
 
+# GitHub Pagesへの自動デプロイは無効化（方針: CI不使用）
+# 必要時のみ手動実行できるように workflow_dispatch のみに制限
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch: {}
 
 permissions:
@@ -54,4 +54,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

@@ -1,5 +1,5 @@
 # State of the Art（SOTA）
-Last updated: 2025-10-01 07:58 +0900
+Last updated: 2025-11-04 15:52 +0900
 
 注: 本リポジトリで用いる FDB は Future Decoherence Bias の略称です。
 ULM（旧称 ULW‑EM）の将来デコヒーレンスに起因する見かけの引力（見かけの加速度）を指し、FDB3 は
@@ -9,6 +9,14 @@ ULM（旧称 ULW‑EM）の将来デコヒーレンスに起因する見かけ�
 本ページはSPARC銀河に対するGR(noDM)とFDB3の比較結果を集約し、
 SOTAを可視化するダッシュボード的サマリです。図は`make all`または
 `make figs`で再生成され、本ページには`make docs`で反映されます。
+
+## 最新状況（2025-11-04）
+
+- **FULL再実行**: 2025-11-03 13:40 JST に AbellS1063 a4_full（band=8–16, block_pix=6, perm=10, early-stop）を完了。`check_preproc_repro.py` の整備により FAST↔FULL の前処理差分は `fast_mode` のみ、`S_shadow`/Spearman 差分は 0.0000。MACSJ0416 も同条件で再実行済み（aligned JSON を `holdout_runs/MACSJ0416_ps1p5_hp6_{fast,full}_aligned.json` に保存）。
+- **Gate逐次Permutation**: ジョブディスパッチャ（`scripts/jobs/dispatch_bg.sh`）経由で Gate 2.0 FULL を再開。影／残差 permutation は 5000 ステップの途中から再開し、直近の run では残り十数秒で完了。今後は perm=2000→5000 の段階的停止ルール（CI上限U≤0.05 / 下限L≥0.35）を適用し PASS率回復を狙う。
+- **KPIモニタリング**: `make kpi-weekly` で `gate_kpi.json`（dispatch 316, FULL PASS率0%, 平均perm AbellS1063 ≈707 / MACSJ0416 ≈790）と `nbody_kpi.json`（missing_required=0）を同時更新。anytime-fail ログは依然 0 件で推移。
+- **N体HTTP公開**: `plot_s0_diagnostics.py` の改修により `m_mode_power` から `m2_heatmap.png` を生成できるようにし、S0 ラン（dev_alpha/dev_dir_test/dev_test/dev_test_qalog/mid_combo）の欠品を解消。`metrics.csv` も DoD スキーマで整備し、SOTA から HTTP 200 で取得可能。
+- **次手優先度**: Gate 推薦上位70%の FULL PASS率≥40% 達成に向けて perm=2000→5000 機構を本稼働、FAST 側は膝 + Skeleton 指標の上位設定追加。N体は S0 スイープの Gate 条件（dA2/dt>0 連続＋pitch判定）を実装し、B-3 の Gate 昇格へ進む。WL 正式版は n(z)/m/IA/TATT の整合と ΔAICc|≤10 を週次に確認する。
 
 ## 統計サマリ
 

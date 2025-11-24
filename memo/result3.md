@@ -55,4 +55,4 @@ pass_H1 = (abs(m_R) <= 0.03) and (s_R <= 0.10)
 - **資料化**: Shu+2017 Appendix A などの HTML を Playwright (Node v20.19.4 / playwright 1.55) で `data/strong_lensing/sources/` に保存し、`data/strong_lensing/BOSS_full_table.csv` へ整形。`analysis/h1_strong_lens.py` が自動で読み込む。
 - **最新 H1 統計**: All N=235 (m_R=+0.0009 dex, s_R=0.1057 dex), SDSS N=132 (−0.0003, 0.0175), BELLS N=63 (+0.0777, 0.1367), BOSS N=40 (+0.0846, 0.1497), SDSS+BELLS N=195 (+0.0025, 0.0681)。BOSS は Re 欠損＋ファイバー混在で PASS 阈値外 → 補助ホールドアウトとして扱う。
 - **内部 QC**: `analysis/h1_ratio_test.py` はサーベイ別中央値補正係数 (例: boss divide by 1.102) をレポートするが、主張には未適用。Re 欠損時は [0.7'', 2.0''] 範囲で支援判定。
-- **SPARC 感度**: `scripts/sparc_sweep.py` で err floor {2,3,5} km/s と M/L {0.5/0.7, 0.44/0.65} を一括走査。NFW は c=10 固定 (k=1) とし、外縁 (r≥2.5R_d) では常に ΔAICc<0。集計は `paper2/build/sparc_aicc.csv`, Table 2, Appendix B.3 に反映済み。
+- **SPARC 感度**: `scripts/sparc_sweep.py` で err floor {2,3,5} km/s と M/L {0.5/0.7, 0.44/0.65} を一括走査。NFW は c=10 固定 (k=1) とし、外縁 (r≥2.5R_d) では常に ΔAICc<0。集計は `build/sparc_aicc.csv`, Table 2, Appendix B.3 に反映済み。

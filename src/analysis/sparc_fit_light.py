@@ -30,9 +30,9 @@ H0 = 70.0  # km/s/Mpc
 
 DATA_DIR = Path("data/sparc/sparc_database")
 MRT_FILE = Path("data/sparc/SPARC_Lelli2016c.mrt")
-OUT_CSV = Path("paper2/build/sparc_aicc.csv")
-FIG_BTFR = Path("paper2/figures/btfr_sparc.png")
-FIG_ROT_GRID = Path("paper2/figures/rotcurve_grid.png")
+OUT_CSV = Path("build/sparc_aicc.csv")
+FIG_BTFR = Path("figures/btfr_sparc.png")
+FIG_ROT_GRID = Path("figures/rotcurve_grid.png")
 
 
 def load_rotmod(path: Path):

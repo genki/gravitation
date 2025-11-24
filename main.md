@@ -279,7 +279,7 @@ Waveguide confinement of a Proca ULE‑EMW converts geometric \(1/r^{2}\) decay 
 > • Metric: \(\Delta\mathrm{AICc}=\mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\); outer-only values use \(r\ge2.5R_d\).
 
 ### Appendix B.3: Lightweight sensitivity grid
-The sweeps summarized in §6 are generated with `scripts/sparc_sweep.py`, which calls `analysis/sparc_fit_light.py` for each setting. The resulting medians/IQRs are stored in `paper2/build/sparc_aicc.csv` along with per-galaxy entries. For convenience we restate the grid:
+The sweeps summarized in §6 are generated with `scripts/sparc_sweep.py`, which calls `analysis/sparc_fit_light.py` for each setting. The resulting medians/IQRs are stored in `build/sparc_aicc.csv` along with per-galaxy entries. For convenience we restate the grid:
 
 Table B1 repeats the sensitivity grid for convenience.
 

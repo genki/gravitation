@@ -16,3 +16,9 @@
 - `make pdf` で `build/main.pdf` を生成済み。
 - スクリプトとデータは `https://github.com/genki/gravitation` を前提とした相対パスに統一。
 - 旧ドラフトディレクトリの内容はコミット `Adopt paper layout` で反映済み。
+
+## 2025-11-24 追記
+- 新リポジトリ URL (https://github.com/genki/gravitation) 公開前提で本文・README・スクリプトのパスを調整。
+- `src/analysis/h1_ratio_test.py`, `src/analysis/sparc_fit_light.py`, `src/scripts/sparc_sweep.py` などの出力先を `build/`・`figures/` に統一。
+- README を追加し、ビルド手順・再現ステップ・ディレクトリ構成を明文化。
+- `git push` を実行し、`main` ブランチをリモート（github.com:genki/gravitation.git）へ同期済み。

@@ -1,3 +1,8 @@
+---
+header-includes:
+  - \usepackage{tabularx,booktabs}
+---
+
 # Future Determination Bias as Emergent Gravity: Waveguide Confinement, 1/r Drift, and Instant Validation via Strong-Lensing Ratio Test
 
 **Authors**: Genki Takiuchi  
@@ -152,23 +157,31 @@ The implementation (`src/analysis/h1_ratio_test.py`, hosted at https://github.co
 
 ### 5.3 Current statistics (2025-11-24 run)
 
-Table 1 summarizes the current ratio-test statistics for each survey, directly implementing the PASS rule above.
+Table 1 summarizes the current ratio-test statistics for each survey, directly implementing the PASS rule above. The status column matches the textual statements—SDSS/BELLS anchor the PASS claim, whereas BOSS remains a supplementary QC set and is excluded from the headline result.
 
-Table 1. Strong-lensing H1 statistics by survey.
-| Sample | N | \(m_R\) [dex] | \(s_R\) [dex] | Status |
-|--------|---|----------------|----------------|--------|
-| All    | 235 | +0.0009 | 0.1057 | PASS (edge)|
-| SDSS   | 132 | −0.0003 | 0.0175 | PASS |
-| BELLS  | 63  | +0.0777 | 0.1367 | Marginal |
-| BOSS   | 40  | +0.0846 | 0.1497 | **Fail (data-poor)** |
-| SDSS+BELLS | 195 | +0.0025 | 0.0681 | PASS |
+\begin{table}[t]
+  \centering
+  \caption{Strong-lensing H1 statistics by survey. PASS window: \( |m_R|\le 0.03\,\mathrm{dex},\ s_R\le 0.10\,\mathrm{dex} \).}
+  \label{tab:h1}
+  \begin{tabularx}{0.95\linewidth}{l c c c l}
+    \toprule
+    {Sample} & {N} & \multicolumn{1}{c}{\(m_R\) [dex]} & \multicolumn{1}{c}{\(s_R\) [dex]} & {Status} \\ 
+    \midrule
+    All         & 235 & +0.0009 & 0.1057 & PASS (edge) \\
+    SDSS        & 132 & -0.0003 & 0.0175 & PASS \\
+    BELLS       &  63 & +0.0777 & 0.1367 & Marginal \\
+    BOSS        &  40 & +0.0846 & 0.1497 & Fail (data-poor) \\
+    SDSS+BELLS  & 195 & +0.0025 & 0.0681 & PASS \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
 Figure&nbsp;2 presents the same distributions as a survey-wise violin plot. Reproduction only needs the CSVs cited above; Appendix&nbsp;G lists the exact command.
 
 \begin{figure}
 \centering
 \includegraphics{figures/h1_violin.png}
-\caption{Survey-wise \(\log_{10}R\) distributions with the \(R=1\) reference line (dashed). Boxed medians and sample sizes match Table~1, and the PASS window \((|m_R|\le 0.03~\mathrm{dex},\,s_R\le 0.10~\mathrm{dex})\) is shaded.}
+\caption{Survey-wise \(\log_{10}R\) distributions with the \(R=1\) reference line (dashed). Boxed medians and sample sizes match Table~\ref{tab:h1}; the grey band indicates the PASS window \((|m_R|\le 0.03~\mathrm{dex},\,s_R\le 0.10~\mathrm{dex})\). BOSS (40 lenses) is plotted for quality control only and excluded from the headline PASS decision, consistent with Table~\ref{tab:h1}.}
 \label{fig:h1-violin}
 \end{figure}
 
@@ -182,11 +195,11 @@ BOSS spectra mix aperture sizes and have shallower imaging, inflating \(s_R\) be
 
 Rotation curves act as **supporting** evidence: their outcome depends on assumed error floors and stellar mass-to-light ratios, so we treat the resulting statistics as sensitivity analyses that echo the algebraic H1 test [@Lelli2016SPARC]. Both models use one fitted parameter (FDB keeps a single \(V_0\); NFW keeps \(c=10\) fixed), and we define \(\Delta\mathrm{AICc}\equiv \mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\).
 
-Table 2 lists the SPARC \(\Delta\mathrm{AICc}\) sensitivity grid for the four sweep combinations; all entries use the baseline c=10 fixed (k=1) comparison, and the outer-only column is the primary metric (full-radius values are reference only).
+Table 2 lists the SPARC \(\Delta\mathrm{AICc}\) sensitivity grid for the four sweep combinations; all entries use the baseline c=10 fixed (k=1) comparison, and the outer-only column is the primary metric (full-radius values are reference only). With the fiducial setting (error floor 5 km s\(^{-1}\), \(Υ_{\rm disk}=0.5\), \(Υ_{\rm bulge}=0.7\)), the full-curve median is \(+35.4\) (FDB disfavoured) but the outer-only median is \(-5.0\) (FDB favoured). Allowing lower error floors or the two-value \(M/L\) toggle shifts the absolute numbers yet preserves the sign flip, underscoring that the FDB drift is most diagnostic in the tails.
 
 \begin{table*}
 \centering
-\caption{SPARC \(\Delta\mathrm{AICc}\) sensitivity grid (FDB \(k=1\) vs NFW \(k=1\), \(c=10\) fixed).}
+\caption{SPARC \(\Delta\mathrm{AICc}\) sensitivity grid (\(\Delta\mathrm{AICc}\equiv \mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\); FDB \(k=1\) vs NFW \(k=1\) with \(c=10\) fixed).}
 \label{tab:sparc-aicc}
 \begin{tabular}{lcccc}
 \hline
@@ -221,7 +234,7 @@ Setting \(x=\log_{10} M_{\rm bar}[M_\odot]\) and \(y=\log_{10} v_{\rm flat}^4[{\
 \begin{figure}
 \centering
 \includegraphics{figures/btfr_sparc.png}
-\caption{SPARC BTFR with the slope \(1\) line anchored by the robust median intercept \(b=-1.69\) dex (solid) and the \(\pm 0.1\) dex band (dashed); velocities use \(v_{\rm flat}\) in \(\mathrm{km\,s^{-1}}\) and baryonic masses use \(M_\odot\). When read as a flat-velocity proxy, \(\Delta v^{2}=\mathrm{median}(v_{\rm obs}^{2}-v_{\rm bar}^{2})\) per galaxy yields \(L_{0}=GM_{\rm bar}/\Delta v^{2}\), so scatter in \(\log L_{0}\) mirrors the BTFR scatter.}
+\caption{SPARC BTFR with \(x=\log_{10} M_{\rm bar}[M_\odot]\) and \(y=\log_{10} v_{\rm flat}^{4}[({\rm km\,s^{-1}})^{4}]\). The solid line is the slope-1 relation \(y=x+b\) anchored by the robust median intercept \(b=\mathrm{median}(y-x)=-1.69\) dex; the dashed lines show \(\pm 0.10\) dex. Velocities use the catalogued \(v_{\rm flat}\) values (fixed \(Υ_{\rm disk}=0.5\), \(Υ_{\rm bulge}=0.7\), error floor 5 km s\(^{-1}\)). When read as a flat-velocity proxy, \(\Delta v^{2}=\mathrm{median}(v_{\rm obs}^{2}-v_{\rm bar}^{2})\) per galaxy yields \(L_{0}=GM_{\rm bar}/\Delta v^{2}\), so scatter in \(\log L_{0}\) mirrors the BTFR scatter. (Generated via \texttt{src/analysis/sparc\_fit\_light.py}; outputs stored in \texttt{build/sparc\_aicc.csv}.)}
 \label{fig:btfr}
 \end{figure}
 
@@ -255,17 +268,14 @@ Waveguide confinement of a Proca ULE‑EMW converts geometric \(1/r^{2}\) decay 
 ---
 
 ## Appendix A: Interface Reflection (summary)
-- TE reflection coefficient at galaxy–void interface with plasma frequencies \(\omega_{p,1}>\omega_{p,2}\) (idealized, lossless slab):
-  \[
-  R=\frac{k_{z,1}-k_{z,2}}{k_{z,1}+k_{z,2}},\quad
-  k_{z,i}=\sqrt{\frac{\omega^{2}-\omega_{p,i}^{2}-\mu_\gamma^{2}c^{2}}{c^{2}}-k_{\parallel}^{2}}.
-  \]
-- Mode choice (kept consistent across text): **surface-bound branch** with \(k^2_{\rm void}\gtrsim 0,\,k^2_{\rm gal}<0\), so the energy flux runs tangentially and leakage into the interior is exponentially suppressed. Arrows in the schematic should therefore follow the interface on the void side.
-- Penetration depth into the evanescent side: \(\delta = 1/|{\rm Im}\,k_{z,{\rm gal}}|\). For \(n_e \sim 10^{-4}\ {\rm cm^{-3}}\) and \(\omega\simeq\mu_\gamma c\), \(\delta = \mathcal{O}(10\text{–}30\ {\rm kpc})\), sufficient to confine the flow to interface scales.
-- Dispersion of the guided mode: \(k_\parallel^{2}=\omega^{2}/c^{2}-\omega_{p,2}^{2}/c^{2}-\mu_\gamma^{2}\), giving \(\lambda_{\rm guide}\sim\lambda_C\) for the adopted \(m_\gamma\).
-- Practical interfaces have finite thickness, gradients, and small collisional losses. These lower \(|R|\) slightly below unity but leave the high-reflectivity regime intact as long as \(\omega\ll\omega_{p,{\rm gal}}\) and the density ramp is wider than the skin depth.
-- Numerical example: choosing \(n_{e,\rm void}=10^{-6}\,{\rm cm^{-3}}\) and \(n_{e,\rm gal}=10^{-3}\,{\rm cm^{-3}}\) gives \(\omega_{p,\rm void}\approx0.18\,\mathrm{rad\,s^{-1}}\) and \(\omega_{p,\rm gal}\approx5.7\,\mathrm{rad\,s^{-1}}\). Any mode within \(0.2\lesssim\omega\ll6\,\mathrm{rad\,s^{-1}}\) thus meets Eq. (5) and remains on the guided branch.
-- Surface-mode dispersion: enforcing tangential-field continuity yields \(D(\omega,k_\parallel)=0\) with \(k_{z,v}=i\kappa_v\) and \(k_{z,g}=i\kappa_g\). Both \(\kappa_v,\kappa_g>0\) in the regime above, producing a bounded mode whose in-plane Poynting vector is \(S_\parallel\propto (k_\parallel/\omega)(E_t H_t^*)\); energy is guided along the interface while decaying exponentially into both half-spaces.
+The TE reflection coefficient at a galaxy–void interface with plasma frequencies \(\omega_{p,1}>\omega_{p,2}\) (idealized, lossless slab) is
+\[
+R=\frac{k_{z,1}-k_{z,2}}{k_{z,1}+k_{z,2}},\quad
+k_{z,i}=\sqrt{\frac{\omega^{2}-\omega_{p,i}^{2}-\mu_\gamma^{2}c^{2}}{c^{2}}-k_{\parallel}^{2}}.
+\]
+We keep to the **surface-bound branch** with \(k^2_{\rm void}\gtrsim0\) and \(k^2_{\rm gal}<0\), so the energy flux runs tangentially and leakage into the interior is exponentially suppressed; in the schematic, arrows therefore follow the interface on the void side. The evanescent depth is \(\delta = 1/|{\rm Im}\,k_{z,{\rm gal}}|\); for \(n_e \sim 10^{-4}\,\mathrm{cm^{-3}}\) and \(\omega\simeq\mu_\gamma c\) one finds \(\delta\approx10\text{--}30\,\mathrm{kpc}\), ample to confine the guided flow to interface scales. The guided-mode dispersion obeys \(k_\parallel^{2}=\omega^{2}/c^{2}-\omega_{p,2}^{2}/c^{2}-\mu_\gamma^{2}\), yielding \(\lambda_{\rm guide}\sim\lambda_C\) for the adopted \(m_\gamma\).
+
+Practical interfaces possess finite thickness, gradients, and small collisional losses. These nudge \(|R|\) slightly below unity but leave the high-reflectivity regime intact as long as \(\omega\ll\omega_{p,{\rm gal}}\) and the density ramp exceeds the skin depth. For illustration, \(n_{e,\rm void}=10^{-6}\,\mathrm{cm^{-3}}\) and \(n_{e,\rm gal}=10^{-3}\,\mathrm{cm^{-3}}\) give \(\omega_{p,\rm void}\approx0.18\,\mathrm{rad\,s^{-1}}\) and \(\omega_{p,\rm gal}\approx5.7\,\mathrm{rad\,s^{-1}}\); any mode with \(0.2\lesssim\omega\ll6\,\mathrm{rad\,s^{-1}}\) then meets Eq. (5) and remains on the guided branch. Enforcing tangential-field continuity yields \(D(\omega,k_\parallel)=0\) with \(k_{z,v}=i\kappa_v\) and \(k_{z,g}=i\kappa_g\); because both \(\kappa_v\) and \(\kappa_g\) are positive, the bounded mode transports energy via the in-plane Poynting vector \(S_\parallel\propto(k_\parallel/\omega)(E_t H_t^*)\) while decaying exponentially into the neighbouring media.
 
 ## Appendix B: BTFR Scaling and AICc (methods)
 - Fit procedure for SPARC subsample: baryonic mass from 3.6 µm photometry, fixed mass-to-light prior; compare models via \(\mathrm{AICc}=2k-2\ln\hat{L}+2k(k+1)/(n-k-1)\) [@Sugiura1978; @HurvichTsai1989]. FDB uses \(k=1\) (overall scale). The baseline NFW also uses \(k=1\) by fixing \(c=10\) so that both sides pay the same parameter penalty, while Appendix B.3 quotes the ancillary run with \(c\) free (\(k=2\)).
@@ -330,7 +340,7 @@ For comparison, running the baseline setting without the \(c=10\) constraint (so
 ---
 
 ## Data and code availability
-Derived figures and tables come from the scripts distributed with this repository (https://github.com/genki/gravitation). `src/analysis/h1_ratio_test.py` (see above) regenerates Table 1 and Figure \ref{fig:h1-violin} from the SLACS/BELLS/BELLS GALLERY/S4TM/BOSS catalogs, while `src/analysis/sparc_fit_light.py` and `src/scripts/sparc_sweep.py` (https://github.com/genki/gravitation/blob/main/src/analysis/sparc_fit_light.py and https://github.com/genki/gravitation/blob/main/src/scripts/sparc_sweep.py) reproduce Table 2, Figure \ref{fig:rotcurve-grid}, and Figure \ref{fig:btfr} directly from the SPARC MRT release mirrored in `data/sparc/`. All intermediate CSV outputs live under `build/` in the same repository so a fresh clone plus `make pdf` suffices to recreate every figure and table.
+Derived figures and tables come from the scripts distributed with this repository (https://github.com/genki/gravitation). `src/analysis/h1_ratio_test.py` (see above) regenerates Table 1 and Figure \ref{fig:h1-violin} from the SLACS/BELLS/BELLS GALLERY/S4TM/BOSS catalogs, while `src/analysis/sparc_fit_light.py` and `src/scripts/sparc_sweep.py` (https://github.com/genki/gravitation/blob/main/src/analysis/sparc_fit_light.py and https://github.com/genki/gravitation/blob/main/src/scripts/sparc_sweep.py) reproduce Table 2, Figure \ref{fig:rotcurve-grid}, and Figure \ref{fig:btfr} directly from the SPARC MRT release mirrored in `data/sparc/`. All intermediate CSV outputs live under `build/` in the same repository; cloning commit `32304c6` and running `make pdf` suffices to recreate every figure and table without additional downloads.
 
 ---
 

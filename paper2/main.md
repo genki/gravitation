@@ -148,7 +148,7 @@ Using the \(\sigma\) axis directly would lead to \(4\pi \sigma^{2}\); converting
 > 4. Publish \(N,\mathrm{median}(\ell),1.4826\,\mathrm{MAD}(\ell)\) for each survey (Table 1; Figure 2). Quote **PASS** iff \(|\mathrm{median}(\ell)|\le0.03\) dex and scatter \(\le0.10\) dex; \(\kappa_{\rm ext}\sim\mathcal{N}(0,0.05)\) only adds \(\lesssim0.02\) dex and is reported as a secondary systematic.  
 > 5. Note any **survey-specific QC** such as internal scale factors or missing metadata so readers can reproduce the same decision without regression or MCMC.
 
-The implementation (`analysis/h1_ratio_test.py`) ingests machine-readable tables from SLACS, S4TM, BELLS, BELLS GALLERY, and SL2S plus the new BOSS catalog (`data/strong_lensing/BOSS_full_table.csv`) [@Bolton2008; @Auger2009; @Brownstein2012; @Shu2017BELLSGallery; @Shu2017S4TM]. The latter comes from the Appendix tables of Shu et al. (2017, MNRAS 480, 431); the HTML sources are archived with Playwright under `data/strong_lensing/sources/` to keep a reproducible snapshot without re-downloading.
+The implementation (`paper2/src/analysis/h1_ratio_test.py`) ingests machine-readable tables from SLACS, S4TM, BELLS, BELLS GALLERY, and SL2S plus the new BOSS catalog (`paper2/data/strong_lensing/BOSS_full_table.csv`) [@Bolton2008; @Auger2009; @Brownstein2012; @Shu2017BELLSGallery; @Shu2017S4TM]. The latter comes from the Appendix tables of Shu et al. (2017, MNRAS 480, 431); the HTML sources are archived with Playwright under `paper2/data/strong_lensing/sources/` to keep a reproducible snapshot without re-downloading.
 
 ### 5.3 Current statistics (2025-11-24 run)
 
@@ -325,12 +325,12 @@ For comparison, running the baseline setting without the \(c=10\) constraint (so
 - Because \(\Phi_{\rm FDB}\) is tied to \(\Gamma\), this check simultaneously fixes \(\alpha_m\) (taken as 1) and leaves no free drift in the H1 lensing normalization [@PoundRebka1960].
 
 ## Appendix G: Strong-lensing H1 ratio test (reproducibility)
-- Method and numbers are summarized in `appendix_f_h1.md`; code at `analysis/h1_ratio_test.py`, data under `data/strong_lensing/`; figure `figures/h1_violin.png`.
+- Method and numbers are summarized in `appendix_f_h1.md`; code at `paper2/src/analysis/h1_ratio_test.py`, data under `paper2/data/strong_lensing/`; figure `figures/h1_violin.png`.
 
 ---
 
 ## Data and code availability
-Derived figures and tables come from the scripts distributed with this repository. `analysis/h1_ratio_test.py` regenerates Table 1 and Figure \ref{fig:h1-violin} from the SLACS/BELLS/BELLS GALLERY/S4TM/BOSS catalogs cited above, while `analysis/sparc_fit_light.py` and `scripts/sparc_sweep.py` reproduce Table 2, Figure \ref{fig:rotcurve-grid}, and Figure \ref{fig:btfr} directly from the SPARC MRT release. All intermediate CSV outputs live under `paper2/build/` and the raw catalogs sit in `data/strong_lensing/` and `data/sparc/`, enabling a full rerun without additional downloads.
+Derived figures and tables come from the scripts distributed with this repository. `paper2/src/analysis/h1_ratio_test.py` regenerates Table 1 and Figure \ref{fig:h1-violin} from the SLACS/BELLS/BELLS GALLERY/S4TM/BOSS catalogs cited above, while `paper2/src/analysis/sparc_fit_light.py` and `paper2/src/scripts/sparc_sweep.py` reproduce Table 2, Figure \ref{fig:rotcurve-grid}, and Figure \ref{fig:btfr} directly from the SPARC MRT release. All intermediate CSV outputs live under `paper2/build/` and the raw catalogs sit in `paper2/data/strong_lensing/` and `paper2/data/sparc/`, enabling a full rerun without additional downloads.
 
 ---
 

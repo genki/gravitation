@@ -29,6 +29,8 @@ coverage.xml
 *.crt
 # CSV and intermediate tables are ignored
 data/
+!paper2/data/
+!paper2/data/**
 **/data/cluster/**/ciao/
 **/data/cluster/**/primary/
 **/data/cluster/**/repro/
@@ -124,19 +126,7 @@ secrets.*
 # Secrets (never commit)
 server/certs/
 server/public/notifications/
-!server/public/reports/
-!server/public/reports/**
-!server/public/reports/bench_*.json
-server/public/reports/cluster/
-!server/public/reports/data_catalog.json
-!server/public/reports/*_holdout.json
-server/public/reports/**/*.log
-server/public/reports/logs/
-!server/public/reports/ws_vs_phieta_summary.json
-server/public/site-lastmod.js
-server/public/state_of_the_art/audit*.json
-server/public/state_of_the_art/holdout_progress.html
-server/public/state_of_the_art/jobs.html
+server/public/reports/
 server/web.log
 /_site/
 site/

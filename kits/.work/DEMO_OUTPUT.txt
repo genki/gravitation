@@ -1,1 +1,0 @@
-Pandas unavailable in runtime; proceeded with plots only.

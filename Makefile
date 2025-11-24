@@ -14,16 +14,30 @@ TITLE ?= 通知
 EXTRA ?=
 # 通知シンク: gate(既定) / file / both
 NOTIFY_SINK ?= gate
+# 通知の堅牢化: ゲート送信に加え、ローカルtalker(直送)もフォールバックで試行
+NOTIFY_FALLBACK_LOCAL ?= 1
 
 notify:
 	set -euo pipefail; \
 	[ -f .env ] && set -a && . ./.env && set +a || true; \
+	if [ "${SUPPRESS_NOTIFY:-0}" = "1" ] || [ "${JOB_CLASS:-}" = "fast" ]; then \
+	  echo '[notify] SUPPRESS_NOTIFY=1 or JOB_CLASS=fast → 通知をスキップします'; \
+	  exit 0; \
+	fi; \
 	if [ "$(NOTIFY_SINK)" = "gate" ]; then \
-	  NOTICE_SLACK_SYNC=1 NOTICE_SLACK_VERBOSE=1 NOTICE_SLACK_STDOUT=1 ./scripts/notice.sh ${DIRECT:+-d} ${BASE:+-u $(BASE)} -m "$(MSG)" -t "$(TITLE)" $(EXTRA) || true; \
+	  NOTICE_SYNC=1 NOTICE_SLACK_SYNC=1 NOTICE_SLACK_VERBOSE=1 NOTICE_SLACK_STDOUT=1 ./scripts/notice.sh ${DIRECT:+-d} ${BASE:+-u $(BASE)} -m "$(MSG)" -t "$(TITLE)" $(EXTRA) || true; \
+	  if [ "$(NOTIFY_FALLBACK_LOCAL)" = "1" ]; then \
+	    LB=$${NOTICE_BASE_URL:-}; \
+	    if [ -z "$$LB" ] && [ -n "$$NOTICE_TARGET" ]; then LB="http://$${NOTICE_TARGET#@}"; fi; \
+	    if [ -n "$$LB" ]; then \
+	      echo "[notify] fallback: direct -> $$LB"; \
+	      NOTICE_DIRECT=1 NOTICE_SYNC=1 ./scripts/notice.sh -u "$$LB" -m "$(MSG)" -t "$(TITLE)" $(EXTRA) || true; \
+	    fi; \
+	  fi; \
 	elif [ "$(NOTIFY_SINK)" = "file" ]; then \
 	  ./scripts/notice_to_file.sh -m "$(MSG)" -t "$(TITLE)"; \
 	else \
-	  NOTICE_SLACK_SYNC=1 NOTICE_SLACK_VERBOSE=1 NOTICE_SLACK_STDOUT=1 ./scripts/notice.sh ${DIRECT:+-d} ${BASE:+-u $(BASE)} -m "$(MSG)" -t "$(TITLE)" $(EXTRA) || true; \
+	  NOTICE_SYNC=1 NOTICE_SLACK_SYNC=1 NOTICE_SLACK_VERBOSE=1 NOTICE_SLACK_STDOUT=1 ./scripts/notice.sh ${DIRECT:+-d} ${BASE:+-u $(BASE)} -m "$(MSG)" -t "$(TITLE)" $(EXTRA) || true; \
 	  ./scripts/notice_to_file.sh -m "$(MSG)" -t "$(TITLE)"; \
 	fi
 
@@ -34,10 +48,14 @@ AUTO_PUBLISH_ASYNC ?= 1
 notify-done:
 	set -euo pipefail; \
 	[ -f .env ] && set -a && . ./.env && set +a || true; \
+	if [ "${SUPPRESS_NOTIFY:-0}" = "1" ] || [ "${JOB_CLASS:-}" = "fast" ]; then \
+	  echo '[notify-done] SUPPRESS_NOTIFY=1 or JOB_CLASS=fast → 通知をスキップします'; \
+	  exit 0; \
+	fi; \
 	FILE=$$(ls -t memo/run_*.md 2>/dev/null | head -n1 || true); \
 	if [ -n "$$FILE" ]; then \
 	  TITLE="作業完了: $$(basename "$$FILE" .md)"; \
-	  SUMMARY=$$(awk '/^## 結果サマリ/{flag=1;next}/^## /{if(flag) exit}flag' "$$FILE" | sed 's/^/- /' | head -n 6 || true); \
+	  SUMMARY=$${MSG_PRE:-}$$'\n'$$(awk '/^## 結果サマリ/{flag=1;next}/^## /{if(flag) exit}flag' "$$FILE" | sed 's/^/- /' | head -n 6 || true); \
 	  OUTS=$$(awk '/^## 生成物/{flag=1;next}/^## /{if(flag) exit}flag' "$$FILE" | sed 's/^/- /' | head -n 4 || true); \
 	  NEXT=$$(awk '/^## 次アクション/{flag=1;next}/^## /{if(flag) exit}flag' "$$FILE" | sed 's/^/- /' | head -n 3 || true); \
 	  MSG="結果:\n$${SUMMARY}\n成果物:\n$${OUTS}\n次の一手:\n$${NEXT}"; \
@@ -45,11 +63,18 @@ notify-done:
 	  TITLE="作業完了"; MSG="結果: 変更を反映しレポートを再生成しました\n成果物: server/public/reports/index.html"; \
 	fi; \
 	if [ "$(NOTIFY_SINK)" = "gate" ]; then \
-	  NOTICE_SLACK_SYNC=1 NOTICE_SLACK_VERBOSE=1 NOTICE_SLACK_STDOUT=1 ./scripts/notice.sh ${DIRECT:+-d} ${BASE:+-u $(BASE)} -m "$$MSG" -t "$$TITLE" || true; \
+	  NOTICE_SYNC=1 NOTICE_SLACK_SYNC=1 NOTICE_SLACK_VERBOSE=1 NOTICE_SLACK_STDOUT=1 ./scripts/notice.sh ${DIRECT:+-d} ${BASE:+-u $(BASE)} -m "$$MSG" -t "$$TITLE" || true; \
+	  if [ "$(NOTIFY_FALLBACK_LOCAL)" = "1" ]; then \
+	    LB=$${NOTICE_BASE_URL:-}; if [ -z "$$LB" ] && [ -n "$$NOTICE_TARGET" ]; then LB="http://$${NOTICE_TARGET#@}"; fi; \
+	    if [ -n "$$LB" ]; then \
+	      echo "[notify-done] fallback: direct -> $$LB"; \
+	      NOTICE_DIRECT=1 NOTICE_SYNC=1 ./scripts/notice.sh -u "$$LB" -m "$$MSG" -t "$$TITLE" || true; \
+	    fi; \
+	  fi; \
 	elif [ "$(NOTIFY_SINK)" = "file" ]; then \
 	  ./scripts/notice_to_file.sh -m "$$MSG" -t "$$TITLE"; \
 	else \
-	  NOTICE_SLACK_SYNC=1 NOTICE_SLACK_VERBOSE=1 NOTICE_SLACK_STDOUT=1 ./scripts/notice.sh ${DIRECT:+-d} ${BASE:+-u $(BASE)} -m "$$MSG" -t "$$TITLE" || true; \
+	  NOTICE_SYNC=1 NOTICE_SLACK_SYNC=1 NOTICE_SLACK_VERBOSE=1 NOTICE_SLACK_STDOUT=1 ./scripts/notice.sh ${DIRECT:+-d} ${BASE:+-u $(BASE)} -m "$$MSG" -t "$$TITLE" || true; \
 	  ./scripts/notice_to_file.sh -m "$$MSG" -t "$$TITLE"; \
 	fi
 	@# オプション: AUTO_PUBLISH_SITE が指定されていればサイト更新も実施
@@ -410,6 +435,32 @@ kpi-bullet:
 kpi-sprint: kpi-ab kpi-controls kpi-ykc kpi-bullet
 	$(MAKE) notify-done-site
 
+.PHONY: gate-kpi
+gate-kpi:
+	PYTHONPATH=. ./.venv/bin/python scripts/jobs/update_gate_kpi.py --pretty
+
+.PHONY: nbody-kpi
+nbody-kpi:
+	PYTHONPATH=. ./.venv/bin/python scripts/jobs/update_nbody_kpi.py --pretty
+
+.PHONY: holdout-standard
+holdout-standard:
+	PYTHONPATH=. ./.venv/bin/python scripts/reports/make_bullet_holdout.py \
+		--holdout AbellS1063 --beta-sweep 0.6 --fast --downsample 1 \
+		--sigma-psf 1.2 --sigma-highpass 6 --se-transform none \
+		--weight-powers 0.0 --perm-n 10 --perm-min 10 --perm-max 10 \
+		--perm-earlystop --band 8-16 --block-pix 6
+	PYTHONPATH=. ./.venv/bin/python scripts/reports/make_bullet_holdout.py \
+		--holdout AbellS1063 --beta-sweep 0.6 \
+		--sigma-psf 1.2 --sigma-highpass 6 --se-transform none \
+		--weight-powers 0.0 --perm-n 10 --perm-min 10 --perm-max 10 \
+		--perm-earlystop --band 8-16 --block-pix 6
+	@echo 'AbellS1063 FAST/FULL (band=8-16, block_pix=6) refreshed for preproc_stamp検証'
+
+.PHONY: kpi-weekly
+kpi-weekly: gate-kpi nbody-kpi
+	$(MAKE) notify-done
+
 phieta-profile:
 	PYTHONPATH=. ./.venv/bin/python scripts/reports/profile_likelihood_mu_kappa.py --names NGC3198,NGC2403 || true
 	PYTHONPATH=. ./.venv/bin/python scripts/build_state_of_the_art.py
@@ -469,9 +520,56 @@ web-deploy:
 	bash scripts/capture_env_logs.sh || true
 	USE_TLS=0 bash scripts/start_web.sh
 
+.PHONY: talker-restart talker-stop
+talker-restart:
+	bash scripts/start_talker.sh
+
+talker-stop:
+	@if [ -f server/talker.pid ]; then kill `cat server/talker.pid` 2>/dev/null || true; fi
+
 .PHONY: capture-env
 capture-env:
 	bash scripts/capture_env_logs.sh
+
+# ===== A-4 autopilot (watchers) =====
+.PHONY: autopilot-a4
+autopilot-a4:
+	@# Watch FAST snapshots and dispatch FULL under Gate policy
+	PYTHONPATH=. ./.venv/bin/python scripts/jobs/watch_gate_and_dispatch.py --holdouts AbellS1063,MACSJ0416 --interval 600 --once || true
+	scripts/jobs/dispatch_bg.sh -n watch_gate_and_dispatch --scope -- \
+	  "PYTHONPATH=. ./.venv/bin/python scripts/jobs/watch_gate_and_dispatch.py --holdouts AbellS1063,MACSJ0416 --interval 600" || true
+	@# Ensure a continuous supply of FAST exploration jobs (one per holdout)
+	@# Primer (one-off) then background watchers
+	bash scripts/jobs/watch_fast_supply.sh --once AbellS1063 1 || true
+	bash scripts/jobs/watch_fast_supply.sh --once MACSJ0416 1 || true
+	scripts/jobs/dispatch_bg.sh -n watch_fast_supply_AbellS1063 --scope -- \
+	  "bash scripts/jobs/watch_fast_supply.sh AbellS1063 300" || true
+	scripts/jobs/dispatch_bg.sh -n watch_fast_supply_MACSJ0416 --scope -- \
+	  "bash scripts/jobs/watch_fast_supply.sh MACSJ0416 300" || true
+	@# Ensure summary watchers for both holdouts are running
+	scripts/jobs/dispatch_bg.sh -n watch_collect_a4_AbellS1063 --scope -- \
+	  "bash scripts/jobs/watch_collect_a4.sh AbellS1063 60" || true
+	scripts/jobs/dispatch_bg.sh -n watch_collect_a4_MACSJ0416 --scope -- \
+	  "bash scripts/jobs/watch_collect_a4.sh MACSJ0416 60" || true
+	@echo 'A-4 autopilot watchers started'
+
+# ===== WL strict (official vector + covariance) BG runner =====
+.PHONY: wl-strict-bg
+wl-strict-bg:
+	@echo 'Dispatching WL strict (official vector + covariance) as background job'
+	scripts/jobs/dispatch_bg.sh -n wl_strict_official --scope -- \
+	  "set -e; \
+	  export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 NUMEXPR_MAX_THREADS=1 MALLOC_ARENA_MAX=2 PYTHONMALLOC=malloc; \
+	  PYTHONPATH=. ./.venv/bin/python scripts/reports/make_wl_kids450_strict.py --theta-plus-min 4 --theta-minus-min 8.6 --theta-max 72 --m-bias 0 --ia-type NLA --ia-amp 0; \
+	  PYTHONPATH=. ./.venv/bin/python scripts/build_state_of_the_art.py; \
+	  stamp=\$(date +%Y-%m-%d_%H%M); \
+	  cat > memo/run_\${stamp}_wl_strict_official_bg.md <<'MD'\n# WL 2PCF（KiDS-450）厳密（公式ベクトル＋共分散）BG実行\n\n## 結果サマリ\n- 公式130×130共分散と連結ベクトルにθカット（xip≤72′, xim≥8.6′）を適用し、k=0でΔAICcを評価。\n- SOTAへ反映。\n\n## 生成物\n- server/public/state_of_the_art/wl_2pcf_tomo_strict.html\n- server/public/state_of_the_art/index.html\n\n## 次アクション\n- m/IA（NLA/TATT）設定の反映・最終化。\nMD\n; \
+	  make notify-done-site"
+
+.PHONY: wl-mia-grid
+wl-mia-grid:
+	scripts/jobs/dispatch_bg.sh -n wl_mia_grid --scope -- \
+	  "bash scripts/jobs/run_wl_mia_grid.sh"
 
 paper-sota:
 	bash scripts/sync_figs_to_paper.sh
@@ -846,6 +944,10 @@ continue:
 	else \
 	  codex resume --search --dangerously-bypass-approvals-and-sandbox --last; \
 	fi
+
+resume:
+	  codex resume --search --dangerously-bypass-approvals-and-sandbox $(ID)
+
 
 .PHONY: ciao-bullet
 ciao-bullet:

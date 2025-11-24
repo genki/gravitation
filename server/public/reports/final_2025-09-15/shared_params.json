@@ -1,5 +1,0 @@
-{
-  "mu_k": {"epsilon": 1.0, "k0": 0.2, "m": 2.0},
-  "gas_scale": 1.33,
-  "notes": "Single source of truth for shared μ(k) and gas scaling used across SOTA/bench."
-}

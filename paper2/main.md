@@ -11,10 +11,7 @@ We propose that galactic gravity emerges as a statistical drift induced by conti
 ---
 
 ## 1. Introduction
-- **Problem**: \(\Lambda\)CDM fits cosmic scales yet faces fine-tuning at galaxies—flat rotation curves, tiny BTFR scatter, and lensing–dynamics tensions that require halo concentration/anisotropy adjustments on a per-object basis [@McGaugh2016RAR; @Verlinde2016].
-- **Landscape**: MOND and emergent-gravity ideas capture BTFR slope but often need interpolation functions, external field effects, or ad hoc scales; none provide an immediate, parameter-free strong-lensing check.
-- **Gap**: A micro-to-macro mechanism that (i) is equation-based, (ii) yields a universal, dimensionless observational equality, and (iii) is testable without heavy computation.
-- **Contribution**: Future Determination Bias (FDB)—information-flux–driven drift from ULE‑EMW waveguiding—delivers a single constant relation, \(R=1\), linking Einstein radius and circular speed. We present theory, galaxy-scale consequences, and an instant validation protocol.
+\(\Lambda\)CDM provides an excellent global fit yet encounters persistent fine-tuning at galaxy scales—flat rotation curves, extremely small BTFR scatter, and lensing–dynamics tensions that demand per-galaxy halo concentration or anisotropy tweaks [@McGaugh2016RAR; @Verlinde2016]. MOND-like or emergent-gravity ideas reproduce the BTFR slope but typically require interpolation functions, external-field prescriptions, or additional scales, and they do not supply an immediate, parameter-free strong-lensing diagnostic. We therefore seek a micro-to-macro connection that (i) is equation based, (ii) predicts a universal dimensionless equality, and (iii) is testable without heavy computation. Future Determination Bias (FDB)—an information-flux–driven drift sustained by ULE‑EM waveguiding—satisfies these criteria by enforcing the single constant relation \(R=1\) that links Einstein radius and circular speed. The remainder of this paper lays out the theory, galaxy-scale consequences, and an instant validation protocol.
 
 ### Conventions and units (SIS lensing)
 - SIS deflection: \(\hat\alpha = 4\pi(\sigma/c)^2 = 2\pi(v_c/c)^2\) with \(v_c=\sqrt{2}\sigma\) [@NarayanBartelmann1997].
@@ -343,21 +340,3 @@ Derived figures and tables come from the scripts distributed with this repositor
 :::
 
 ---
-
-## Figure & Table Checklist
-- **Figure 1.** Vacuum vs plasma-guided Proca potential (`figures/proca_potential.png`).
-- **Figure 2.** Survey-wise \(\log_{10}R\) violin (`figures/h1_violin.png`).
-- **Figure 3.** Top-six FDB-favoured SPARC rotation curves (3×2 grid) (`figures/rotcurve_grid.png`).
-- **Figure 4.** SPARC BTFR scatter (fixed M/L) (`figures/btfr_sparc.png`).
-- **Table 1.** H1 ratio statistics (All / SDSS / BELLS / BOSS).
-- **Table 2.** SPARC \(\Delta\mathrm{AICc}\) sensitivity grid (err = 2–5 \(\mathrm{km\,s^{-1}}\), fixed/two-value M/L); source CSV `paper2/build/sparc_aicc.csv`.
-- **Table B1.** Appendix copy of the SPARC sensitivity grid (identical to Table 2).
-
----
-
-## Writing & QC Reminders
-- Use **\(2\pi\)** in the \(v_c\) axis version of \(R\); \(4\pi\) only if \(\sigma\) is unconverted.  
-- Explicitly define \(\theta_E'=\theta_E D_s/D_{ls}\) once at the start of §5.  
-- Aperture correction exponent is **−0.066**; apertures: SDSS 1.5'', BOSS/BELLS 1.0'' (radii).  
-- Stress zero free parameters in the H1 test and minimal \(k=1\) for rotation-curve fits.  
-- Note decisive falsifier: any coherent offset \(|m_R|>0.03\) dex or \(s_R>0.10\) dex in homogeneous subsamples.

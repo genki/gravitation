@@ -127,14 +127,13 @@ FDB の有効ポテンシャルを
 
 ### 5.1 強レンズ一次検定 (H1)
 
-- **比の定義**: \(R \equiv \theta_E' c^2 / (2\pi v_c^2)\)（\(v_c = \sqrt{2}\sigma_{\rm SIS}\)）。
-- **計算手順**:
-  1. \(\theta_E\) を弧度法に変換し、角径距離比 \(D_s/D_{ls}\) で正規化。
-  2. 速度分散は \(\sigma_{\rm SIS}\) を優先。無い場合は \(\sigma_e = \sigma_{\rm ap}(R_{\rm ap}/R_e)^{-0.066}\)。
-  3. 各レンズで \(R_i\) を計算し、\(m_R = \mathrm{median}(\log_{10} R_i)\)、\(s_R = 1.4826\,\mathrm{MAD}\) を求める。
-- **PASS 窓**: \(|m_R|\le 0.03\) dex かつ \(s_R\le 0.10\) dex。
-- **結果**: SDSS および BELLS は PASS。BOSS は \(m_R=+0.0846\) dex, \(s_R=0.1497\) dex で補助 QC 扱い。
+> **H1 定義ボックス**  
+> $R \equiv \theta_E' c^2/(2\pi v_c^2)$、$\theta_E' = \theta_E D_s/D_{ls}$、$v_c = \sqrt{2}\sigma$（SIS 速度分散）。  
+> *注意*: $v_c$ 軸を用いるときは分母は常に $2\pi$。1 次元速度分散 $\sigma$ を直接使う場合は $4\pi \sigma^2$ を用いる。  
+> **PASS 窓**: $|m_R|\le 0.03$ dex、$s_R\le 0.10$ dex（1.4826×MAD）。
 
+- **計算手順**: (1) $\theta_E$ をラジアン化し $\theta_E' = \theta_E D_s/D_{ls}$ を求める。(2) $\sigma_{\rm SIS}$ または補正済み $\sigma_e$ を用い $v_c=\sqrt{2}\sigma$ を計算。(3) 各レンズで $R_i$ を算出し $m_R,s_R$ を評価する。
+- **結果**: SDSS/BELLS は PASS、BOSS は $m_R=+0.0846$ dex, $s_R=0.1497$ dex で補助 QC 扱い。図3参照。
 ### 5.2 回転曲線 (SPARC)
 
 - **データ**: SPARC MRT (品質=1、傾斜>30°, R_out>3R_d)。
@@ -143,8 +142,9 @@ FDB の有効ポテンシャルを
 
 ### 5.3 BTFR
 
-- **プロット法**: \(x = \log_{10} M_{\rm bar}[M_\odot]\)、\(y = \log_{10} v_{\rm flat}^4[(\mathrm{km\,s^{-1}})^4]\)。傾き 1 を固定し、切片 \(b = \mathrm{median}(y-x) = -1.69\) dex。
-- **図**: 実線は \(y = x + b\)、破線は ±0.1 dex。散布の小ささが FDB の 1/r ドリフトと整合。
+- **軸の定義**: $x = \log_{10} M_{\rm bar}[M_\odot]$、$y = \log_{10} v_{\rm flat}^4[(\mathrm{km\,s^{-1}})^4]$。
+- **基準線**: 傾き 1 を固定し、切片は観測ロバスト中央値 $b = \mathrm{median}(y-x) = -1.69$ dex で合わせる。図4 では実線 $y=x+b$、破線 ±0.1 dex を表示し、FDB の $v^4\propto M_{\rm bar}$ 予言を視覚化している。
+- **散布の解釈**: 各銀河の $\Delta v^2 = v_{\rm obs}^2 - v_{\rm bar}^2$ はほぼ一定で、$L_0 = GM_{\rm bar}/\Delta v^2$ の散布が BTFR の散布と一致する。
 
 ---
 

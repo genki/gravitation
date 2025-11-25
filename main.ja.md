@@ -169,11 +169,16 @@ FDB の有効ポテンシャルを
 <a id="refs-ja"></a>
 ## 参考文献（抄訳）
 
-- McGaugh, Lelli & Schombert 2016, AJ, 152, 157 — SPARC カタログ。  
-- Narayan & Bartelmann 1997 — SIS レンズ公式の古典的レビュー。  
-- Sugiura 1978, Hurvich & Tsai 1989 — AICc の導入論文。  
-- Shu et al. 2016/2017 — BELLS, S4TM のレンズカタログ。  
-- Particle Data Group 2024 — フォトン質量上限。  
+- Rubin & Ford 1970s — 銀河回転曲線の観測的確立。  
+- Tully & Fisher 1977 — バリオン Tully–Fisher 関係の発見。  
+- Milgrom 1983 — MOND の初期提案。  
+- Navarro, Frenk & White 1996/1997 — NFW ハローの代表論文。  
+- Verlinde 2016 — 情報・エントロピーに基づく emergent gravity。  
+- McGaugh, Lelli & Schombert 2016, AJ 152, 157 — SPARC カタログ。  
+- Narayan & Bartelmann 1997 — SIS レンズ公式の基礎。  
+- Sugiura 1978; Hurvich & Tsai 1989 — AICc の導入論文。  
+- Shu et al. 2016/2017 — BELLS/BELLS GALLERY/S4TM レンズカタログ。  
+- Particle Data Group 2024 — フォトン質量上限および Proca 限界。  
 - そのほか英語版 `refs.bib` に列挙された文献。
 
 ---
@@ -195,11 +200,11 @@ FDB の有効ポテンシャルを
 
 ## データとコードの公開
 
-- GitHub: <https://github.com/genki/gravitation>  
-- 強レンズ: `src/analysis/h1_ratio_test.py` ＋ `data/strong_lensing/`  
-- SPARC: `src/analysis/sparc_fit_light.py`, `src/scripts/sparc_sweep.py`, 入力は `data/sparc/`  
-- 中間結果: `build/` ディレクトリ  
-- ビルド: `make pdf` で `build/main.pdf` と `build/main.ja.pdf`（Pandoc で `main.ja.md` を指定）もし生成可能。
+- GitHub: <https://github.com/genki/gravitation> （現行コミット `6f73d79` で検証）。
+- **強レンズ H1**: `src/analysis/h1_ratio_test.py` が Table 1 と Figure 3 を再生成（入力は `data/strong_lensing/` の SLACS/BELLS/BOSS CSV）。
+- **SPARC/BTFR**: `src/analysis/sparc_fit_light.py` と `src/scripts/sparc_sweep.py` が Table 2 と BTFR 図を再出力（MRT データは `data/sparc/`）。
+- **中間結果**: すべて `build/` に CSV/PDF として保存される。
+- **ビルド**: `make` を実行すると英語版 `build/main.pdf` と日本語版 `build/main.ja.pdf` が同時生成される。
 
 ---
 

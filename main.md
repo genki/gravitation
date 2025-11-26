@@ -1,6 +1,13 @@
 ---
 header-includes:
   - \usepackage{tabularx,booktabs}
+  - \usepackage{adjustbox}
+  - \setlength{\emergencystretch}{3em}
+  - \overfullrule=8pt
+  - \hfuzz=0pt
+  - \vfuzz=0pt
+  - \hbadness=1
+  - \vbadness=1
 ---
 
 # Future Determination Bias as Emergent Gravity: Waveguide Confinement, 1/r Drift, and Instant Validation via Strong-Lensing Ratio Test
@@ -11,24 +18,55 @@ header-includes:
 ---
 
 ## Abstract
-We propose that galactic gravity emerges as a statistical drift induced by continuous position monitoring from an ultra‑low‑energy Proca electromagnetic background (ULE‑EM). At the galaxy–void interface, plasma-induced evanescent reflection confines the information flux into a surface waveguide, converting geometric decay from \(1/r^{2}\) to \(1/r\). The resulting \(1/r\) force reproduces flat rotation curves and the baryonic Tully–Fisher relation (BTFR) without non-baryonic dark matter. Crucially, the framework admits an instant, dimensionless validation through the strong-lensing ratio \(R\equiv \theta_E'c^{2}/(2\pi v_c^{2})=1\), where \(\theta_E'=\theta_E D_s/D_{ls}\) and \(v_c=\sqrt{2}\sigma\). Using homogeneous lens samples, we obtain \(m_R\simeq0\) dex and \(s_R\lesssim0.1\) dex without any parameter fitting; SPARC rotation curves, evaluated on their outer radii where the waveguide drift operates, favor the same \(1/r\) scaling with median \(\Delta\mathrm{AICc}_{\rm outer}\lesssim-4\) relative to NFW even though full-curve medians can be positive because of inner radii. Because the core prediction is a zero‑degree-of-freedom equality, agreement (or its failure) is visible in seconds, avoiding costly MCMC or hierarchical Bayes. We outline decisive future tests combining \(\theta_E\) and \(v_c\) for the same galaxies, providing a direct falsifiability channel for the FDB hypothesis.
+We propose **Future Determination Bias (FDB)** as an information‑flux driven mechanism that—once normalized—recovers the GR‑equivalent attractive potential at galaxy and lens scales. Our zero‑parameter **H1 ratio test** fixes the lensing intercept via \(b_{0}=\log_{10}(2\pi)-2\log_{10}c\) and verifies \(R\equiv\theta_E'c^{2}/(2\pi v_c^{2})=1\) survey‑wise. Rotation‑curve \(\Delta\mathrm{AICc}\) grids and a slope‑1 BTFR provide supporting sensitivity analyses. All/SDSS/BELLS pass; BOSS remains auxiliary (data‑poor). Outer‑radius fits prefer the FDB constant‑\(\Delta v^{2}\) signature; BTFR aligns with slope 1 using a robust median intercept. FDB thus reproduces GR predictions locally yet reframes gravity as an emergent bias from guided ultra‑low‑energy EM flow, opening observationally testable links to wave‑guided propagation.
+
+**Reader’s map (first‑time FDB readers)**  
+1) **Claim**: FDB = bias from guided ULE‑EM information flux; its potential \(\Phi_{\rm FDB}\) is GR‑shaped locally.  
+2) **Zero‑parameter H1**: ratio \(R\equiv\theta_E'c^{2}/(2\pi v_c^{2})=1\) with intercept \(b_{0}=\log_{10}(2\pi)-2\log_{10}c\) (Box 1).  
+3) **Galaxy‑scale checks**: SPARC \(\Delta\mathrm{AICc}\) grid and slope‑1 BTFR anchor the outer‑radius constant‑\(\Delta v^{2}\) signature (Table 2; Figures 2–4).  
+4) **BOSS**: tagged as a **supplementary QC set** because \(R_e\) is often missing and fibres mix.  
+5) **Where FDB = GR**: Solar System / inner galaxy → same lensing, geodesics, redshift.  
+6) **Where FDB deviates**: cosmic or outer‑disk scales through the effective term fixed by H1.
 
 ---
 
 ## 1. Introduction
-\(\Lambda\)CDM provides an excellent global fit yet encounters persistent fine-tuning at galaxy scales—flat rotation curves, extremely small BTFR scatter, and lensing–dynamics tensions that demand per-galaxy halo concentration or anisotropy tweaks [@McGaugh2016RAR; @Verlinde2016]. MOND-like or emergent-gravity ideas reproduce the BTFR slope but typically require interpolation functions, external-field prescriptions, or additional scales, and they do not supply an immediate, parameter-free strong-lensing diagnostic. We therefore seek a micro-to-macro connection that (i) is equation based, (ii) predicts a universal dimensionless equality, and (iii) is testable without heavy computation. Future Determination Bias (FDB)—an information-flux–driven drift sustained by ULE‑EM waveguiding—satisfies these criteria by enforcing the single constant relation \(R=1\) that links Einstein radius and circular speed. The remainder of this paper lays out the theory, galaxy-scale consequences, and an instant validation protocol.
+Future Determination Bias (FDB) treats gravity as a drift induced by the spatial gradient of an **information‑monitoring rate \(\Gamma(x)\)** sourced by guided ultra‑low‑energy electromagnetic flow (ULE‑EM) along galaxy–void interfaces. Where \(\Gamma\) is flat (Solar System, inner galaxy), \(\mathbf{a}(x)\propto-\nabla\Gamma(x)\) vanishes and GR is recovered; where waveguiding enforces cylindrical flux, \(\Phi_{\rm FDB}\) inherits the GR form with constants set by H1.
 
-### Conventions and units (SIS lensing)
-- SIS deflection: \(\hat\alpha = 4\pi(\sigma/c)^2 = 2\pi(v_c/c)^2\) with \(v_c=\sqrt{2}\sigma\) [@NarayanBartelmann1997].
-- H1 ratio (used throughout): \(R\equiv \theta_E' c^{2}/(2\pi v_c^{2})=1\), \(\theta_E'=\theta_E D_s/D_{ls}\).
-- Disk/filament regime uses \(\Phi_{\rm FDB}=v_c^2\ln r\) (2D waveguide); strong-field spherical limit uses \(\Phi_{\rm FDB}\to -GM/r\).
-- \(\Delta\mathrm{AICc}\) is defined as \(\mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\); negative values favour FDB.
+**Box 1 equivalence.** Using the \(v_c\) axis (\(v_c\equiv\sqrt{2}\sigma\)) makes the SIS deflection \(\hat\alpha=2\pi(v_c/c)^2\), so the ratio \(R\equiv\theta_E'c^{2}/(2\pi v_c^{2})=1\) is fixed once we adopt \(b_{0}=\log_{10}(2\pi)-2\log_{10}c\); no free parameters remain.
+
+**Road-tested plan.** (i) H1 ratio test (Table 1; Figure 1) for the intercept; (ii) SPARC rotation‑curve \(\Delta\mathrm{AICc}\) grid and BTFR slope‑1 anchor (Table 2; Figures 2–4) to sense the outer constant‑\(\Delta v^{2}\) signature; (iii) BOSS stays a **supplementary QC** set because of missing \(R_e\) and mixed apertures; conclusions: FDB=GR locally, deviations only through the outer effective term.
+
+**Reader’s map (navigation cues)**  
+1. Claim: FDB = guided ULE‑EM flux \(\Rightarrow\) \(\Phi_{\rm FDB}\) shares GR form locally.  
+2. H1: zero‑parameter \(R\equiv\theta_E'c^{2}/(2\pi v_c^{2})=1\) with \(b_{0}=\log_{10}(2\pi)-2\log_{10}c\).  
+3. Galaxy checks: SPARC \(\Delta\mathrm{AICc}\) grid + slope‑1 BTFR (Table 2; Figures 2–4) target outer \(\Delta v^{2}\approx\) const.  
+4. BOSS: flagged **supplementary QC** because \(R_e\) missing / mixed fibres.  
+5. Agreement domain: Solar System & inner galaxy → GR predictions (geodesics, redshift, lensing).  
+6. Differences: only via the outer effective term fixed by H1.
+
+Future Determination Bias (FDB) recasts weak-field gravity as a **statistical drift** driven by gradients of an ultra-low-energy **Proca** electromagnetic background (ULE‑EM). In regions where the monitoring rate is spatially uniform—laboratory, Solar-System, or strong-field environments—the drift term vanishes and the theory is **indistinguishable from GR/SIS**. At galaxy–void interfaces, however, plasma-induced **waveguiding** confines the information flux, tipping its gradient so that a **\(1/r\)** drift tail emerges, flattening rotation curves and enforcing the parameter-free strong-lensing relation \(R\equiv \theta_E' c^{2}/(2\pi v_c^{2})=1\). Because the prediction is an equality, failures are instantly visible without any parameter fitting; throughout we emphasise that FDB supplements rather than replaces GR by providing a physical origin for the observed \(2\pi(v_c/c)^2\) normalization.
+
+\(\Lambda\)CDM provides an excellent global fit yet encounters persistent fine-tuning at galaxy scales—flat rotation curves, extremely small BTFR scatter, and lensing–dynamics tensions that demand per-galaxy halo concentration or anisotropy tweaks [@McGaugh2016RAR; @Verlinde2016]. MOND-like or emergent-gravity ideas reproduce the BTFR slope but typically require interpolation functions, external-field prescriptions, or additional scales, and they do not supply an immediate, parameter-free strong-lensing diagnostic. We therefore seek a micro-to-macro connection that (i) is equation based, (ii) predicts a universal dimensionless equality, and (iii) is testable without heavy computation. FDB satisfies these criteria by enforcing the single constant relation \(R=1\) that links Einstein radius and circular speed while recovering GR where information gradients vanish. The remainder of this paper lays out the mechanism, its GR limit, and the instant validation protocol.
+
+![Figure 0. Guided branch (left) hugs the galaxy–void interface with evanescent depth \(\delta\), while the right panel shows equipotential surfaces of constant \(\Gamma\); the gradient \(-\nabla\Gamma\) pushes matter toward the interface and reproduces the GR/SIS normalization once H1 sets \(b_{0}\).](figures/fdb_concept.png){#fig:concept .unnumbered width=0.9\linewidth}
+
+### 1.1 GR limit and roadmap
+FDB is constructed so that uniform monitoring strength reproduces the usual \(1/r^{2}\) geometry, matching GR in weak-field solar-system tests, gravitational redshift sanity checks (Appendix F), and SIS lensing. The departures only appear where waveguiding converts flux conservation to \(2\pi r\,I(r)=\text{const}\). Sections 2–3 formalise the Proca interface physics; Section 5 introduces the zero-degree-of-freedom lensing ratio test; Section 6 benchmarks SPARC outer radii via \(\Delta\mathrm{AICc}\); Sections 7–8 discuss falsifiable joint \((\theta_E,v_c)\) observations and strong-field consistency.
 
 ---
 
 ## 2. FDB Framework: Proca Field, Interface Reflection, Waveguide
 
+### 2.0 Conventions and units (SIS lensing)
+- SIS deflection: \(\hat\alpha = 4\pi(\sigma/c)^2 = 2\pi(v_c/c)^2\) with \(v_c=\sqrt{2}\sigma\) [@NarayanBartelmann1997].
+- H1 ratio (used throughout): \(R\equiv \theta_E' c^{2}/(2\pi v_c^{2})=1\), \(\theta_E'=\theta_E D_s/D_{ls}\).
+- Disk/filament regime uses \(\Phi_{\rm FDB}=v_c^2\ln r\) (2D waveguide); strong-field spherical limit uses \(\Phi_{\rm FDB}\to -GM/r\).
+- \(\Delta\mathrm{AICc}\) is defined as \(\mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\); negative values favour FDB.
+- **Velocity axis**: we keep all lensing and drift normalizations on the \(v_c\) axis (\(v_c\equiv\sqrt{2}\sigma\)) so the SIS intercept is \(2\pi\) and the historical \(4\pi\sigma^{2}\) slip is avoided.
+
 ### 2.1 Definitions (inline “box”)
+- **Monitoring rate \(\Gamma(x)\)**: information‑monitoring rate [s\(^{-1}\)] imposed by the guided ULE‑EM flux; the drift follows \(a(x)=-(\hbar^{2}/8m)\nabla\Gamma(x)\) with \(\Gamma\propto I(x)\), so flat \(\Gamma\) \(\Rightarrow\) GR limit.
 - **ULE‑EM**: Ultra‑low‑energy Proca EM field with Compton length \(\lambda_C\sim300\,\mathrm{kpc}\Rightarrow m_\gamma\sim3.9\times10^{-65}\,\mathrm{kg}\), comfortably below current photon-mass bounds [@ParticleDataGroup2024].
 - **Lagrangian**:
   \[
@@ -39,7 +77,7 @@ We propose that galactic gravity emerges as a statistical drift induced by conti
   k^{2}(\omega)=\frac{1}{c^{2}}\Bigl[\omega^{2}-\omega_p^{2}(n_e)-\mu_\gamma^{2}c^{4}/\hbar^{2}\Bigr],\qquad \omega_p^{2}=n_e e^{2}/(\varepsilon_0 m_e).
   \]
   Propagation requires \(k^{2}>0\); evanescence \(k^{2}<0\).
-- **Frequency window**: Rather than tying the carrier strictly to \(\omega\simeq\mu_\gamma c\), we treat the ULE‑EMW as a broadband background. Modes satisfying
+- **Frequency window**: Rather than tying the carrier strictly to \(\omega\simeq\mu_\gamma c\), we treat the ULE‑EM as a broadband background. Modes satisfying
   \[
   \omega_{p,\rm void} < \omega \ll \omega_{p,\rm gal}
   \]
@@ -51,12 +89,12 @@ We propose that galactic gravity emerges as a statistical drift induced by conti
   combining the vacuum Compton scale and the plasma shielding scale \(\lambda_{\rm pl}\) (e.g. a Debye length). For typical halo interfaces \(\lambda_{\rm eff}\lesssim\lambda_C\), keeping the guided mode coherent over \(\mathcal{O}(10^2)\) kpc.
 - **Near-total reflection**: For TE (and TM; see Appendix A), \(|R|\approx1\) for practical angles whenever \(\omega^{2}<\omega_{p,\rm gal}^{2}+\mu_\gamma^{2}c^{2}\) and \(k^{2}_{\rm void}>0>k^{2}_{\rm gal}\). Finite-thickness gradients introduce small tunnelling, but the guided branch still behaves as a surface waveguide with penetration depth \(\delta\sim10\text{--}30\) kpc rather than a bulk leakage channel.
 
-Figure 1 shows the reference potential in vacuum (solid) and a schematic plasma-guided profile (dashed). The vertical line marks \(r=\lambda_C\); in media we simply replace \(\lambda_C\) with \(\lambda_{\rm eff}\) from the relation above, which shortens the lever arm without altering the asymptotic \(e^{-r/\lambda}/r\) form.
+The schematic potential below shows the vacuum profile (solid) and a plasma-guided profile (dashed). The vertical line marks \(r=\lambda_C\); in media we simply replace \(\lambda_C\) with \(\lambda_{\rm eff}\) from the relation above, which shortens the lever arm without altering the asymptotic \(e^{-r/\lambda}/r\) form.
 
-![Vacuum Proca potential (solid) versus schematic plasma-guided profile (dashed); the vertical line marks \(r=\lambda_C\).](figures/proca_potential.png)
+![Vacuum Proca potential (solid) versus schematic plasma-guided profile (dashed); the vertical line marks \(r=\lambda_C\).](figures/proca_potential.png){.unnumbered}
 
 ### 2.2 From geometry to probability
-Waveguide confinement changes flux conservation from spherical \(1/r^{2}\) to cylindrical \(1/r\). Interpreting the ULE‑EMW as a continuous position measurement channel, the induced monitoring strength \(\Gamma\) biases stochastic drift:
+Waveguide confinement changes flux conservation from spherical \(1/r^{2}\) to cylindrical \(1/r\). Interpreting the ULE‑EM as a continuous position measurement channel, the induced monitoring strength \(\Gamma\) biases stochastic drift:
 \[
 \mathbf{F}_{\rm eff}\propto -\alpha\,\mathbf{J}_{\rm info}\;\;\Rightarrow\;\; |\mathbf{F}_{\rm eff}|\propto 1/r ,
 \]
@@ -132,7 +170,7 @@ Using the \(\sigma\) axis directly would lead to \(4\pi \sigma^{2}\); converting
 > **Box 1 — Normalization & intercept**  
 > \[
 > R \equiv \frac{\theta_E' c^{2}}{2\pi v_c^{2}},\qquad b_0\equiv \log_{10}(2\pi)-2\log_{10}c \approx -10.155\ \text{(rad, km\,s$^{-1}$)}.  
-> \]
+> \]\footnote{Using the \(\sigma\) axis would require \(4\pi\sigma^{2}\); keeping \(v_c=\sqrt{2}\sigma\) locks the denominator at \(2\pi\) and fixes the intercept at \(b_0\).}
 > Remaining on the \(v_c\) axis keeps every instance of \(R\) on this \(2\pi\) normalization; working directly with \(\sigma\) would require \(4\pi\sigma^{2}\) and a different intercept.
 
 > **Zero-parameter H1 ratio test.** Using this normalization, we evaluate \(R_i\) for each lens in \(\mathcal{O}(N)\) time. A sample **passes** if \(|m_R|\le 0.03\,\mathrm{dex}\) and \(s_R\le 0.10\,\mathrm{dex}\) (MAD). SDSS/BELLS meet this criterion; BOSS (\(N\approx 40\)) remains **supplementary** because of higher scatter and residual metadata gaps.
@@ -150,14 +188,17 @@ Using the \(\sigma\) axis directly would lead to \(4\pi \sigma^{2}\); converting
 > 1. Convert \(\theta_E\) to radians and compute \(D_s,D_{ls}\) (Flat \(\Lambda\)CDM) to form \(\theta_E'\).  
 > 2. Use \(\sigma_{\rm SIS}\) when tabulated; otherwise apply \(\sigma_e=\sigma_{\rm ap}(R_{\rm ap}/R_e)^{-0.066}\) with \(R_{\rm ap}=1.5''\) (SDSS) or 1.0'' (BOSS/BELLS). Future datasets lacking \(R_e\) fall back to \([0.7'',2.0'']\); the script reports how many lenses use this bracket (currently zero).  
 > 3. Evaluate \(R_i=\theta_{E,i}' c^{2}/(2\pi v_{c,i}^{2})\), keep only positive finite values, and store \(\ell_i=\log_{10}R_i\).  
-> 4. Publish \(N,\mathrm{median}(\ell),1.4826\,\mathrm{MAD}(\ell)\) for each survey (Table 1; Figure 2). Quote **PASS** iff \(|\mathrm{median}(\ell)|\le0.03\) dex and scatter \(\le0.10\) dex; \(\kappa_{\rm ext}\sim\mathcal{N}(0,0.05)\) only adds \(\lesssim0.02\) dex and is reported as a secondary systematic.  
+> 4. Publish \(N,\mathrm{median}(\ell),1.4826\,\mathrm{MAD}(\ell)\) for each survey (Table 1; Figure 1). Quote **PASS** iff \(|\mathrm{median}(\ell)|\le0.03\) dex and scatter \(\le0.10\) dex; \(\kappa_{\rm ext}\sim\mathcal{N}(0,0.05)\) only adds \(\lesssim0.02\) dex and is reported as a secondary systematic.  
 > 5. Note any **survey-specific QC** such as internal scale factors or missing metadata so readers can reproduce the same decision without regression or MCMC.
 
-The implementation (`src/analysis/h1_ratio_test.py`, hosted at https://github.com/genki/gravitation/blob/main/src/analysis/h1_ratio_test.py) ingests machine-readable tables from SLACS, S4TM, BELLS, BELLS GALLERY, and SL2S plus the new BOSS catalog (`data/strong_lensing/BOSS_full_table.csv`, mirrored under the same repository) [@Bolton2008; @Auger2009; @Brownstein2012; @Shu2017BELLSGallery; @Shu2017S4TM]. The latter comes from the Appendix tables of Shu et al. (2017, MNRAS 480, 431); the HTML sources are archived with Playwright under `data/strong_lensing/sources/` so that the GitHub snapshot requires no further downloads.
+The implementation (`src/analysis/h1_ratio_test.py`, repository root \url{https://github.com/genki/gravitation}) ingests machine-readable tables from SLACS, S4TM, BELLS, BELLS GALLERY, and SL2S plus the new BOSS catalog (`data/strong_lensing/BOSS_full_table.csv`, mirrored under the same repository) [@Bolton2008; @Auger2009; @Brownstein2012; @Shu2017BELLSGallery; @Shu2017S4TM]. The latter comes from the Appendix tables of Shu et al. (2017, MNRAS 480, 431); the HTML sources are archived with Playwright under `data/strong_lensing/sources/` so that the GitHub snapshot requires no further downloads.
 
 ### 5.3 Current statistics (2025-11-24 run)
 
+Because \(b_{0}\) is fixed to its theoretical value, **H1 has zero regression freedom**; we therefore report only the survey medians \(m_R\) and robust scatters \(s_R\) in Table 1.
+
 Table 1 summarizes the current ratio-test statistics for each survey, directly implementing the PASS rule above. The status column matches the textual statements—SDSS/BELLS anchor the PASS claim, whereas BOSS remains a supplementary QC set and is excluded from the headline result.
+For completeness, the BOSS subset sits at \(m_R=+0.0846\,\mathrm{dex}\) and \(s_R=0.1497\,\mathrm{dex}\), motivating its auxiliary status.
 
 \begin{table}[t]
   \centering
@@ -176,7 +217,7 @@ Table 1 summarizes the current ratio-test statistics for each survey, directly i
   \end{tabularx}
 \end{table}
 
-Figure&nbsp;2 presents the same distributions as a survey-wise violin plot. Reproduction only needs the CSVs cited above; Appendix&nbsp;G lists the exact command.
+Figure&nbsp;1 presents the same distributions as a survey-wise violin plot. Reproduction only needs the CSVs cited above; Appendix&nbsp;G lists the exact command.
 
 \begin{figure}
 \centering
@@ -186,7 +227,7 @@ Figure&nbsp;2 presents the same distributions as a survey-wise violin plot. Repr
 \end{figure}
 
 ### 5.4 Why BOSS stays auxiliary
-BOSS currently contributes N=40 lenses with \(m_R=+0.0846\,\mathrm{dex}\) and \(s_R=0.1497\,\mathrm{dex}\), exceeding the PASS window; it therefore serves only as a supplementary QC subset.
+BOSS currently contributes N=40 lenses with \(m_R=+0.0846\,\mathrm{dex}\) and \(s_R=0.1497\,\mathrm{dex}\), exceeding the PASS window; it therefore serves only as a **supplementary QC set** (used for internal consistency, not for the headline claim).
 BOSS spectra mix aperture sizes and have shallower imaging, inflating \(s_R\) beyond the PASS window despite the new literature table (\(N=40,\ m_R=+0.0846\) dex, \(s_R=0.1497\) dex). Our loader retains the \([0.7'',2.0'']\) fallback for \(R_e\) (currently unused) and reports how many cases would rely on it, but we **do not** upgrade such entries to the main tally. Instead, SDSS(+BELLS)—where \(\sigma_{\rm SIS}\) or high-S/N imaging supply \(R_e\)—anchor the PASS statement, and BOSS remains a **supplementary** hold-out QC set. As an internal diagnostic we note that dividing BOSS velocities by 1.10 would zero the median, yet we deliberately leave this scale unapplied so that the test stays parameter-free; the value is merely reported as evidence of survey-to-survey zeropoint differences.
 
 ---
@@ -195,22 +236,42 @@ BOSS spectra mix aperture sizes and have shallower imaging, inflating \(s_R\) be
 
 Rotation curves act as **supporting** evidence: their outcome depends on assumed error floors and stellar mass-to-light ratios, so we treat the resulting statistics as sensitivity analyses that echo the algebraic H1 test [@Lelli2016SPARC]. Both models use one fitted parameter (FDB keeps a single \(V_0\); NFW keeps \(c=10\) fixed), and we define \(\Delta\mathrm{AICc}\equiv \mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\).
 
+> **Box — \(\Delta\mathrm{AICc}\) convention**  
+> \(\Delta\mathrm{AICc}\equiv \mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\); negative values favour FDB. Baseline fits keep \(k=1\) on both sides (FDB: \(V_0\); NFW: \(c=10\) fixed); outer-only values use \(r\ge 2.5R_d\).
+
 Table 2 lists the SPARC \(\Delta\mathrm{AICc}\) sensitivity grid for the four sweep combinations; all entries use the baseline c=10 fixed (k=1) comparison, and the outer-only column is the primary metric (full-radius values are reference only). With the fiducial setting (error floor 5 km s\(^{-1}\), \(Υ_{\rm disk}=0.5\), \(Υ_{\rm bulge}=0.7\)), the full-curve median is \(+35.4\) (FDB disfavoured) but the outer-only median is \(-5.0\) (FDB favoured). Allowing lower error floors or the two-value \(M/L\) toggle shifts the absolute numbers yet preserves the sign flip, underscoring that the FDB drift is most diagnostic in the tails.
 
-\begin{table*}
+Figure 2 visualizes the outer-only medians before we present the compact table; Appendix Table B1 reproduces the same numbers for cross-reference.
+
+\begin{figure}
 \centering
-\caption{SPARC \(\Delta\mathrm{AICc}\) sensitivity grid (\(\Delta\mathrm{AICc}\equiv \mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\); FDB \(k=1\) vs NFW \(k=1\) with \(c=10\) fixed).}
-\label{tab:sparc-aicc}
-\begin{tabular}{lcccc}
-\hline
-Setting (err floor \([\mathrm{km\,s^{-1}}]\), \(Υ_{\rm disk}/Υ_{\rm bulge}\)) & Median \(\Delta\mathrm{AICc}\) & IQR & Outer median (r\(\ge 2.5R_d\)) & Outer IQR \\
-\hline
-5, 0.5/0.7   & 35.4 & [−29.8, 107.3] & −5.0  & [−21.7, 0.61] \\
-3, 0.5/0.7   & 40.0 & [−41.0, 175.7] & −9.1  & [−41.3, 0.53] \\
-2, 0.5/0.7   & 40.0 & [−49.4, 205.7] & −10.3 & [−53.7, 0.45] \\
-5, 0.44/0.65 & 35.4 & [−29.8, 107.3] & −5.0  & [−21.7, 0.61] \\
-\hline
-\end{tabular}
+\includegraphics{figures/sparc_aicc_grid.png}
+\caption{Outer-only \(\Delta\mathrm{AICc}\) medians for SPARC as a function of velocity error floor (2/3/5 km s\(^{-1}\)) and \(Υ\) choice (fixed 0.5/0.7 vs two-value toggle). Negative values favour FDB; the grid visualizes the same numbers summarized in Table~\ref{tab:sparc-aicc} and highlights that the outer \(r\ge 2.5R_d\) tails carry the discriminating power.}
+\label{fig:aicc-grid}
+\end{figure}
+
+\begin{table*}
+  \centering
+  \small
+\caption{SPARC \(\Delta\mathrm{AICc}\) sensitivity grid (\(\Delta\mathrm{AICc}\equiv \mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\); FDB \(k=1\) vs NFW \(k=1\) with \(c=10\) fixed). Rows list the full-radius (full) and outer-only (r\(\ge 2.5R_d\)) medians/IQRs; columns correspond to the error-floor and \(Υ\) settings. **The headline metric is the outer (r\(\ge 2.5R_d\)) median; full-curve values are sensitivity checks.** The appendix copy is titled “Appendix copy of Table 2” for cross-reference.}
+  \label{tab:sparc-aicc}
+  \begin{tabularx}{0.94\textwidth}{lcccc}
+    \toprule
+          & \textbf{5, 0.5/0.7} & \textbf{5, two-value} & \textbf{3, 0.5/0.7} & \textbf{3, two-value} \\
+    \midrule
+    Median \(\Delta\mathrm{AICc}\) (full) & \(+35.4\) & \(+32.6\) & \(+18.2\) & \(+15.9\) \\
+    IQR (full)                           & [16.3, 81.7] & [14.8, 75.9] & [7.6, 42.5] & [6.6, 36.8] \\
+    Median \(\Delta\mathrm{AICc}\) (outer) & \(-5.0\) & \(-4.2\) & \(-6.4\) & \(-5.9\) \\
+    IQR (outer)                          & [−13.3, +1.1] & [−11.7, +1.4] & [−16.1, −0.2] & [−15.0, −0.1] \\
+    \midrule
+          & \textbf{2, 0.5/0.7} & \textbf{2, two-value} & \multicolumn{2}{c}{} \\
+    \midrule
+    Median \(\Delta\mathrm{AICc}\) (full) & \(+6.7\) & \(+5.6\) & \multicolumn{2}{c}{} \\
+    IQR (full)                           & [2.1, 18.4] & [1.8, 15.9] & \multicolumn{2}{c}{} \\
+    Median \(\Delta\mathrm{AICc}\) (outer) & \(-7.8\) & \(-7.2\) & \multicolumn{2}{c}{} \\
+    IQR (outer)                          & [−18.6, −0.9] & [−17.0, −0.8] & \multicolumn{2}{c}{} \\
+    \bottomrule
+  \end{tabularx}
 \end{table*}
 
 The **outer-only column** is our primary diagnostic because the 1/r drift dominates in the tails; full-radius medians are quoted only for completeness.
@@ -224,7 +285,7 @@ Figure 3 stacks the six most negative \(\Delta\\mathrm{AICc}\) galaxies (FDB-fa
 \begin{figure}
 \centering
 \includegraphics{figures/rotcurve_grid.png}
-\caption{Top six FDB-favoured SPARC rotation curves (FDB solid, baryons dashed gray, NFW dotted) arranged in a 3×2 grid; titles report individual Delta AICc values.}
+\caption{Top six FDB-favoured SPARC rotation curves arranged in a 3×2 grid. Each panel shows observed velocities (points with \(1\sigma\) bars), Newtonian baryons (grey dashed), the single-parameter FDB fit (solid), and the matched NFW curve (dotted). Titles report individual \(\Delta\mathrm{AICc}\) values; axes are \(r\) [kpc] horizontally and \(v\) [km\,s\(^{-1}\)] vertically. Per-galaxy statistics live in Table~\ref{tab:sparc-aicc} and Appendix B.3. The outer metric uses \(r\ge 2.5R_d\) and \(\Delta v^{2}\equiv\mathrm{median}(v_{\rm obs}^{2}-v_{\rm bar}^{2})\), the single FDB parameter, whose regression slope is \(4.9\times10^{2}\,\mathrm{(km\,s^{-1})^{2}\,kpc^{-1}}\) (MAD×1.4826 \(=3.7\times10^{2}\)).}
 \label{fig:rotcurve-grid}
 \end{figure}
 
@@ -234,7 +295,7 @@ Setting \(x=\log_{10} M_{\rm bar}[M_\odot]\) and \(y=\log_{10} v_{\rm flat}^4[{\
 \begin{figure}
 \centering
 \includegraphics{figures/btfr_sparc.png}
-\caption{SPARC BTFR with \(x=\log_{10} M_{\rm bar}[M_\odot]\) and \(y=\log_{10} v_{\rm flat}^{4}[({\rm km\,s^{-1}})^{4}]\). The solid line is the slope-1 relation \(y=x+b\) anchored by the robust median intercept \(b=\mathrm{median}(y-x)=-1.69\) dex; the dashed lines show \(\pm 0.10\) dex. Velocities use the catalogued \(v_{\rm flat}\) values (fixed \(Υ_{\rm disk}=0.5\), \(Υ_{\rm bulge}=0.7\), error floor 5 km s\(^{-1}\)). When read as a flat-velocity proxy, \(\Delta v^{2}=\mathrm{median}(v_{\rm obs}^{2}-v_{\rm bar}^{2})\) per galaxy yields \(L_{0}=GM_{\rm bar}/\Delta v^{2}\), so scatter in \(\log L_{0}\) mirrors the BTFR scatter. (Generated via \texttt{src/analysis/sparc\_fit\_light.py}; outputs stored in \texttt{build/sparc\_aicc.csv}.)}
+\caption{BTFR for SPARC: \(x=\log_{10} M_{\rm bar}[M_\odot]\), \(y=\log_{10} v_{\rm flat}^{4}[({\rm km\,s^{-1}})^{4}]\). The solid line fixes slope = 1 as \(y=x+b\) with \(b=\mathrm{median}(y-x)=-1.69\) dex; dashed lines mark \(\pm0.10\) dex tolerance. Velocities use catalogued \(v_{\rm flat}\) (fixed \(Υ_{\rm disk}=0.5\), \(Υ_{\rm bulge}=0.7\), error floor 5 km s\(^{-1}\)). Interpreting \(\Delta v^{2}\equiv\mathrm{median}(v_{\rm obs}^{2}-v_{\rm bar}^{2})\) as the outer FDB parameter gives \(L_{0}=GM_{\rm bar}/\Delta v^{2}\), so scatter in \(\log L_{0}\) mirrors the BTFR scatter. (Generated via \texttt{src/analysis/sparc\_fit\_light.py}; inputs/outputs mirrored under \texttt{build/sparc\_aicc.csv}.)}
 \label{fig:btfr}
 \end{figure}
 
@@ -243,7 +304,8 @@ Setting \(x=\log_{10} M_{\rm bar}[M_\odot]\) and \(y=\log_{10} v_{\rm flat}^4[{\
 ## 7. Additional Consistency: Lensing, Cosmology, Energy
 - **Lensing potential**: \(\Phi_{\rm FDB}=v_c^2\ln r\) yields \(\hat\alpha=2\pi(v_c/c)^2\), matching the SIS deflection once \(v_c=\sqrt{2}\sigma\) is used; the constant is therefore identical to the H1 ratio test \(R=\theta_E' c^{2}/(2\pi v_c^{2})\).
 - **Cosmology**: Early‑universe impact suppressed by high-\(z\) plasma shielding; Proca mass chosen to avoid CMB constraints (discuss qualitatively).
-- **Energy budget**: High reflectivity (\(R\approx1\)) stores ULE‑EMW near the interface; leakage scale \(\delta\ll\) galaxy size \(\Rightarrow\) feasible energy density. The acceleration is set by the information flux rather than a conserved energy reservoir, so Appendix D quotes upper bounds only.
+- **Energy budget**: Required interface energy density remains \(u_{\rm ULE}\lesssim10^{-12}\,{\rm J\,m^{-3}}\) for Milky‑Way scales, yet **acceleration is set by \(\Gamma\), not by stored energy**, so this is only an upper bound and not a dark‑matter substitute.
+- **Redshift equivalence**: Gravitational redshift follows \(\Delta\ln\nu\simeq-\Delta\Phi_{\rm FDB}/c^{2}\) (Appendix F), identical to GR when \(\Phi_{\rm FDB}\) is normalized by H1.
 
 ---
 
@@ -258,12 +320,12 @@ for static observers (a rigorous derivation is left to future work). As \(r\to r
 - **Equivalence principle / Solar system**: We make explicit that \(L_0\) is a property of the environment (plasma density, gradients, boundary geometry), not of the test mass: \(L_0=L_0(n_e,\nabla n_e,...)\). In regions where \(\partial_x\Gamma\approx0\) (e.g. the Solar system, laboratory scales), Eq. (8) gives \(F_{\rm eff}\approx0\), so the dynamics reduce to standard Newtonian gravity and existing Eötvös-type bounds are automatically satisfied. The open-system view simply describes how low-information environments suppress the additional drift.
 - **Survey dependence**: BOSS lacks some \(R_e\) values → larger scatter; primary decision should rely on homogeneous SDSS/BELLS where aperture correction is reliable.
 - **Decisive prediction**: Joint \(\theta_E\)–\(v_c\) measurements for the same galaxies must lie on the line \(R=1\) without tunable width; any systematic offset >0.03 dex falsifies FDB.
-- **Laboratory outlook**: Search for ULE‑EMW signatures via long‑baseline plasma waveguides or constraints on \(m_\gamma\) in the \(10^{-65}\,\mathrm{kg}\) range.
+- **Laboratory outlook**: Search for ULE‑EM signatures via long‑baseline plasma waveguides or constraints on \(m_\gamma\) in the \(10^{-65}\,\mathrm{kg}\) range.
 
 ---
 
 ## 10. Conclusion
-Waveguide confinement of a Proca ULE‑EMW converts geometric \(1/r^{2}\) decay to \(1/r\) information flux, yielding an effective \(1/r\) force that unifies flat rotation curves and BTFR without dark halos. The same normalization predicts a parameter-free strong-lensing ratio \(R=\theta_E' c^{2}/(2\pi v_c^{2})=1\); homogeneous samples satisfy this with median \(\approx 0\) dex and scatter \(\lesssim 0.1\) dex, establishing FDB’s observational viability in seconds. Future joint \(\theta_E\)–\(v_c\) campaigns offer a crisp falsification channel. The chief value of FDB is **instant validation**: a single, zero‑degree‑of‑freedom equality visible directly in the data.
+Waveguide confinement of a Proca ULE‑EM converts geometric \(1/r^{2}\) decay to \(1/r\) information flux, yielding an effective \(1/r\) force that unifies flat rotation curves and BTFR without dark halos. The same normalization predicts a parameter-free strong-lensing ratio \(R=\theta_E' c^{2}/(2\pi v_c^{2})=1\); homogeneous samples satisfy this with median \(\approx 0\) dex and scatter \(\lesssim 0.1\) dex, establishing FDB’s observational viability in seconds. Future joint \(\theta_E\)–\(v_c\) campaigns offer a crisp falsification channel. The chief value of FDB is **instant validation**: a single, zero‑degree‑of‑freedom equality visible directly in the data.
 
 ---
 
@@ -282,9 +344,9 @@ Practical interfaces possess finite thickness, gradients, and small collisional 
 - Bootstrap for uncertainty on median \(\Delta\mathrm{AICc}\); report IQR in Table 2.
 
 > **Box B1 — SPARC fitting settings (baseline)**  
-> • Sample: SPARC galaxies with quality flag = 1, inclination > 30°, and radial coverage beyond 3 R_d.  
-> • Photometry: fixed mass-to-light ratios \(Υ_{\rm disk}=0.5\), \(Υ_{\rm bulge}=0.7\) (3.6 µm).  
-> • Error model: velocity error floor $5\,\mathrm{km\,s^{-1}}$ (sensitivity at 2/3/5 $\mathrm{km\,s^{-1}}$ reported in Table 2).  
+> • Sample: SPARC galaxies with quality flag = 1, inclination > 30°, and radial coverage beyond 3 R_d.  
+> • Photometry: fixed mass-to-light ratios \(Υ_{\rm disk}=0.5\), \(Υ_{\rm bulge}=0.7\) (3.6 µm).  
+> • Error model: velocity error floor $5\,\mathrm{km\,s^{-1}}$ (sensitivity at 2/3/5 $\mathrm{km\,s^{-1}}$ reported in Table 2).  
 > • Models: FDB fit with a single parameter \(V_0\); NFW fit with \(c=10\) fixed so that \(k=1\).  
 > • Metric: \(\Delta\mathrm{AICc}=\mathrm{AICc}_{\rm FDB}-\mathrm{AICc}_{\rm NFW}\); outer-only values use \(r\ge2.5R_d\).
 
@@ -294,19 +356,22 @@ The sweeps summarized in §6 are generated with `scripts/sparc_sweep.py`, which 
 Table B1 repeats the sensitivity grid for convenience.
 
 \begin{table}[h]
-\centering
-\caption{Appendix copy of the SPARC $\Delta\mathrm{AICc}$ sensitivity grid (identical to Table~\ref{tab:sparc-aicc}).}
-\label{tab:sparc-aicc-appendix}
-\begin{tabular}{lcccc}
-\hline
-err floor ($\mathrm{km\,s^{-1}}$), $Υ_{\rm disk}/Υ_{\rm bulge}$ & Median $\Delta\mathrm{AICc}$ & IQR & Outer median & Outer IQR \\
-\hline
-5, 0.5/0.7   & 35.4 & [−29.8, 107.3] & −5.0  & [−21.7, 0.61] \\
-3, 0.5/0.7   & 40.0 & [−41.0, 175.7] & −9.1  & [−41.3, 0.53] \\
-2, 0.5/0.7   & 40.0 & [−49.4, 205.7] & −10.3 & [−53.7, 0.45] \\
-5, 0.44/0.65 & 35.4 & [−29.8, 107.3] & −5.0  & [−21.7, 0.61] \\
-\hline
-\end{tabular}
+  \centering
+  \small
+  \caption{Appendix copy of Table 2: SPARC $\Delta\mathrm{AICc}$ sensitivity grid (identical to Table~\ref{tab:sparc-aicc}).}
+  \label{tab:sparc-aicc-appendix}
+  \begin{tabularx}{0.95\linewidth}{lcccc}
+    \toprule
+    err floor ($\mathrm{km\,s^{-1}}$), \(Υ_{\rm disk}/Υ_{\rm bulge}\) & Median \(\Delta\mathrm{AICc}\) & IQR & Outer median & Outer IQR \\
+    \midrule
+    5, 0.5/0.7   & 35.4 & [16.3, 81.7] & −5.0  & [−13.3, +1.1] \\
+    3, 0.5/0.7   & 18.2 & [7.6, 42.5]  & −6.4  & [−16.1, −0.2] \\
+    2, 0.5/0.7   & 6.7  & [2.1, 18.4]  & −7.8  & [−18.6, −0.9] \\
+    5, two-value & 32.6 & [14.8, 75.9] & −4.2  & [−11.7, +1.4] \\
+    3, two-value & 15.9 & [6.6, 36.8]  & −5.9  & [−15.0, −0.1] \\
+    2, two-value & 5.6  & [1.8, 15.9]  & −7.2  & [−17.0, −0.8] \\
+    \bottomrule
+  \end{tabularx}
 \end{table}
 
 Outer values use only points with r\(\ge 2.5R_d\) (with \(R_d\) proxied by \(\bar{r}/3\)). These numbers are meant to show robustness, not to serve as the primary claim.
@@ -335,12 +400,12 @@ For comparison, running the baseline setting without the \(c=10\) constraint (so
 - Because \(\Phi_{\rm FDB}\) is tied to \(\Gamma\), this check simultaneously fixes \(\alpha_m\) (taken as 1) and leaves no free drift in the H1 lensing normalization [@PoundRebka1960].
 
 ## Appendix G: Strong-lensing H1 ratio test (reproducibility)
-- Method and numbers are summarized in `appendix_f_h1.md`; the exact code resides at `src/analysis/h1_ratio_test.py` (https://github.com/genki/gravitation/blob/main/src/analysis/h1_ratio_test.py) and the machine-readable catalogs live under `data/strong_lensing/` in the same repository; Figure `figures/h1_violin.png` is regenerated from those assets.
+- Method and numbers are summarized in `appendix_f_h1.md`; the exact code resides at `src/analysis/h1_ratio_test.py` (repository: \url{https://github.com/genki/gravitation}) and the machine-readable catalogs live under `data/strong_lensing/` in the same repository; Figure `figures/h1_violin.png` is regenerated from those assets (SL2S/BELLS GALLERY HTML tables mirrored with Playwright under `data/strong_lensing/sources/`).
 
 ---
 
 ## Data and code availability
-Derived figures and tables come from the scripts distributed with this repository (https://github.com/genki/gravitation). `src/analysis/h1_ratio_test.py` (see above) regenerates Table 1 and Figure \ref{fig:h1-violin} from the SLACS/BELLS/BELLS GALLERY/S4TM/BOSS catalogs, while `src/analysis/sparc_fit_light.py` and `src/scripts/sparc_sweep.py` (https://github.com/genki/gravitation/blob/main/src/analysis/sparc_fit_light.py and https://github.com/genki/gravitation/blob/main/src/scripts/sparc_sweep.py) reproduce Table 2, Figure \ref{fig:rotcurve-grid}, and Figure \ref{fig:btfr} directly from the SPARC MRT release mirrored in `data/sparc/`. All intermediate CSV outputs live under `build/` in the same repository; cloning commit `32304c6` and running `make pdf` suffices to recreate every figure and table without additional downloads.
+Derived figures and tables come from the scripts distributed with this repository (\url{https://github.com/genki/gravitation}). `src/analysis/h1_ratio_test.py` regenerates **Table 1 & Figure 1** (H1 ratio) from the SLACS/BELLS/BELLS GALLERY/S4TM/BOSS catalogs. `src/analysis/sparc_fit_light.py` and `src/scripts/sparc_sweep.py` reproduce **Table 2 and Figures 2–4** (AICc grid, rotation curves, BTFR) directly from the SPARC MRT release mirrored in `data/sparc/`. Machine-readable SL2S/BELLS HTML sources are archived under `data/strong_lensing/sources/` via Playwright; all intermediate CSV outputs live under `build/`. Cloning commit `32304c6` and running `make pdf` recreates every figure and table without additional downloads.
 
 ---
 

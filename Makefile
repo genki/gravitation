@@ -11,7 +11,7 @@ PANDOC_OPTS=--standalone --from=markdown+tex_math_single_backslash+raw_tex --to=
 	--bibliography=refs.bib
 PANDOC_OPTS_JA=$(PANDOC_OPTS) -V mainfont="Noto Sans CJK JP"
 
-.PHONY: all pdf pdf-ja tex clean
+.PHONY: all pdf pdf-ja tex clean refresh
 
 all: pdf pdf-ja
 
@@ -19,13 +19,15 @@ $(OUT):
 	mkdir -p $(OUT)
 
 pdf: $(OUT) $(SRC)
-	pandoc $(SRC) $(PANDOC_OPTS) -o $(OUT)/main.pdf
+	pandoc $(SRC) $(PANDOC_OPTS) -o $(OUT)/main.pdf 2>&1 | tee $(OUT)/main.log
 
 pdf-ja: $(OUT) $(SRC_JA)
-	pandoc $(SRC_JA) $(PANDOC_OPTS_JA) -o $(OUT)/main.ja.pdf
+	pandoc $(SRC_JA) $(PANDOC_OPTS_JA) -o $(OUT)/main.ja.pdf 2>&1 | tee $(OUT)/main.ja.log
 
 tex: $(OUT) $(SRC)
 	pandoc $(SRC) $(PANDOC_OPTS) -o $(OUT)/main.tex
 
 clean:
 	rm -rf $(OUT)
+
+refresh: clean all

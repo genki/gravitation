@@ -1,0 +1,140 @@
+{
+  "lambdaC_kpc_galaxies": {
+    "ddo170": {
+      "lambdaC_kpc_median": 3.6462005324264815,
+      "n_points": 1
+    },
+    "eso116-g012": {
+      "lambdaC_kpc_median": 4.853743885413589,
+      "n_points": 1
+    },
+    "ngc0100": {
+      "lambdaC_kpc_median": 1.6118399697567207,
+      "n_points": 1
+    },
+    "ngc3198": {
+      "lambdaC_kpc_median": 6.842958176169023,
+      "n_points": 2
+    },
+    "ngc3726": {
+      "lambdaC_kpc_median": 43.393217959404424,
+      "n_points": 2
+    },
+    "ngc3769": {
+      "lambdaC_kpc_median": 31.505051132056458,
+      "n_points": 8
+    },
+    "ngc3893": {
+      "lambdaC_kpc_median": 13.958934622436715,
+      "n_points": 5
+    },
+    "ngc3917": {
+      "lambdaC_kpc_median": 21.346033161556047,
+      "n_points": 14
+    },
+    "ngc3972": {
+      "lambdaC_kpc_median": 17.587198692568833,
+      "n_points": 7
+    },
+    "ngc4010": {
+      "lambdaC_kpc_median": 26.897296225327015,
+      "n_points": 6
+    },
+    "ngc4013": {
+      "lambdaC_kpc_median": 25.99298379689795,
+      "n_points": 15
+    },
+    "ngc4088": {
+      "lambdaC_kpc_median": 74.14852509099346,
+      "n_points": 1
+    },
+    "ngc4100": {
+      "lambdaC_kpc_median": 15.761567394514778,
+      "n_points": 18
+    },
+    "ngc4138": {
+      "lambdaC_kpc_median": 23.836377804585865,
+      "n_points": 5
+    },
+    "ngc4157": {
+      "lambdaC_kpc_median": 27.465466484237226,
+      "n_points": 6
+    },
+    "ngc4183": {
+      "lambdaC_kpc_median": 29.570729962225656,
+      "n_points": 20
+    },
+    "ngc4217": {
+      "lambdaC_kpc_median": 58.13677717468867,
+      "n_points": 5
+    },
+    "ngc5907": {
+      "lambdaC_kpc_median": 16.87241537883893,
+      "n_points": 4
+    },
+    "ngc6015": {
+      "lambdaC_kpc_median": 4.276119250607734,
+      "n_points": 13
+    },
+    "ugc00191": {
+      "lambdaC_kpc_median": 6.035791196185318,
+      "n_points": 7
+    },
+    "ugc02953": {
+      "lambdaC_kpc_median": 1.1009538017615732,
+      "n_points": 1
+    },
+    "ugc06399": {
+      "lambdaC_kpc_median": 20.518250303508875,
+      "n_points": 6
+    },
+    "ugc06667": {
+      "lambdaC_kpc_median": 14.441453885118456,
+      "n_points": 7
+    },
+    "ugc06818": {
+      "lambdaC_kpc_median": 28.582629446997707,
+      "n_points": 3
+    },
+    "ugc06917": {
+      "lambdaC_kpc_median": 18.25071689643779,
+      "n_points": 9
+    },
+    "ugc06923": {
+      "lambdaC_kpc_median": 28.90293658970114,
+      "n_points": 1
+    },
+    "ugc06930": {
+      "lambdaC_kpc_median": 27.12651966106351,
+      "n_points": 9
+    },
+    "ugc06983": {
+      "lambdaC_kpc_median": 14.953561787825361,
+      "n_points": 16
+    },
+    "ugc07089": {
+      "lambdaC_kpc_median": 44.60442788035931,
+      "n_points": 2
+    },
+    "ugc11820": {
+      "lambdaC_kpc_median": 45.1334866537679,
+      "n_points": 4
+    }
+  },
+  "lambdaC_kpc_median": 20.93214173253246,
+  "lambdaC_kpc_lo": 9.352084962180232,
+  "lambdaC_kpc_hi": 32.51219850288469,
+  "lambdaC_kpc_mad": 11.580056770352227,
+  "m_gamma_kg_median": 5.4461706580947894e-64,
+  "m_gamma_kg_lo": 3.506376725175472e-64,
+  "m_gamma_kg_hi": 1.218979688227973e-63,
+  "m_gamma_eV_median": 3.055077688592119e-28,
+  "m_gamma_eV_lo": 1.9669330936151213e-28,
+  "m_gamma_eV_hi": 6.837974573597066e-28,
+  "N_galaxies": 30,
+  "delta_window": [
+    0.15,
+    0.85
+  ],
+  "error_floor_kms": 5.0
+}

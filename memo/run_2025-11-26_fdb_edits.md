@@ -26,3 +26,4 @@
 - Appendix表をTable B1として本文から相互参照。
 - 長尺URLを\url{}短縮し、narrow no-break spaceを除去；make pdf警告なし。
 - make pdf を再実行し build/main.pdf を更新。
+- main.ja.md を最終調整（GR↔FDBの明示、定義1追加、H1チェックリスト、BOSS補助数値、ΔAICc設定の明記、図キャプションでΓを説明、再現コミットをc429a17に更新）。

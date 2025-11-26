@@ -23,10 +23,12 @@ python3 -m venv .venv
 . .venv/bin/activate
 pip install -r requirements.txt  # pandoc/xelatexは別途インストール
 make pdf   # build/main.pdf を生成
+make pdf-ja  # build/main.ja.pdf を生成
 make tex   # build/main.tex を生成
+make refresh  # clean → pdf → pdf-ja をワンショット再生成
 ```
 
-`make pdf` は pandoc + xelatex を使用するので、TeX Live (>=2023) を推奨します。
+`make pdf` は pandoc + xelatex を使用するので、TeX Live (>=2023) を推奨します。PDF の更新漏れを避けたい場合は `make refresh` を使うと一度 `build/` を削除してから英語版・日本語版の両方を再生成し、ログ (`build/main(.ja).log`) に Overfull/Underfull 警告が残ります。
 
 ## 再現手順（概要）
 
@@ -40,6 +42,14 @@ make tex   # build/main.tex を生成
   `appendix_f_h1.md` や `table2_aicc.md` などの Markdown 片は pandoc が自動で本文に組み込みます。
 
 詳細なコマンド列は Appendix G と “Data and code availability” 節、ならびに `memo/*.md` を参照してください。
+
+## リリース取得
+
+最新版の PDF（英語版・日本語版）は GitHub Release でも配布しています。  
+- タグ `v2025-11-26`: https://github.com/genki/gravitation/releases/tag/v2025-11-26  
+- 含まれるアセット: `main.pdf`, `main.ja.pdf`  
+
+ソースから再生成する場合は上記ビルド手順を参照してください。
 
 ## ライセンス / 引用
 

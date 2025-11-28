@@ -41,9 +41,18 @@ const patterns = [
   }
 
   // Detect MathML rendering errors highlighted as red (mathcolor="red")
-  const redMatches = [...bodyHtml.matchAll(/mathcolor=\"red\"/g)];
+  const redRegex = new RegExp('<[^>]*mathcolor=\"red\"[^>]*>([\\s\\S]*?)<\\\\/[^>]+>', 'gi');
+  const redMatches = [...bodyHtml.matchAll(redRegex)];
   if (redMatches.length > 0) {
     console.log(`Found ${redMatches.length} MathML elements with mathcolor="red" (likely render errors).`);
+    redMatches.forEach((m, i) => {
+      // Extract a short, readable snippet without HTML tags
+      const snippet = m[0]
+        .replace(/<[^>]+>/g, ' ')    // remove tags
+        .replace(/\\s+/g, ' ')       // collapse whitespace
+        .trim();
+      console.log(`  [${i + 1}] ${snippet}`);
+    });
   }
 
   await browser.close();

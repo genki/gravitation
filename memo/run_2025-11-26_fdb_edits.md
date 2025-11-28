@@ -28,3 +28,4 @@
 - make pdf を再実行し build/main.pdf を更新。
 - main.ja.md を最終調整（GR↔FDBの明示、定義1追加、H1チェックリスト、BOSS補助数値、ΔAICc設定の明記、図キャプションでΓを説明、再現コミットをc429a17に更新）。
 - Wikiの数式レンダリング不具合を修正：インライン数式のスペース／ダッシュ表記、単位のカンマ混入を整理し、tau_annブロックを正規化。Playwrightスクリプト(`scripts/check-math.js`)で `https://github.com/genki/gravitation/wiki/FDB-chi` を検査し、未レンダリングの `$`/`$$` が無いことを確認。
+- GitHub Wiki 数式の制約メモ: インラインは `$...$` 内部に空白を含まないこと。ブロックは `$$` の直後に改行、前後に空行を必須とする。これを満たさないと `$` や `$$` がそのまま表示される。

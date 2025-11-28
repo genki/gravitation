@@ -1,7 +1,6 @@
 // check-math.js
 // Usage: node scripts/check-math.js <url>
-// Crawls the page with Playwright and lists lines where raw '$' or '$$' remain in rendered text.
-// Requires playwright (`npm install playwright`).
+// Crawls the page with Playwright and lists text nodes where raw '$' or '$$' remain.
 
 const { chromium } = require('playwright');
 const url = process.argv[2];
@@ -15,12 +14,18 @@ if (!url) {
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
 
-  // Grab visible text nodes
   const texts = await page.$$eval('body *', nodes => {
-    return nodes
-      .filter(n => n.childNodes && n.childNodes.length === 1 && n.childNodes[0].nodeType === Node.TEXT_NODE)
-      .map(n => n.innerText.trim())
-      .filter(t => t.length);
+    const results = [];
+    for (const n of nodes) {
+      const child = n.firstChild;
+      if (!child || child.nodeType !== Node.TEXT_NODE) continue;
+      const t = child.textContent;
+      if (!t) continue;
+      const trimmed = t.trim();
+      if (trimmed.length === 0) continue;
+      results.push(trimmed);
+    }
+    return results;
   });
 
   const hits = [];
@@ -35,9 +40,7 @@ if (!url) {
     console.log('No raw $ or $$ found.');
   } else {
     console.log('Potential unrendered math:');
-    hits.forEach(h => {
-      console.log(`- [${h.idx}] ${h.text}`);
-    });
+    hits.forEach(h => console.log(`- [${h.idx}] ${h.text}`));
   }
 
   await browser.close();

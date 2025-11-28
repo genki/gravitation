@@ -1,6 +1,6 @@
 // check-math.js
 // Usage: node scripts/check-math.js <url>
-// Detect raw math markers ($, $$, \frac{) in wiki article text (wiki-body).
+// Detect raw math markers ($, $$, \frac{, and \(...\) style) in wiki article text.
 
 const { chromium } = require('playwright');
 const url = process.argv[2];
@@ -9,7 +9,12 @@ if (!url) {
   process.exit(1);
 }
 
-const patterns = [/\$\$/, /\$(.+?)\$/, /\\frac\{/];
+const patterns = [
+  /\$\$/,           // block markers
+  /\$(.+?)\$/,      // inline $ ... $
+  /\\frac\{/,      // LaTeX fraction raw
+  /\(.*\\.*\)/     // parenthesis containing backslash (\(...\) style)
+];
 
 (async () => {
   const browser = await chromium.launch({ headless: true });

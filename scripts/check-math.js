@@ -41,18 +41,37 @@ const patterns = [
   }
 
   // Detect MathML rendering errors highlighted as red (mathcolor="red")
-  const redRegex = new RegExp('<[^>]*mathcolor=\"red\"[^>]*>([\\s\\S]*?)<\\\\/[^>]+>', 'gi');
-  const redMatches = [...bodyHtml.matchAll(redRegex)];
-  if (redMatches.length > 0) {
-    console.log(`Found ${redMatches.length} MathML elements with mathcolor="red" (likely render errors).`);
-    redMatches.forEach((m, i) => {
-      // Extract a short, readable snippet without HTML tags
-      const snippet = m[0]
-        .replace(/<[^>]+>/g, ' ')    // remove tags
-        .replace(/\\s+/g, ' ')       // collapse whitespace
-        .trim();
-      console.log(`  [${i + 1}] ${snippet}`);
+  const redRegex = new RegExp('mathcolor=\"red\"', 'i');
+  const redMatches = [];
+
+  // 1) body HTML
+  if (redRegex.test(bodyHtml)) redMatches.push('[body]');
+
+  // 2) math-renderer shadow/templates
+  const redSnippets = await page.$$eval('math-renderer', nodes => {
+    const snippets = [];
+    nodes.forEach((node, idx) => {
+      const collect = (html) => {
+        if (html && html.toLowerCase().includes('mathcolor="red"')) {
+          const text = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          snippets.push({ idx: idx + 1, text });
+        }
+      };
+      // innerHTML of renderer
+      collect(node.innerHTML);
+      // template content (where GitHub stores MathML)
+      const tmpl = node.querySelector('template');
+      if (tmpl && tmpl.innerHTML) collect(tmpl.innerHTML);
+      if (tmpl && tmpl.content) collect(tmpl.content.innerHTML || '');
     });
+    return snippets;
+  });
+
+  if (redSnippets.length > 0) {
+    console.log(`Found ${redSnippets.length} MathML elements with mathcolor="red" (likely render errors).`);
+    redSnippets.forEach(s => console.log(`  [math-renderer ${s.idx}] ${s.text}`));
+  } else if (redMatches.length > 0) {
+    console.log('Found mathcolor="red" in body HTML.');
   }
 
   await browser.close();

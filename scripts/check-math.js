@@ -1,6 +1,6 @@
 // check-math.js
 // Usage: node scripts/check-math.js <url>
-// Detect raw math markers in visible innerText only.
+// Detect raw math markers in wiki article text only (article.markdown-body).
 
 const { chromium } = require('playwright');
 const url = process.argv[2];
@@ -9,18 +9,14 @@ if (!url) {
   process.exit(1);
 }
 
-const patterns = [
-  /\$\$/,            // raw $$
-  /\$(.+?)\$/,       // raw inline
-  /\\frac\{/        // visible LaTeX
-];
+const patterns = [/\$\$/, /\$(.+?)\$/, /\\frac\{/];
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
 
-  const texts = await page.$$eval('body *', nodes => {
+  const texts = await page.$$eval('article.markdown-body *:not(math-renderer)', nodes => {
     const out = [];
     for (const n of nodes) {
       const t = n.innerText;
@@ -37,7 +33,7 @@ const patterns = [
     if (patterns.some(p => p.test(t))) hits.push({ idx, text: t });
   });
 
-  console.log(`Checked ${texts.length} text nodes (innerText) on ${url}`);
+  console.log(`Checked ${texts.length} text nodes (article body) on ${url}`);
   if (hits.length === 0) {
     console.log('No raw math markers found.');
   } else {

@@ -24,6 +24,7 @@ const patterns = [
   await page.waitForTimeout(3000);
 
   const bodyText = await page.$eval('#wiki-body', el => el.innerText);
+  const bodyHtml = await page.$eval('#wiki-body', el => el.innerHTML);
   const lines = bodyText.split(/\n+/).map(l => l.trim()).filter(Boolean);
 
   const hits = [];
@@ -37,6 +38,12 @@ const patterns = [
   } else {
     console.log('Potential unrendered math:');
     hits.forEach(h => console.log(`- [line ${h.idx}] ${h.text}`));
+  }
+
+  // Detect MathML rendering errors highlighted as red (mathcolor="red")
+  const redMatches = [...bodyHtml.matchAll(/mathcolor=\"red\"/g)];
+  if (redMatches.length > 0) {
+    console.log(`Found ${redMatches.length} MathML elements with mathcolor="red" (likely render errors).`);
   }
 
   await browser.close();

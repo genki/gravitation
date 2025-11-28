@@ -1,6 +1,6 @@
 // check-math.js
 // Usage: node scripts/check-math.js <url>
-// Detect raw math markers in wiki article text only (article.markdown-body).
+// Detect raw math markers ($, $$, \frac{) in visible article text (innerText), skipping math-renderer.
 
 const { chromium } = require('playwright');
 const url = process.argv[2];
@@ -9,7 +9,7 @@ if (!url) {
   process.exit(1);
 }
 
-const patterns = [/\$\$/, /\$(.+?)\$/, /\\frac\{/];
+const patterns = [/\$\$/, /\$(.+?)\$/, /\\frac\{/, /\$[^\s].*[^\s]\$/];
 
 (async () => {
   const browser = await chromium.launch({ headless: true });

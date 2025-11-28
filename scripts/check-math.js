@@ -1,6 +1,6 @@
 // check-math.js
 // Usage: node scripts/check-math.js <url>
-// Finds text nodes containing raw math markers or LaTeX commands likely not rendered.
+// Detect raw math markers in visible innerText only.
 
 const { chromium } = require('playwright');
 const url = process.argv[2];
@@ -10,9 +10,9 @@ if (!url) {
 }
 
 const patterns = [
-  /\$\$/,            // raw $$ block markers
-  /\$(.+?)\$/,       // raw inline $ ... $
-  /\\frac\{/        // visible LaTeX fraction
+  /\$\$/,            // raw $$
+  /\$(.+?)\$/,       // raw inline
+  /\\frac\{/        // visible LaTeX
 ];
 
 (async () => {
@@ -23,11 +23,10 @@ const patterns = [
   const texts = await page.$$eval('body *', nodes => {
     const out = [];
     for (const n of nodes) {
-      const child = n.firstChild;
-      if (!child || child.nodeType !== Node.TEXT_NODE) continue;
-      const t = child.textContent || '';
+      const t = n.innerText;
+      if (!t) continue;
       const trimmed = t.trim();
-      if (trimmed.length === 0) continue;
+      if (!trimmed) continue;
       out.push(trimmed);
     }
     return out;
@@ -38,7 +37,7 @@ const patterns = [
     if (patterns.some(p => p.test(t))) hits.push({ idx, text: t });
   });
 
-  console.log(`Checked ${texts.length} text nodes on ${url}`);
+  console.log(`Checked ${texts.length} text nodes (innerText) on ${url}`);
   if (hits.length === 0) {
     console.log('No raw math markers found.');
   } else {

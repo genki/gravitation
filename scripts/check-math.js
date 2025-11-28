@@ -20,6 +20,8 @@ const patterns = [
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
   await page.goto(url, { waitUntil: 'networkidle' });
+  // allow client-side math renderer to replace delimiters
+  await page.waitForTimeout(3000);
 
   const bodyText = await page.$eval('#wiki-body', el => el.innerText);
   const lines = bodyText.split(/\n+/).map(l => l.trim()).filter(Boolean);

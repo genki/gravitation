@@ -22,3 +22,4 @@
 - 11/30: Wiki HomeとFDB-Math-Notesの数式をGitHub形式に修正、check-math全ページ合格
 - 11/30: wiki math運用のベストプラクティスを memo/wiki-math.md に整理・コミット
 - 11/30: Issues #5 (GW速度=c) と #14 (スピン2偏極) はFDB定義上既に満たされるためコメント付与しクローズ
+- 11/30: Issue #5 #14 に数式をGitHub形式で補足コメント（解決済み維持）

@@ -20,3 +20,4 @@
 - cosmology/σ8/H0 同時フィットや Γ(x) 微視的導出は今後の研究項目のまま。
 - 11/30: FDB-Glossary wiki math修正（informing tensorブロックを$$対応、単位s^-1とAICc下線のエスケープ、σ表記整理）check-math合格
 - 11/30: Wiki HomeとFDB-Math-Notesの数式をGitHub形式に修正、check-math全ページ合格
+- 11/30: wiki math運用のベストプラクティスを memo/wiki-math.md に整理・コミット

@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
-Simple FDB rotation curve fit for a single SPARC galaxy (e.g., NGC 2403 / 3198).
+FDB rotation-curve fit for a single SPARC galaxy (e.g., NGC 2403 / 3198).
 
-This is a *skeleton* script:
-- assumes a CSV with columns: R_kpc, Vobs, eVobs, Sigma_star, Sigma_gas
-- uses a minimal ring-sum FDB kernel as described in main.md §6.1
-- fits (alpha1, lambda1, alpha2, lambda2) by chi^2 minimization
+Updates in this version:
+- sanity: Newton-only check
+- simplified 1-scale kernel (alpha, lambda, eps) with optional M/L scaling
+- outer-radius-only fit (r > r_cut) and model noise added in quadrature
 
-Adapt column names / units to your local SPARC files before use.
+Input CSV columns: R_kpc, Vobs, eVobs, Sigma_star (Msun/pc^2), Sigma_gas (Msun/pc^2)
 """
 
 import sys
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Tuple, Dict
 
 import numpy as np
 import pandas as pd
@@ -53,26 +53,17 @@ def build_radial_grid(data: GalaxyData, n_grid: int = 200) -> Tuple[np.ndarray, 
     return R_grid, Sigma_tot
 
 
-def fdb_kernel_accel(
+def softened_kernel_accel(
     R_eval: np.ndarray,
     R_grid: np.ndarray,
-    Sigma_grid: np.ndarray,
-    alpha1: float,
-    lambda1: float,
-    alpha2: float,
-    lambda2: float,
+    Sigma_grid_pc2: np.ndarray,
+    alpha: float = 0.0,
+    lamb: float = 1.0,
     eps: float = 0.1,
+    ml_scale: float = 1.0,
 ) -> np.ndarray:
-    """
-    Compute radial acceleration a_R(R_eval) from the FDB kernel using ring summation.
-
-    R_eval: radii where we want the acceleration [kpc]
-    R_grid: ring mid-radii [kpc]
-    Sigma_grid: total surface density at R_grid [Msun / pc^2]
-    eps: softening length [kpc]
-    """
-    # convert surface density to Msun/kpc^2
-    Sigma_kpc2 = Sigma_grid * 1e6
+    """Simplified kernel: softened 1/r × (1 + alpha exp(-|d|/lambda))."""
+    Sigma_kpc2 = Sigma_grid_pc2 * 1e6 * ml_scale
     dR = np.gradient(R_grid)
     M_ring = 2.0 * np.pi * R_grid * Sigma_kpc2 * dR  # [Msun]
 
@@ -82,41 +73,56 @@ def fdb_kernel_accel(
         denom = (d**2 + eps**2) ** 1.5
         base = d / denom  # ∂/∂R of softened 1/r
         dist = np.abs(d)
-        yuk = (
-            1.0
-            + alpha1 * np.exp(-dist / lambda1)
-            + alpha2 * np.exp(-dist / lambda2)
-        )
+        yuk = 1.0 + alpha * np.exp(-dist / lamb)
         contrib = -G * M_ring * base * yuk  # [(km/s)^2 / kpc]
         a_R[i] = np.sum(contrib)
+    return a_R
 
-    return a_R  # [(km/s)^2 / kpc]
 
-
-def fdb_velocity(
+def model_velocity(
     R_eval: np.ndarray,
     R_grid: np.ndarray,
     Sigma_grid: np.ndarray,
-    params: Tuple[float, float, float, float],
+    params: Dict[str, float],
 ) -> np.ndarray:
-    alpha1, lambda1, alpha2, lambda2 = params
-    a_R = fdb_kernel_accel(R_eval, R_grid, Sigma_grid, alpha1, lambda1, alpha2, lambda2)
+    a_R = softened_kernel_accel(
+        R_eval,
+        R_grid,
+        Sigma_grid,
+        alpha=params["alpha"],
+        lamb=params["lambda"],
+        eps=params["eps"],
+        ml_scale=params["ml_scale"],
+    )
     v2 = R_eval * np.abs(a_R)
-    v = np.sqrt(np.clip(v2, 0.0, None))
-    return v  # [km/s]
+    return np.sqrt(np.clip(v2, 0.0, None))
 
 
-def chi2_fdb(
-    params: Tuple[float, float, float, float],
+def chi2_model(
+    vec: np.ndarray,
     data: GalaxyData,
     R_grid: np.ndarray,
     Sigma_grid: np.ndarray,
+    r_cut: float = 0.0,
+    sigma_model: float = 0.0,
 ) -> float:
-    alpha1, lambda1, alpha2, lambda2 = params
-    if lambda1 <= 0 or lambda2 <= 0:
+    alpha, lamb, eps, ml_scale = vec
+    if lamb <= 0 or eps <= 0 or ml_scale <= 0:
         return 1e30
-    V_model = fdb_velocity(data.R_kpc, R_grid, Sigma_grid, params)
-    chi = (data.Vobs - V_model) / data.eVobs
+    mask = data.R_kpc > r_cut
+    if not np.any(mask):
+        return 1e30
+    R_eval = data.R_kpc[mask]
+    Vobs = data.Vobs[mask]
+    eV = data.eVobs[mask]
+    V_model = model_velocity(
+        R_eval,
+        R_grid,
+        Sigma_grid,
+        {"alpha": alpha, "lambda": lamb, "eps": eps, "ml_scale": ml_scale},
+    )
+    err = np.sqrt(eV**2 + sigma_model**2)
+    chi = (Vobs - V_model) / err
     return float(np.sum(chi**2))
 
 
@@ -124,20 +130,32 @@ def fit_fdb_for_galaxy(csv_path: str):
     data = load_sparc_csv(csv_path)
     R_grid, Sigma_grid = build_radial_grid(data)
 
-    x0 = np.array([0.5, 3.0, 0.5, 10.0])  # alpha1, lambda1[kpc], alpha2, lambda2[kpc]
+    # Newton-only sanity check
+    chi2_newton = chi2_model(np.array([0.0, 1.0, 0.1, 1.0]), data, R_grid, Sigma_grid)
+    print(f"Newton-only chi2 (alpha=0, eps=0.1, ml=1): {chi2_newton:.3e}")
 
-    bounds = [(-2, 2), (0.5, 50), (-2, 2), (0.5, 50)]
+    # Fit outer radii only
+    r_cut = 4.0  # kpc
+    sigma_model = 5.0  # km/s added in quadrature
+    x0 = np.array([0.2, 5.0, 0.1, 0.8])  # alpha, lambda[kpc], eps[kpc], ml_scale
+    bounds = [(-2, 2), (0.5, 50), (0.05, 1.0), (0.3, 1.5)]
+
     res = minimize(
-        lambda x: chi2_fdb(tuple(x), data, R_grid, Sigma_grid),
+        lambda x: chi2_model(x, data, R_grid, Sigma_grid, r_cut=r_cut, sigma_model=sigma_model),
         x0,
         method="L-BFGS-B",
         bounds=bounds,
     )
     best = res.x
-    print("Best-fit FDB params:", best)
-    print("chi2 =", res.fun)
+    print("Best-fit params [alpha, lambda[kpc], eps[kpc], ML_scale]:", best)
+    print(f"chi2 (r>{r_cut} kpc, sigma_model={sigma_model} km/s) = {res.fun:.3e}")
 
-    V_fdb = fdb_velocity(data.R_kpc, R_grid, Sigma_grid, tuple(best))
+    V_fdb = model_velocity(
+        data.R_kpc,
+        R_grid,
+        Sigma_grid,
+        {"alpha": best[0], "lambda": best[1], "eps": best[2], "ml_scale": best[3]},
+    )
 
     out = pd.DataFrame(
         {

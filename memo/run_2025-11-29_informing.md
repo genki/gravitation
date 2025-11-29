@@ -29,3 +29,4 @@
 - 11/30: main.md に field-content/DoF/emergent-QG セクション追加（9.2–9.4）で #17 要件対応、コメント追記
 - 11/30: Issue #18 を位相ずれ評価（LISA/ET δn 上限）反映後コメントしてクローズ。PDF/リリース/gh-pages更新済み。
 - 11/30: 6.1にFDB回転曲線カーネル実装節追加、scripts/fdb_fit.py スケルトン作成、docs/rotcurve_comparison.md テンプレ追加
+- 11/30: rotmod->CSV コンバータ追加、fdb_fit に境界制約導入。NGC2403/3198 を試走（ガス面密度未再構成のためχ2大きめ）。

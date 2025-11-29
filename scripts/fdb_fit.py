@@ -68,11 +68,13 @@ def fdb_kernel_accel(
 
     R_eval: radii where we want the acceleration [kpc]
     R_grid: ring mid-radii [kpc]
-    Sigma_grid: total surface density at R_grid [Msun / kpc^2]
+    Sigma_grid: total surface density at R_grid [Msun / pc^2]
     eps: softening length [kpc]
     """
+    # convert surface density to Msun/kpc^2
+    Sigma_kpc2 = Sigma_grid * 1e6
     dR = np.gradient(R_grid)
-    M_ring = 2.0 * np.pi * R_grid * Sigma_grid * dR  # [Msun]
+    M_ring = 2.0 * np.pi * R_grid * Sigma_kpc2 * dR  # [Msun]
 
     a_R = np.zeros_like(R_eval)
     for i, R in enumerate(R_eval):
@@ -124,7 +126,13 @@ def fit_fdb_for_galaxy(csv_path: str):
 
     x0 = np.array([0.5, 3.0, 0.5, 10.0])  # alpha1, lambda1[kpc], alpha2, lambda2[kpc]
 
-    res = minimize(lambda x: chi2_fdb(tuple(x), data, R_grid, Sigma_grid), x0, method="Nelder-Mead")
+    bounds = [(-2, 2), (0.5, 50), (-2, 2), (0.5, 50)]
+    res = minimize(
+        lambda x: chi2_fdb(tuple(x), data, R_grid, Sigma_grid),
+        x0,
+        method="L-BFGS-B",
+        bounds=bounds,
+    )
     best = res.x
     print("Best-fit FDB params:", best)
     print("chi2 =", res.fun)
@@ -149,4 +157,3 @@ if __name__ == "__main__":
         sys.exit(1)
 
     fit_fdb_for_galaxy(sys.argv[1])
-

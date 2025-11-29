@@ -27,3 +27,4 @@
 - 11/30: make refresh で main/main.ja PDF 更新; release v2025-11-30 にアップロード。gh-pages を最新 wiki から再生成（Glossary/Math-Notes追加）しプッシュ。
 - 11/30: Issue #16 完了（main.md 3.4–3.6 追加、PDF/リリース/gh-pages更新後にコメントしてクローズ）
 - 11/30: main.md に field-content/DoF/emergent-QG セクション追加（9.2–9.4）で #17 要件対応、コメント追記
+- 11/30: Issue #18 を位相ずれ評価（LISA/ET δn 上限）反映後コメントしてクローズ。PDF/リリース/gh-pages更新済み。

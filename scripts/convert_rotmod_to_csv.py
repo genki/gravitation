@@ -19,6 +19,8 @@ import numpy as np
 M_L_DISK = 0.5
 M_L_BULGE = 0.7
 G_KPC = 4.30091e-6  # kpc (km/s)^2 / Msun
+# helium + metals correction for HI gas mass
+GAS_HE_FACTOR = 1.33
 
 
 def load_rotmod(path: str) -> pd.DataFrame:
@@ -35,11 +37,12 @@ def convert(df: pd.DataFrame) -> pd.DataFrame:
     Vgas = df["Vgas"].to_numpy()  # km/s
     # Enclosed mass from circular velocity: M(<R) = V^2 R / G
     M_enc = (Vgas**2) * R / G_KPC  # Msun
+    M_enc = np.maximum.accumulate(M_enc)  # enforce non-decreasing
     # Annulus masses
     R_edges = np.concatenate([[R[0]*0.5], 0.5*(R[1:]+R[:-1]), [R[-1]*1.5]])
     area = np.pi * (R_edges[1:]**2 - R_edges[:-1]**2)  # kpc^2
     M_ann = np.diff(np.concatenate([[0.0], M_enc]))  # crude diff; length = len(R)
-    M_ann = np.clip(M_ann, 0, None)
+    M_ann = np.clip(M_ann, 0, None) * GAS_HE_FACTOR
     sigma_gas_kpc2 = M_ann / area  # Msun/kpc^2
     sigma_gas = sigma_gas_kpc2 / 1e6  # Msun/pc^2
 

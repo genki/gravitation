@@ -18,3 +18,4 @@
 ## 残課題
 - CITATION.cff / ライセンスファイル分割（CC-BY-4.0 + MIT）の確定は未着手。
 - cosmology/σ8/H0 同時フィットや Γ(x) 微視的導出は今後の研究項目のまま。
+- 11/30: FDB-Glossary wiki math修正（informing tensorブロックを$$対応、単位s^-1とAICc下線のエスケープ、σ表記整理）check-math合格

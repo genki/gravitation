@@ -358,6 +358,34 @@ Figure 3 stacks the six most negative \(\Delta\\mathrm{AICc}\) galaxies (FDB-fa
 \label{fig:rotcurve-grid}
 \end{figure}
 
+### 6.1 FDB rotation-curve kernel (implementation form)
+For an axisymmetric disk with surface density \(\Sigma(R)\) in the midplane, the FDB information potential can be written as a nonlocal radial kernel:
+\[
+\Phi_{\rm FDB}(R)
+  = - G \int_0^\infty dR'\, 2\pi R'\,\Sigma(R')\,K_{\rm eff}(R,R').
+\]
+For numerical work we adopt a practical two-scale Yukawa-inspired kernel
+\[
+K_{\rm eff}(R,R')
+  = \frac{1}{\sqrt{(R-R')^2+\epsilon^2}}
+    \Big[1+\alpha_1 e^{-|R-R'|/\lambda_1}
+            +\alpha_2 e^{-|R-R'|/\lambda_2}\Big],
+\]
+with softening \(\epsilon\), amplitudes \(|\alpha_i|\lesssim \mathcal{O}(1)\), and lengths \(\lambda_i\) of order few–tens of kpc (representing guided ULE‑EM loop enhancement atop the Newtonian \(1/r\) kernel).  In ring-sum form, for rings \(j\) of width \(\Delta R_j\),
+\[
+\Phi_{\rm FDB}(R_i)\approx -G\sum_j \big[2\pi R_j \Sigma_j \Delta R_j\big]\,K_{\rm eff}(R_i,R_j).
+\]
+The radial acceleration is
+\[
+a_R(R_i)\approx -G\sum_j \big[2\pi R_j \Sigma_j \Delta R_j\big]\,
+  \frac{\partial K_{\rm eff}(R_i,R_j)}{\partial R_i},
+\]
+with \(\partial K_{\rm eff}/\partial R_i\) approximated by the derivative of the softened \(1/r\) factor times the Yukawa multipliers.  The predicted circular speed is
+\[
+v_{\rm FDB}^2(R_i)=R_i\,|a_R(R_i)|.
+\]
+This form is straightforward to implement for SPARC: reconstruct \(\Sigma(R)\) (or use a parametric disk), sample it on \(\{R_j\}\), and fit \((\alpha_1,\lambda_1,\alpha_2,\lambda_2,\epsilon)\) per galaxy or per subsample.
+
 ### 6.2 BTFR
 Setting \(x=\log_{10} M_{\rm bar}[M_\odot]\) and \(y=\log_{10} v_{\rm flat}^4[{\rm km}^4\,{\rm s}^{-4}]\) using the SPARC MRT catalog (fixed \(Υ_{\rm disk}=0.5\), gas mass = \(1.33 M_{\rm HI}\)), we evaluate the robust median offset \(b=\mathrm{median}(y-x)=-1.69\) dex. This single number is the proportionality constant ordinarily absorbed into \(L_0\) in empirical BTFR fits [@McGaugh2012BTFR; @McGaughSchombert2015]. Figure 4 therefore plots \(y=x+b\) (solid) with the \(\pm 0.1\) dex acceptance band (dashed), directly visualizing the FDB prediction \(v^4\propto M_{\rm bar}\).
 

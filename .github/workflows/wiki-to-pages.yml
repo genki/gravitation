@@ -1,0 +1,58 @@
+name: Publish wiki to GitHub Pages
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */12 * * *" # twice a day; adjust as needed
+
+permissions:
+  contents: write  # required for gh-pages push
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Checkout wiki
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}.wiki
+          path: wiki
+
+      - name: Install pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
+      - name: Build static pages from wiki
+        run: |
+          mkdir -p site
+          cat > site/style.css <<'CSS'
+          body { max-width: 860px; margin: 2rem auto; padding: 0 1.5rem; font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; line-height: 1.6; }
+          pre { background: #f6f8fa; padding: 0.8rem; border-radius: 6px; overflow-x: auto; }
+          code { background: #f6f8fa; padding: 0.1rem 0.3rem; border-radius: 4px; }
+          h1,h2,h3,h4 { line-height: 1.25; }
+          a { color: #0366d6; text-decoration: none; }
+          a:hover { text-decoration: underline; }
+          blockquote { color: #555; border-left: 4px solid #ddd; padding-left: 0.9rem; margin-left: 0; }
+          CSS
+
+          for f in wiki/*.md; do
+            base="$(basename "$f" .md)"
+            pandoc "$f" -s -c style.css -o "site/${base}.html" --metadata title="$base" --from gfm
+          done
+
+          # Home -> index
+          if [ -f site/Home.html ]; then
+            cp site/Home.html site/index.html
+          elif [ -f site/FDB-chi.html ]; then
+            cp site/FDB-chi.html site/index.html
+          fi
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          force_orphan: true

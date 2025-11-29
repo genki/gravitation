@@ -407,6 +407,28 @@ for static observers (a rigorous derivation is left to future work). As \(r\to r
 - **Not addressed**: SM parameters, inflation/baryon asymmetry, QCD confinement, black‑hole interiors, Planck‑scale quantum gravity.  
 - **Open problems**: (i) cosmological simulations with an FDB kernel; (ii) joint fits to strong lensing + BTFR + σ\(_8\)/\(H_0\); (iii) microscopic derivation of \(\Gamma(x)\) for realistic plasma/filament environments; (iv) observational limits on \(m_\gamma\) at \(10^{-65}\,\mathrm{kg}\) from lab/space waveguide tests.
 
+### 9.2 Field content: no new fundamental fields
+FDB introduces **no new dynamical fields** beyond Standard-Model matter and the electromagnetic field in its ultra–low-energy (ULE‑EM) limit. The “new” objects—information potential \(\Phi_{\rm FDB}\) and informing tensor \(I_{\mu\nu}\)—are **nonlocal composites** of the ULE‑EM front-mode Green function and the matter stress tensor:
+\[
+I_{\mu\nu}=\kappa (P_{\rm TT})_{\mu\nu}{}^{\alpha\beta}\int d^4x'\,G_{\rm front}(x,x')\,T^{\rm (mat)}_{\alpha\beta}(x').
+\]
+No extra gauge/scalar/tensor fields are postulated; the fundamental content remains SM + EM (optionally tiny Proca mass within bounds).
+
+### 9.3 Physical degrees of freedom: exactly two, as in GR
+A symmetric rank‑2 tensor has 10 components. The TT projection imposes \(\partial^\mu I_{\mu\nu}=0\) (4) and \(I^\mu{}_\mu=0\) (1), leaving 5. The remaining modes satisfy \(\Box I_{\mu\nu}=0\) and reduce to the two helicity‑2 polarizations \((I^{+}_{ij}, I^{\times}_{ij})\):
+\[
+10 - 5 \longrightarrow 2.
+\]
+Thus the radiative sector is identical to GR (speed \(c\), two tensor modes, quadrupole formula once \(\kappa\) is fixed).
+
+### 9.4 Quantum-gravity EFT without new fundamental fields
+FDB’s “quantum gravity” is **emergent**: \(I_{\mu\nu}\) is not an independently quantized metric but a composite of the quantum EM field. Consequences:
+- **No new UV divergences:** renormalization is that of QED + matter; \(I_{\mu\nu}\) inherits EM correlators.
+- **Avoids GR nonrenormalizability:** no fundamental \(G E^{2}\) blow-up because no quantum metric field is added.
+- **Gravity is IR:** the front-mode ULE‑EM limit yields a causal, non-dispersive sector; the radiative piece is well behaved and reproduces the GR quadrupole formula.
+- **All quantization lives in EM:** correlators like \(\langle I_{\mu\nu}(x)I_{\alpha\beta}(y)\rangle\) reduce to EM + matter correlators convolved with \(G_{\rm front}\) and TT projectors.
+This provides a concrete path to a quantum-gravitational EFT with **no extra fundamental degrees of freedom**.
+
 ---
 
 ## 10. Conclusion

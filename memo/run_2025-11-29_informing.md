@@ -24,3 +24,4 @@
 - 11/30: Issues #5 (GW速度=c) と #14 (スピン2偏極) はFDB定義上既に満たされるためコメント付与しクローズ
 - 11/30: Issue #5 #14 に数式をGitHub形式で補足コメント（解決済み維持）
 - 11/30: main.md に Γ(x) の最小オープン系モデル、informing tensor とデコヒーレンス核の接続、Mach的慣性解釈を 3.4–3.6 として追記
+- 11/30: make refresh で main/main.ja PDF 更新; release v2025-11-30 にアップロード。gh-pages を最新 wiki から再生成（Glossary/Math-Notes追加）しプッシュ。

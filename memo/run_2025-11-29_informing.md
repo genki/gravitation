@@ -34,3 +34,4 @@
 - 11/30: Σ_gas 再構成に単調化＋1.33 He補正を導入（convert_rotmod）。NGC2403/3198 再走はχ2改善せず→モデル単純化/パラ境界要調整が必要。
 - 11/30: Σ_gas再構成にSG平滑＋He補正導入（convert_rotmod）。NGC2403/3198再試行もχ2高止まり→モデル/パラ調整が今後の課題。
 - 11/30: fdb_fit をNewton sanity + 1スケールカーネル + 外縁(R>4kpc) + σ_model=5 km/s に刷新。NGC2403: chi2~3.33e3, NGC3198: chi2~5.67e3（大幅改善だがまだ大きめ）。
+- 11/30: fdb_fit を残差プロット付き・rotmod Newton オプション付きに更新。外縁(>4kpc)1スケールカーネルで NGC2403 chi2~3.3e3, NGC3198 chi2~5.7e3。

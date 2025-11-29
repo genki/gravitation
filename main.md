@@ -429,6 +429,20 @@ FDB’s “quantum gravity” is **emergent**: \(I_{\mu\nu}\) is not an independ
 - **All quantization lives in EM:** correlators like \(\langle I_{\mu\nu}(x)I_{\alpha\beta}(y)\rangle\) reduce to EM + matter correlators convolved with \(G_{\rm front}\) and TT projectors.
 This provides a concrete path to a quantum-gravitational EFT with **no extra fundamental degrees of freedom**.
 
+### 9.5 Medium-induced phase shift of informing-tensor waves
+In vacuum the informing tensor obeys the GR TT wave equation, \(\Box I_{\mu\nu}=0\), so GW speed and polarizations match GR. Traversing the cosmic web can add a tiny refractive perturbation to the ULE‑EM front mode:
+\[
+\omega = c k (1+\delta n),\qquad |\delta n|\ll1,
+\]
+giving a cumulative phase shift over distance \(L\):
+\[
+\delta\phi(k)=kL\,\delta n.
+\]
+Using \(\delta\phi_{\max}\sim1/{\rm SNR}\):
+- LISA SMBH binaries (SNR\(\sim100\)): \(|\delta n|\lesssim10^{-17}\).
+- ET/CE BNS/BBH (SNR 100–500): \(|\delta n|\lesssim10^{-21}\).
+Thus any medium-induced dispersion of the front mode must be extremely small; the radiative sector remains observationally GR-like for current and near-future detectors.
+
 ---
 
 ## 10. Conclusion

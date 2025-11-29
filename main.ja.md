@@ -438,6 +438,20 @@ I^{+}_{ij},\quad I^{\times}_{ij}
 - 重力は ULE-EM 前波という IR 極限で現れ、放射セクターは GR と同型のまま。  
 - 相関関数 \(\langle I_{\mu\nu} I_{\alpha\beta}\rangle\) は EM 相関と \(G_{\rm front}\)、TT 射影の畳み込みで与えられ、新規場を足さずに量子重力的 EFT を構成できる。
 
+### 13.5 インフォーミング波の媒質位相シフト
+真空では \(I_{\mu\nu}\) の波動方程式は GR と同じ \(\Box I_{\mu\nu}=0\)。宇宙網を伝播する際の微小補正を有効屈折率のずれ \(\delta n\) で
+\[
+\omega = c k (1+\delta n),\qquad |\delta n|\ll1
+\]
+と書くと、距離 \(L\) で位相ずれ
+\[
+\delta\phi = kL\,\delta n
+\]
+を生む。検出器の位相分解能 \(\delta\phi_{\max}\sim1/\mathrm{SNR}\) から
+- LISA（SMBH, SNR∼100）: \(|\delta n|\lesssim10^{-17}\)
+- ET/CE（BNS/BBH, SNR 100–500）: \(|\delta n|\lesssim10^{-21}\)
+となり、前波の媒質分散はきわめて小さいことが要求される。これは FDB の「前波は本質的に無分散で GR と同型」という予測と整合する。
+
 ---
 
 <a id="refs-ja"></a>

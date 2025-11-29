@@ -105,6 +105,21 @@ which is sufficient for flat rotation curves. Explicitly,
 closing the chain from interface flux to flat rotation curves in one step.
 Conservation of energy along a cylindrical sheet gives $2\pi r\,I(r)=	ext{const}$, so $I(r)\propto 1/r$ and the wave amplitude falls as $r^{-1/2}$. This purely geometric statement agrees with the stochastic-drift argument above and shows explicitly why a guided mode enforces a $1/r$ force tail.
 
+### 2.3 Informing tensor and front-mode propagation
+To package the carrier into a GR-like rank-2 object, we define the **informing tensor** \(I_{\mu\nu}\), the FDB analogue of the GR transverse–traceless perturbation \(h_{\mu\nu}^{\rm TT}\). Let \(T^{\rm (mat)}_{\alpha\beta}(x)\) be the matter stress–energy tensor and \(G_{\rm front}(x,x')\) the causal wavefront Green function of the (Proca) ULE‑EM field, supported only on the light cone. Introducing the TT projector \(P_{\rm TT}\),
+\[
+I_{\mu\nu}(x)
+  \equiv \kappa\,
+  (P_{\rm TT})_{\mu\nu}{}^{\alpha\beta}
+  \int d^4x'\,
+    G_{\rm front}(x,x')\,T^{\rm (mat)}_{\alpha\beta}(x'),
+\]
+with \(\kappa\) fixed by the SIS intercept in the H1 test. In vacuum, far from sources,
+\[
+\Box I_{\mu\nu}\simeq0,\qquad \partial^\mu I_{\mu\nu}=0,\qquad I^\mu{}_\mu=0,
+\]
+so the **wave sector is observationally identical to GR** (same speed \(c\), same two spin‑2 polarizations, same quadrupole formula once \(\kappa\) is set). All FDB‑specific physics enters through the guided ULE‑EM that shapes \(\Gamma(x)\) and therefore the effective potential \(\Phi_{\rm FDB}\).
+
 ---
 
 ## 3. Micro to Effective Force
@@ -307,6 +322,17 @@ Setting \(x=\log_{10} M_{\rm bar}[M_\odot]\) and \(y=\log_{10} v_{\rm flat}^4[{\
 - **Energy budget**: Required interface energy density remains \(u_{\rm ULE}\lesssim10^{-12}\,{\rm J\,m^{-3}}\) for Milky‑Way scales, yet **acceleration is set by \(\Gamma\), not by stored energy**, so this is only an upper bound and not a dark‑matter substitute.
 - **Redshift equivalence**: Gravitational redshift follows \(\Delta\ln\nu\simeq-\Delta\Phi_{\rm FDB}/c^{2}\) (Appendix F), identical to GR when \(\Phi_{\rm FDB}\) is normalized by H1.
 
+### 7.1 GR–FDB compatibility (wave sector)
+Because \(I_{\mu\nu}\) is defined as a TT-projected response to \(T^{\rm (mat)}\) using the light-cone Green function \(G_{\rm front}\), its vacuum propagation obeys the same linear wave equation as GR:
+\[
+\Box I_{\mu\nu}\simeq0,\qquad \partial^\mu I_{\mu\nu}=0,\qquad I^\mu{}_\mu=0 .
+\]
+Consequences:
+- **Speed**: wavefront speed = \(c\) (GW170817-type bounds satisfied by construction).  
+- **Polarizations**: only the two spin‑2 TT modes survive; scalar/vector modes are absent physically, not just by gauge choice.  
+- **Radiation**: quadrupole formula and binary‑pulsar damping match GR once \(\kappa\) is set by the SIS normalization.  
+Thus the wave sector is observationally indistinguishable from GR; FDB departures enter only through the information‑potential kernel on galaxy/cosmic scales.
+
 ---
 
 ## 8. Strong-field limit and horizons
@@ -321,6 +347,11 @@ for static observers (a rigorous derivation is left to future work). As \(r\to r
 - **Survey dependence**: BOSS lacks some \(R_e\) values → larger scatter; primary decision should rely on homogeneous SDSS/BELLS where aperture correction is reliable.
 - **Decisive prediction**: Joint \(\theta_E\)–\(v_c\) measurements for the same galaxies must lie on the line \(R=1\) without tunable width; any systematic offset >0.03 dex falsifies FDB.
 - **Laboratory outlook**: Search for ULE‑EM signatures via long‑baseline plasma waveguides or constraints on \(m_\gamma\) in the \(10^{-65}\,\mathrm{kg}\) range.
+
+### 9.1 Scope, limitations, open problems
+- **Scope**: designed for galaxy → cosmic‑web scales (rotation curves, BTFR, strong‑lensing H1, possible σ\(_8\)/\(H_0\) relief); leaves the GR wave sector intact.  
+- **Not addressed**: SM parameters, inflation/baryon asymmetry, QCD confinement, black‑hole interiors, Planck‑scale quantum gravity.  
+- **Open problems**: (i) cosmological simulations with an FDB kernel; (ii) joint fits to strong lensing + BTFR + σ\(_8\)/\(H_0\); (iii) microscopic derivation of \(\Gamma(x)\) for realistic plasma/filament environments; (iv) observational limits on \(m_\gamma\) at \(10^{-65}\,\mathrm{kg}\) from lab/space waveguide tests.
 
 ---
 

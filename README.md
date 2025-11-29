@@ -1,6 +1,6 @@
 # Gravitation Research Repository
 
-このリポジトリは「Future Determination Bias (FDB)」仮説を中心にした重力研究用の単一ソース・ペーパー一式を収めています。pandoc で Markdown→LaTeX/PDF にビルドし、図・計算スクリプト・入力データをすべて同一ディレクトリツリーで完結させました。公開後は https://github.com/genki/gravitation から取得できます。
+このリポジトリは「Future Determination Bias (FDB)」仮説を中心にした重力研究用の単一ソース・ペーパー一式を収めています。pandoc で Markdown→LaTeX/PDF にビルドし、図・計算スクリプト・入力データをすべて同一ディレクトリツリーで完結させました。公開後は https://github.com/genki/gravitation から取得できます。最新 PDF（英語版 `main.pdf` / 日本語版 `main.ja.pdf`）は Release の latest から取得できます: <https://github.com/genki/gravitation/releases/latest>.
 
 ## ディレクトリ構成
 
@@ -53,4 +53,4 @@ make refresh  # clean → pdf → pdf-ja をワンショット再生成
 
 ## ライセンス / 引用
 
-論文テキストと図は CC-BY-4.0 を予定。コードとスクリプトは MIT 互換ライセンスを想定しています。利用時は ``main.md`` の引用規定と refs.bib に記載した一次文献に従ってください。
+論文テキストと図は CC-BY-4.0（予定）。コードとスクリプトは MIT 互換ライセンスを想定しています。利用時は ``main.md`` の引用規定と refs.bib に記載した一次文献に従ってください。

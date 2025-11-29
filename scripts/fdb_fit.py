@@ -6,8 +6,12 @@ Updates in this version:
 - sanity: Newton-only check
 - simplified 1-scale kernel (alpha, lambda, eps) with optional M/L scaling
 - outer-radius-only fit (r > r_cut) and model noise added in quadrature
+- optional Newton curve from rotmod Vdisk+Vgas columns
+- residual plots for quick diagnosis
 
-Input CSV columns: R_kpc, Vobs, eVobs, Sigma_star (Msun/pc^2), Sigma_gas (Msun/pc^2)
+Input CSV columns (from convert_rotmod_to_csv.py):
+R_kpc, Vobs, eVobs, Vgas_rotmod, Vdisk_rotmod,
+Sigma_star (Msun/pc^2), Sigma_gas (Msun/pc^2)
 """
 
 import sys
@@ -17,6 +21,7 @@ from typing import Tuple, Dict
 import numpy as np
 import pandas as pd
 from scipy.optimize import minimize
+import matplotlib.pyplot as plt
 
 # Gravitational constant in convenient units:
 # G ≈ 4.30091e-6 kpc (km/s)^2 / Msun
@@ -130,6 +135,14 @@ def fit_fdb_for_galaxy(csv_path: str):
     data = load_sparc_csv(csv_path)
     R_grid, Sigma_grid = build_radial_grid(data)
 
+    # If rotmod velocities are present, build a Newton curve from them for sanity
+    df_full = pd.read_csv(csv_path)
+    has_rot = set(["Vgas_rotmod", "Vdisk_rotmod"]) <= set(df_full.columns)
+    if has_rot:
+        v_newton_rot = np.sqrt(np.clip(df_full["Vgas_rotmod"].to_numpy()**2 + df_full["Vdisk_rotmod"].to_numpy()**2, 0, None))
+    else:
+        v_newton_rot = None
+
     # Newton-only sanity check
     chi2_newton = chi2_model(np.array([0.0, 1.0, 0.1, 1.0]), data, R_grid, Sigma_grid)
     print(f"Newton-only chi2 (alpha=0, eps=0.1, ml=1): {chi2_newton:.3e}")
@@ -157,16 +170,46 @@ def fit_fdb_for_galaxy(csv_path: str):
         {"alpha": best[0], "lambda": best[1], "eps": best[2], "ml_scale": best[3]},
     )
 
+    # Optional Newton from rotmod velocities
+    if v_newton_rot is not None:
+        v_newton_use = v_newton_rot
+    else:
+        v_newton_use = model_velocity(
+            data.R_kpc,
+            R_grid,
+            Sigma_grid,
+            {"alpha": 0.0, "lambda": 1.0, "eps": 0.1, "ml_scale": 1.0},
+        )
+
     out = pd.DataFrame(
         {
             "R_kpc": data.R_kpc,
             "Vobs": data.Vobs,
             "eVobs": data.eVobs,
             "V_FDB": V_fdb,
+            "V_Newton": v_newton_use,
         }
     )
     out.to_csv("fdb_fit_output.csv", index=False)
     print("Saved fdb_fit_output.csv")
+
+    # Residual plot
+    fig, ax = plt.subplots(2, 1, figsize=(6, 6), sharex=True)
+    ax[0].errorbar(data.R_kpc, data.Vobs, yerr=data.eVobs, fmt="o", ms=3, label="Vobs")
+    ax[0].plot(data.R_kpc, v_newton_use, label="Newton (rotmod or Σ)")
+    ax[0].plot(data.R_kpc, V_fdb, label="FDB model")
+    ax[0].axvline(4.0, color="k", ls="--", alpha=0.3, label="r_cut=4 kpc")
+    ax[0].set_ylabel("V [km/s]")
+    ax[0].legend()
+    resid = data.Vobs - V_fdb
+    ax[1].hlines(0, xmin=np.min(data.R_kpc), xmax=np.max(data.R_kpc), color="k", lw=0.5)
+    ax[1].errorbar(data.R_kpc, resid, yerr=data.eVobs, fmt="o", ms=3)
+    ax[1].set_xlabel("R [kpc]")
+    ax[1].set_ylabel("Residual (Vobs - V_FDB)")
+    out_png = "fdb_residuals.png"
+    plt.tight_layout()
+    plt.savefig(out_png, dpi=150)
+    print(f"Saved {out_png}")
 
 
 if __name__ == "__main__":

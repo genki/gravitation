@@ -57,6 +57,8 @@ def convert(df: pd.DataFrame) -> pd.DataFrame:
             "R_kpc": df["Rad"],
             "Vobs": df["Vobs"],
             "eVobs": df["errV"],
+            "Vgas_rotmod": df["Vgas"],
+            "Vdisk_rotmod": df["Vdisk"],
             "Sigma_star": sigma_star,
             "Sigma_gas": sigma_gas,
         }

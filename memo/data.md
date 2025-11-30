@@ -19,7 +19,10 @@
 - ソースHTML（出典キャッシュ）
   - `sources/bells2012.html`, `bells_gallery2016.html`, `mnras2017.html`
 
+## filaments（追加準備中）
+- 予定: Tempel+2014 SDSS DR8 フィラメントカタログ (`dr8_filaments.fits`)  
+  *現状*: ダウンロード試行はタイムアウト。大容量のため再試行・分割取得が必要。
+
 ## 備考
 - `sparc_database.zip` — rotmod データのアーカイブ。
 - `sets/_boot_tmp*.txt` — ブートストラップ用一時セット（生成物）。
-

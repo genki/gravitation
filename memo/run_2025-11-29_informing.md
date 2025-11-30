@@ -42,3 +42,10 @@
 - NGC6503: Newton-only chi2=6.42e4; shell3 fit (r>3Rd, σ_model=8) => chi2=7.63e1; params=[alpha≈1.47, eps=0.8 kpc, ML=0.9, beta=0, R_ev≈2.43R_d, sigma_ev=0.5R_d, v0≈33 km/s]
 - DDO154: Newton-only chi2=6.92e4; shell3 fit → chi2=6.27; params=[alpha=2.0 (bound), eps=0.8, ML=0.9, beta=0.3 (bound), R_ev=2.76R_d, sigma_ev=1.0R_d, v0=20.9 km/s]
 - DDO170: Newton-only chi2=2.76e4; shell3 fit → chi2=8.53e1; params=[alpha≈-0.37, eps=0.8, ML=0.9, beta=0, R_ev=2.0R_d, sigma_ev=0.5R_d, v0≈0]
+- v0固定/比較テスト（r>3R_d, sigma_model=8）：
+  - NGC2403: v0-only chi2=213 (v0=80上限張り付き), FDB v0=0 chi2=953
+  - NGC3198: v0-only chi2=186 (v0=80上限), FDB v0=0 chi2=2348
+  - NGC6503: v0-only chi2=53 (v0=80上限), FDB v0=0 chi2=82
+  - DDO154: v0-only chi2=5.5 (v0=38), FDB v0=0 chi2=12.1
+  - DDO170: v0-only chi2=0.5 (v0=50), FDB v0=0 chi2=85.3
+  → v0=0 では χ2 が悪化、特にフィールド系 dwarf で v0-only が強く効く。殻カーネルは形を揃えるが一定オフセット成分が銀河間で大きく、環境項(v0)の役割が大きい可能性。

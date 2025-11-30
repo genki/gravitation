@@ -39,3 +39,4 @@
 - 11/30: shellモデルを拡張 (R_ev/σ_ev フィット＋v0オフセット)、bounds締め＆σ_model=7で外縁フィット。結果: NGC2403 χ²~1.89e3, NGC3198 χ²~3.92e3。
 - 11/30: r_cut=3R_d & σ_model=8 に変更、eps/v0 bound拡大で再フィット。NGC2403 χ²≈9.5e2, NGC3198 χ²≈2.35e3 まで改善。
 - NGC2903: Newton-only chi2=8.60e4; shell3 fit (r>3Rd, σ_model=8) => chi2=5.09e2; params=[alpha≈-0.19, eps=0.8 kpc, ML=0.9, beta≈0.035, R_ev≈2.01R_d, sigma_ev≈0.56R_d, v0≈13.8 km/s]
+- NGC6503: Newton-only chi2=6.42e4; shell3 fit (r>3Rd, σ_model=8) => chi2=7.63e1; params=[alpha≈1.47, eps=0.8 kpc, ML=0.9, beta=0, R_ev≈2.43R_d, sigma_ev=0.5R_d, v0≈33 km/s]

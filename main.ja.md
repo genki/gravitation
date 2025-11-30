@@ -78,15 +78,16 @@ header-includes:
 要点: 情報監視率が一様（\(\nabla\Gamma=0\)）な領域では FDB の加速度は消え、GR/SIS と事実上同じふるまいになる。外縁だけで 1/r の有効項が立ち上がるため、太陽系・連星パルサ・重力波源の検証と矛盾しない。
 
 ### 1.2 媒質とスケール（Proca と波導）
-![Fig.C Proca ポテンシャルのスケール。コンプトン長 \(\lambda_C\) が銀河外縁〜ボイド境界スケールに重なると、界面効果と合成された \(\lambda_{\rm eff}\) が 1/r 実効項を支配しうる。](figures/proca_potential.png){#fig:proca width=0.75\linewidth}
+![Fig.C Proca ポテンシャルのスケール。コンプトン長 \(\lambda_C\) が銀河外縁〜ボイド境界スケールに重なると、inner shell / outer shell や宇宙網フィラメントの幾何スケールと合成された \(\lambda_{\rm eff}\) が 1/r 実効項を支配しうる。](figures/proca_potential.png){#fig:proca width=0.75\linewidth}
 
-![Fig.D 銀河–ボイド界面の波導模式図。プラズマ密度差により反射係数が高く、前縁のみが測地線上で伝搬。エバネッセント深さ \(\delta\) と波導ロス \(L_{\rm wg}\) は \(\lambda_C\) と合成され \(\lambda_{\rm eff}^{-1}=\lambda_C^{-1}+L_{\rm wg}^{-1}\) を与える。](figures/interface_waveguide.png){#fig:waveguide width=0.8\linewidth}
+![Fig.D 銀河–ボイド界面の波導模式図。プラズマ密度差と幾何スケールにより inner shell / outer shell の二層殻が形成され、前縁のみが測地線上で伝搬する。エバネッセント深さ \(\delta\) と波導ロスは \(\lambda_C\) と合成され実効相関長 \(\lambda_{\rm eff}\) を与える。](figures/interface_waveguide.png){#fig:waveguide width=0.8\linewidth}
 
 > **用語ミニ辞典（初出で参照）**  
 > ULE‑EM: 超低エネルギー Proca 電磁場（微小質量を許容）。  
 > \(\Gamma\): 情報監視率 [s\(^{-1}\)]。\(\mathbf a=-\alpha_m\nabla\Gamma\)（一様域で 0）。  
 > \(v_c=\sqrt{2}\sigma\): H1 では常にこの軸を使用し分母 \(2\pi v_c^2\) を保持。  
-> \(\lambda_C\): コンプトン長。 \(\lambda_{\rm eff}^{-1}=\lambda_C^{-1}+L_{\rm wg}^{-1}\) で波導ロスと合成。
+> \(\lambda_C\): コンプトン長。実効相関長は幾何スケールとの合成で \(\lambda_{\rm eff}^{-1}\simeq\lambda_C^{-1}+L_{\rm inner}^{-1}+L_{\rm outer}^{-1}+L_{\rm web}^{-1}\)。  
+> inner shell / outer shell: ディスク外縁（\(R\sim2\text{–}3R_d\)）近傍の殻と、CGM/IGM スケールの外殻。前者が 1/r ドリフトの立ち上がり、後者が大域的なベースライン（v\(_0\)) を決める。
 
 ## 2. FDB理論とは
 
@@ -251,7 +252,7 @@ informing tensor は TT 射影つきで定義され、前縁グリーン関数�
 
 ## 7. Proca 電磁場とプラズマ
 
-FDB で Proca 場を採用する理由は三つある。(i) Maxwell 理論に質量項を 1 つ加えるだけで有効コンプトン長 \(\lambda_C=\hbar/(m_\gamma c)\) を導入でき、プラズマ分散では \(\omega_p^2+\mu_\gamma^2 c^4/\hbar^2\) として自動的に効いて界面の導波条件を切り替えられる。(ii) 本稿で SPARC 回転曲線 (N=171) に FDB の極小モデルを当てはめたところ、\(\lambda_C=35^{+10}_{-8}\,\mathrm{kpc}\)（曲率近似 1σ）に対応する \(m_\gamma=(3.3^{+0.9}_{-0.7})\times10^{-64}\,\mathrm{kg}\approx (1.8^{+0.5}_{-0.4})\times10^{-28}\,\mathrm{eV}\) が得られ、PDG 2024 や Goldhaber & Nieto (2010) が与える上限より 10 桁以上下であり太陽系・実験室の検証と矛盾しない。(iii) H1 比や BTFR のようなゼロ自由度検定を直接入れて観測側の自由度を増やさずに済む。以下では Proca 場の最小数式とプラズマ中の分散関係だけを示し、詳細導出は補遺Bに譲る。
+FDB で Proca 場を採用する理由は三つある。(i) Maxwell 理論に質量項を 1 つ加えるだけで有効コンプトン長 \(\lambda_C=\hbar/(m_\gamma c)\) を導入できること（幾何スケール \(L_{\rm inner}, L_{\rm outer}, L_{\rm web}\) と合成された \(\lambda_{\rm eff}\) が 1/r 領域の立ち上がりを決める）。(ii) 本稿で SPARC 回転曲線 (N=171) に FDB の極小モデルを当てはめたところ、\(\lambda_C=35^{+10}_{-8}\,\mathrm{kpc}\)（曲率近似 1σ）に対応する \(m_\gamma=(3.3^{+0.9}_{-0.7})\times10^{-64}\,\mathrm{kg}\approx (1.8^{+0.5}_{-0.4})\times10^{-28}\,\mathrm{eV}\) が得られ、PDG 2024 や Goldhaber & Nieto (2010) が与える上限より 10 桁以上下であり太陽系・実験室の検証と矛盾しない。(iii) H1 比や BTFR のようなゼロ自由度検定を直接入れて観測側の自由度を増やさずに済む。以下では Proca 場の最小数式と、界面に結合した後のローカルなプラズマ分散関係だけを示し、詳細導出は補遺Bに譲る。
 
 銀河内の波導が有限長 \(L_{\rm wg}\) をもつと、回転曲線で見える有効漏洩長 \(\lambda_{\rm eff}\) は
 \[
@@ -267,18 +268,17 @@ Maxwell 方程式にフォトン質量項を加えた理論で、ラグランジ
 \]
 となる。ここで \(\mu_\gamma = m_\gamma c/\hbar\) はフォトン質量を表す。質量を持つ場合、静電ポテンシャルは Yukawa 型 \(\propto e^{-r/\lambda_C}/r\) になり、\(\lambda_C = \hbar/(m_\gamma c)\) が Compton 長さである。Proca 場の導出や物理的意味は砂川 (1987) の第 7 章が平易なので参照してほしい。
 
-### 6.2 プラズマ中の波動
+### 6.2 プラズマ中の波動（ローカルモデル）
 
-電子密度 \(n_e\) を持つプラズマにおける分散関係は
+電子密度 \(n_e\) を持つプラズマにおけるローカルな分散関係は
 \[
 k^2(\omega) = \frac{1}{c^2}\left[\omega^2 - \omega_p^2(n_e) - \mu_\gamma^2 c^4/\hbar^2\right],
 \]
-で記述される。ここで \(\omega_p^2 = n_e e^2/(\varepsilon_0 m_e)\) はプラズマ周波数。 \(k^2>0\) なら伝搬、<0 なら指数減衰 (エバネッセント)。
+で記述される。ここで \(\omega_p^2 = n_e e^2/(\varepsilon_0 m_e)\) はプラズマ周波数。 \(k^2>0\) なら伝搬、<0 なら指数減衰 (エバネッセント)。FDB では、まず幾何スケール \(L_{\rm inner}, L_{\rm outer}, L_{\rm web}\) と \(\lambda_C\) の大小関係で「どこに殻ができるか」（結合できる界面）が決まり、その**結合が起きた局所領域の中でのみ**上式を用いてスキンデプス \(\delta\) や漏れの強さを評価する。
 
-- **ボイド側 (低密度)**: 低周波でも \(k^2>0\) が可能。  
-- **銀河側 (高密度)**: 同じ周波数で \(k^2<0\) となり、界面に沿った導波が起こり得る。  
-
-FDB はこの差を利用して“波導”を実現する。
+- **Void / ボイド (超希薄)**: \(n_e\to 0\) では連続体近似の \(\omega_p\) 自体が意味を失い、ULE‑EM はほぼ真空中モードとして幾何スケールとの比較だけで振る舞う。  
+- **銀河–ボイド殻 (inner/outer shell)**: ここで初めて \(\lambda_C\approx L(x)\) となり、界面に沿った表面波導（1/r フラックス）が成立し得る。  
+- **高密度ディスク内部**: 上式による \(\omega_p\) や \(\delta\) は局所的なエネルギー漏れ・遮蔽の評価にのみ使い、FDB の主たる 1/r 効果は殻の幾何で決まる。  
 
 ## 8. 補遺 B: Proca とフォトン質量の上限制約
 

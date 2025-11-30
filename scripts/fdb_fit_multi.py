@@ -189,7 +189,7 @@ def make_summary_plot(
     sigma_model: float = 8.0,
 ) -> None:
     """Make a per-galaxy summary plot using common (alpha, mu) and given per-galaxy params."""
-    os.makedirs("image", exist_ok=True)
+    os.makedirs("out", exist_ok=True)
 
     R = g.R
     Vn = g.Vnewt
@@ -255,7 +255,7 @@ def make_summary_plot(
     ax1.legend(fontsize=8, ncol=2)
 
     plt.tight_layout()
-    out_path = os.path.join("image", f"{g.name}_multi_summary.png")
+    out_path = os.path.join("out", f"{g.name}_multi_summary.png")
     plt.savefig(out_path, dpi=150)
     plt.close(fig)
 

@@ -312,11 +312,11 @@ def fit_fdb_for_galaxy(csv_path: str):
             "V_tot": V_tot,
         }
     )
-    out.to_csv("fdb_fit_output.csv", index=False)
-    print("Saved fdb_fit_output.csv")
-
-    # Ensure image directory exists
-    os.makedirs("image", exist_ok=True)
+    # Write per-galaxy output into ./out
+    os.makedirs("out", exist_ok=True)
+    out_csv = os.path.join("out", f"{galaxy_tag}_fdb_fit_output.csv")
+    out.to_csv(out_csv, index=False)
+    print(f"Saved {out_csv}")
 
     # Combined summary plot per galaxy:
     #  - Top: rotation curve (Vobs, Newton, FDB total)
@@ -370,7 +370,7 @@ def fit_fdb_for_galaxy(csv_path: str):
     ax1.legend(fontsize=8, ncol=2)
 
     plt.tight_layout()
-    summary_png = os.path.join("image", f"{galaxy_tag}_summary.png")
+    summary_png = os.path.join("out", f"{galaxy_tag}_summary.png")
     plt.savefig(summary_png, dpi=150)
     print(f"Saved {summary_png}")
 

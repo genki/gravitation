@@ -72,22 +72,25 @@ FDB is constructed so that uniform monitoring strength reproduces the usual \(1/
   \[
   \mathcal{L}= -\tfrac14 F_{\mu\nu}F^{\mu\nu}+\tfrac12\mu_\gamma^{2}A_\mu A^\mu - J_\mu A^\mu,\quad \mu_\gamma = m_\gamma c/\hbar .
   \]
-- **Dispersion (SI)** in a cold plasma with Proca mass:
+- **Dispersion (local, SI)** in a cold plasma with Proca mass:
   \[
   k^{2}(\omega)=\frac{1}{c^{2}}\Bigl[\omega^{2}-\omega_p^{2}(n_e)-\mu_\gamma^{2}c^{4}/\hbar^{2}\Bigr],\qquad \omega_p^{2}=n_e e^{2}/(\varepsilon_0 m_e).
   \]
-  Propagation requires \(k^{2}>0\); evanescence \(k^{2}<0\).
-- **Frequency window**: Rather than tying the carrier strictly to \(\omega\simeq\mu_\gamma c\), we treat the ULE‑EM as a broadband background. Modes satisfying
+-  This relation is used in Appendix A as a **local toy model** once the field has already coupled to a medium. In ultra‑dilute cosmic regions (\(n_e\rightarrow 0\)) the cold‑plasma continuum breaks down and \(\omega_p\) should not be taken as setting the global correlation length.
+- **Scale hierarchy (geometry vs. carrier)**: The effective correlation scale of the guided branch is controlled primarily by the comparison between the intrinsic Compton scale and geometric scales:
   \[
-  \omega_{p,\rm void} < \omega \ll \omega_{p,\rm gal}
+  \lambda_{\rm eff}^{-1}
+  \simeq \lambda_C^{-1}
+       + L_{\rm inner}^{-1}
+       + L_{\rm outer}^{-1}
+       + L_{\rm web}^{-1},
   \]
-  experience \(k_{\rm void}^{2}>0\) (void side) and \(k_{\rm gal}^{2}<0\) (galaxy side). Appendix A lists representative densities (e.g. \(n_e\sim10^{-6}\,\mathrm{cm^{-3}}\) in voids, \(n_e\gtrsim10^{-3}\,\mathrm{cm^{-3}}\) in filaments) for which sub-Hz modes meet this inequality; outside this band both sides become evanescent and the mode decays instead of guiding.
-- **Galaxy–void interface**: We treat the guided mode as **surface-bound**, i.e. both half-spaces admit evanescent components but the tangential wavevector allows a net Poynting flux confined to the interface. A practical realization enforces \(k^2_{\rm void}\gtrsim 0\) while \(k^2_{\rm gal}<0\) so that energy leaks only along the sheet. The local plasma frequency sets an **effective screening length** 
-  \[
-  \lambda_{\rm eff}^{-2}\simeq \lambda_C^{-2}+\lambda_{\rm pl}^{-2},
-  \]
-  combining the vacuum Compton scale and the plasma shielding scale \(\lambda_{\rm pl}\) (e.g. a Debye length). For typical halo interfaces \(\lambda_{\rm eff}\lesssim\lambda_C\), keeping the guided mode coherent over \(\mathcal{O}(10^2)\) kpc.
-- **Near-total reflection**: For TE (and TM; see Appendix A), \(|R|\approx1\) for practical angles whenever \(\omega^{2}<\omega_{p,\rm gal}^{2}+\mu_\gamma^{2}c^{2}\) and \(k^{2}_{\rm void}>0>k^{2}_{\rm gal}\). Finite-thickness gradients introduce small tunnelling, but the guided branch still behaves as a surface waveguide with penetration depth \(\delta\sim10\text{--}30\) kpc rather than a bulk leakage channel.
+  where \(L_{\rm inner}\) denotes the scale of the inner disk shell (few–tens of kpc), \(L_{\rm outer}\) the circumgalactic shell scale, and \(L_{\rm web}\) the cosmic‑web filament/void scale. The plasma frequency enters only locally, through small corrections to these geometric scales once coupling has occurred.
+- **Galaxy–void interface and shells**: We treat the guided mode as **surface‑bound** along two effective shells:
+  - an **inner shell** near \(R\sim(2\text{--}3)R_d\), where the disk–halo transition and sharp gradients first match \(\lambda_C\) and convert the spherical \(1/r^{2}\) flux into a cylindrical \(1/r\) tail;
+  - an **outer shell** on CGM/IGM scales (tens–hundreds of kpc), which sets a quasi‑uniform baseline drift (the v\(_0\)–like offset in rotation curves).
+  Between these shells the tangential wavevector allows a net Poynting flux confined to the interface; detailed TE/TM reflection coefficients are relegated to Appendix A.
+- **Near‑total reflection (local statement)**: Once \(\lambda_{\rm eff}\) and the interface thickness are comparable, TE/TM modes admit \(|R|\approx1\) over a broad range of angles. Finite‑thickness gradients introduce small tunnelling, but the guided branch still behaves as a surface waveguide with penetration depth \(\delta\sim10\text{--}30\) kpc rather than a bulk leakage channel. Appendix A illustrates this using a simplified cold‑plasma Proca model; the numbers there should be read as **local skin‑depth examples**, not as setting \(\lambda_C\) from void densities.
 
 The schematic potential below shows the vacuum profile (solid) and a plasma-guided profile (dashed). The vertical line marks \(r=\lambda_C\); in media we simply replace \(\lambda_C\) with \(\lambda_{\rm eff}\) from the relation above, which shortens the lever arm without altering the asymptotic \(e^{-r/\lambda}/r\) form.
 
@@ -479,6 +482,8 @@ Waveguide confinement of a Proca ULE‑EM converts geometric \(1/r^{2}\) decay t
 ---
 
 ## Appendix A: Interface Reflection (summary)
+This appendix uses a simplified cold‑plasma + Proca dispersion as a **local model** for how guided modes behave once they have already coupled to an interface. The global correlation length and shell radii are set primarily by the geometric scales discussed in §2.1; the \(\omega_p\) factors below should be read as determining skin depths and local leakage rates, not as fixing \(\lambda_C\) from void densities.
+
 The TE reflection coefficient at a galaxy–void interface with plasma frequencies \(\omega_{p,1}>\omega_{p,2}\) (idealized, lossless slab) is
 \[
 R=\frac{k_{z,1}-k_{z,2}}{k_{z,1}+k_{z,2}},\quad

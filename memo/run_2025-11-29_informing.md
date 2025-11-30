@@ -40,3 +40,5 @@
 - 11/30: r_cut=3R_d & σ_model=8 に変更、eps/v0 bound拡大で再フィット。NGC2403 χ²≈9.5e2, NGC3198 χ²≈2.35e3 まで改善。
 - NGC2903: Newton-only chi2=8.60e4; shell3 fit (r>3Rd, σ_model=8) => chi2=5.09e2; params=[alpha≈-0.19, eps=0.8 kpc, ML=0.9, beta≈0.035, R_ev≈2.01R_d, sigma_ev≈0.56R_d, v0≈13.8 km/s]
 - NGC6503: Newton-only chi2=6.42e4; shell3 fit (r>3Rd, σ_model=8) => chi2=7.63e1; params=[alpha≈1.47, eps=0.8 kpc, ML=0.9, beta=0, R_ev≈2.43R_d, sigma_ev=0.5R_d, v0≈33 km/s]
+- DDO154: Newton-only chi2=6.92e4; shell3 fit → chi2=6.27; params=[alpha=2.0 (bound), eps=0.8, ML=0.9, beta=0.3 (bound), R_ev=2.76R_d, sigma_ev=1.0R_d, v0=20.9 km/s]
+- DDO170: Newton-only chi2=2.76e4; shell3 fit → chi2=8.53e1; params=[alpha≈-0.37, eps=0.8, ML=0.9, beta=0, R_ev=2.0R_d, sigma_ev=0.5R_d, v0≈0]

@@ -38,3 +38,4 @@
 - 11/30: シェル重み＋ガス優先 Δv² モデルに改修（R_ev=2.5R_d固定）。R>2R_d で再フィット: NGC2403 chi2≈2.32e3, NGC3198 chi2≈5.23e3（σ_model=5km/s）。
 - 11/30: shellモデルを拡張 (R_ev/σ_ev フィット＋v0オフセット)、bounds締め＆σ_model=7で外縁フィット。結果: NGC2403 χ²~1.89e3, NGC3198 χ²~3.92e3。
 - 11/30: r_cut=3R_d & σ_model=8 に変更、eps/v0 bound拡大で再フィット。NGC2403 χ²≈9.5e2, NGC3198 χ²≈2.35e3 まで改善。
+- NGC2903: Newton-only chi2=8.60e4; shell3 fit (r>3Rd, σ_model=8) => chi2=5.09e2; params=[alpha≈-0.19, eps=0.8 kpc, ML=0.9, beta≈0.035, R_ev≈2.01R_d, sigma_ev≈0.56R_d, v0≈13.8 km/s]

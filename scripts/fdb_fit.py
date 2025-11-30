@@ -138,7 +138,7 @@ def chi2_model(
     r_cut: float = 0.0,
     sigma_model: float = 0.0,
 ) -> float:
-    alpha, eps, ml_scale, beta = vec
+    alpha, eps, ml_scale, beta, R_ev_scale, sigma_ev_scale, v0 = vec
     if eps <= 0 or ml_scale <= 0 or beta < 0:
         return 1e30
     mask = data.R_kpc > r_cut
@@ -157,13 +157,19 @@ def chi2_model(
     )
     V_newton = V_newton[mask]
 
-    V_model = model_velocity(
+    params = {
+        "alpha": alpha,
+        "eps": eps,
+        "R_ev": R_ev_scale * params_global["R_d"],
+        "sigma_ev": sigma_ev_scale * params_global["R_d"],
+    }
+    V_fdb = model_velocity(
         R_eval,
         R_grid,
         Sigma_env_grid,
-        {"alpha": alpha, "eps": eps, "R_ev": params_global["R_ev"], "sigma_ev": params_global["sigma_ev"]},
+        params,
     )
-    V_tot = np.sqrt(np.clip(V_newton**2 + V_model**2, 0, None))
+    V_tot = np.sqrt(np.clip(V_newton**2 + V_fdb**2 + v0**2, 0, None))
     err = np.sqrt(eV**2 + sigma_model**2)
     chi = (Vobs - V_tot) / err
     return float(np.sum(chi**2))
@@ -173,8 +179,7 @@ def fit_fdb_for_galaxy(csv_path: str):
     data = load_sparc_csv(csv_path)
     R_grid, Sigma_star_grid, Sigma_gas_grid = build_radial_grid(data)
     R_d = estimate_Rd(data)
-    params_global["R_ev"] = 2.5 * R_d
-    params_global["sigma_ev"] = 0.7 * R_d
+    params_global["R_d"] = R_d
 
     # If rotmod velocities are present, build a Newton curve from them for sanity
     df_full = pd.read_csv(csv_path)
@@ -186,14 +191,27 @@ def fit_fdb_for_galaxy(csv_path: str):
 
     # Newton-only sanity check
     Sigma_env_grid_base = Sigma_gas_grid + 0.2 * Sigma_star_grid  # beta=0.2 trial
-    chi2_newton = chi2_model(np.array([0.0, 0.1, 1.0, 0.2]), data, R_grid, Sigma_env_grid_base)
+    chi2_newton = chi2_model(
+        np.array([0.0, 0.1, 1.0, 0.2, 2.5, 0.7, 0.0]),
+        data,
+        R_grid,
+        Sigma_env_grid_base,
+    )
     print(f"Newton-only chi2 (alpha=0, eps=0.1, ml=1, beta=0.2): {chi2_newton:.3e}")
 
     # Fit outer radii only
-    r_cut = 2.0 * R_d  # focus on outer disk
-    sigma_model = 5.0  # km/s added in quadrature
-    x0 = np.array([0.3, 0.1, 0.9, 0.2])  # alpha, eps[kpc], ml_scale, beta
-    bounds = [(-1, 2), (0.05, 0.8), (0.5, 1.5), (0.0, 0.5)]
+    r_cut = 2.5 * R_d  # focus on outer disk
+    sigma_model = 7.0  # km/s added in quadrature
+    x0 = np.array([0.3, 0.1, 0.9, 0.2, 2.5, 0.7, 0.0])  # alpha, eps, ml_scale, beta, R_ev/Rd, sigma_ev/Rd, v0
+    bounds = [
+        (-1, 2),        # alpha
+        (0.05, 0.6),    # eps [kpc]
+        (0.6, 1.2),     # ml_scale
+        (0.0, 0.3),     # beta
+        (2.0, 3.0),     # R_ev / R_d
+        (0.5, 1.0),     # sigma_ev / R_d
+        (0.0, 50.0),    # v0 [km/s]
+    ]
 
     res = minimize(
         lambda x: chi2_model(x, data, R_grid, Sigma_gas_grid + x[3] * Sigma_star_grid, r_cut=r_cut, sigma_model=sigma_model),
@@ -202,7 +220,7 @@ def fit_fdb_for_galaxy(csv_path: str):
         bounds=bounds,
     )
     best = res.x
-    print("Best-fit params [alpha, eps[kpc], ML_scale, beta]:", best)
+    print("Best-fit params [alpha, eps[kpc], ML_scale, beta, R_ev/Rd, sigma_ev/Rd, v0(km/s)]:", best)
     print(f"chi2 (r>{r_cut:.2f} kpc, sigma_model={sigma_model} km/s) = {res.fun:.3e}")
 
     Sigma_env_best = Sigma_gas_grid + best[3] * Sigma_star_grid
@@ -210,7 +228,12 @@ def fit_fdb_for_galaxy(csv_path: str):
         data.R_kpc,
         R_grid,
         Sigma_env_best,
-        {"alpha": best[0], "eps": best[1], "R_ev": params_global["R_ev"], "sigma_ev": params_global["sigma_ev"]},
+        {
+            "alpha": best[0],
+            "eps": best[1],
+            "R_ev": best[4] * R_d,
+            "sigma_ev": best[5] * R_d,
+        },
     )
 
     # Optional Newton from rotmod velocities

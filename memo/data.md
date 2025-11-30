@@ -20,8 +20,7 @@
   - `sources/bells2012.html`, `bells_gallery2016.html`, `mnras2017.html`
 
 ## filaments（追加準備中）
-- 予定: Tempel+2014 SDSS DR8 フィラメントカタログ (`dr8_filaments.fits`)  
-  *現状*: ダウンロード試行はタイムアウト。大容量のため再試行・分割取得が必要。
+- Tempel+2014 SDSS DR8 フィラメントカタログ: `data/filaments/dr8_filaments.fits` （53 MB）を収蔵済み。
 
 ## 備考
 - `sparc_database.zip` — rotmod データのアーカイブ。

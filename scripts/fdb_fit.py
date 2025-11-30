@@ -200,17 +200,17 @@ def fit_fdb_for_galaxy(csv_path: str):
     print(f"Newton-only chi2 (alpha=0, eps=0.1, ml=1, beta=0.2): {chi2_newton:.3e}")
 
     # Fit outer radii only
-    r_cut = 2.5 * R_d  # focus on outer disk
-    sigma_model = 7.0  # km/s added in quadrature
-    x0 = np.array([0.3, 0.1, 0.9, 0.2, 2.5, 0.7, 0.0])  # alpha, eps, ml_scale, beta, R_ev/Rd, sigma_ev/Rd, v0
+    r_cut = 3.0 * R_d  # focus on flatter outer disk
+    sigma_model = 8.0  # km/s added in quadrature
+    x0 = np.array([0.5, 0.2, 0.9, 0.2, 2.3, 0.7, 15.0])  # alpha, eps, ml_scale, beta, R_ev/Rd, sigma_ev/Rd, v0
     bounds = [
         (-1, 2),        # alpha
-        (0.05, 0.6),    # eps [kpc]
+        (0.05, 0.8),    # eps [kpc]
         (0.6, 1.2),     # ml_scale
         (0.0, 0.3),     # beta
         (2.0, 3.0),     # R_ev / R_d
         (0.5, 1.0),     # sigma_ev / R_d
-        (0.0, 50.0),    # v0 [km/s]
+        (0.0, 80.0),    # v0 [km/s]
     ]
 
     res = minimize(

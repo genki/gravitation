@@ -86,7 +86,7 @@ header-includes:
 > ULE‑EM: 超低エネルギー Proca 電磁場（微小質量を許容）。  
 > \(\Gamma\): 情報監視率 [s\(^{-1}\)]。\(\mathbf a=-\alpha_m\nabla\Gamma\)（一様域で 0）。  
 > \(v_c=\sqrt{2}\sigma\): H1 では常にこの軸を使用し分母 \(2\pi v_c^2\) を保持。  
-> \(\lambda_C\): コンプトン長。実効相関長は幾何スケールとの合成で \(\lambda_{\rm eff}^{-1}\simeq\lambda_C^{-1}+L_{\rm inner}^{-1}+L_{\rm outer}^{-1}+L_{\rm web}^{-1}\)。  
+> \(\lambda_C\): コンプトン長に対応する**有効相関スケール**。実際には ULE‑EM 前縁の有限帯域の中心スケールとして働き、幾何スケールとの合成で \(\lambda_{\rm eff}^{-1}\simeq\lambda_C^{-1}+L_{\rm inner}^{-1}+L_{\rm outer}^{-1}+L_{\rm web}^{-1}\)。  
 > inner shell / outer shell: ディスク外縁（\(R\sim2\text{–}3R_d\)）近傍の殻と、CGM/IGM スケールの外殻。前者が 1/r ドリフトの立ち上がり、後者が大域的なベースライン（v\(_0\)) を決める。
 
 ## 2. FDB理論とは

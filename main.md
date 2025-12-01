@@ -67,7 +67,7 @@ FDB is constructed so that uniform monitoring strength reproduces the usual \(1/
 
 ### 2.1 Definitions (inline “box”)
 - **Monitoring rate \(\Gamma(x)\)**: information‑monitoring rate [s\(^{-1}\)] imposed by the guided ULE‑EM flux; the drift follows \(a(x)=-(\hbar^{2}/8m)\nabla\Gamma(x)\) with \(\Gamma\propto I(x)\), so flat \(\Gamma\) \(\Rightarrow\) GR limit.
-- **ULE‑EM**: Ultra‑low‑energy Proca EM field with Compton length \(\lambda_C\sim300\,\mathrm{kpc}\Rightarrow m_\gamma\sim3.9\times10^{-65}\,\mathrm{kg}\), comfortably below current photon-mass bounds [@ParticleDataGroup2024].
+- **ULE‑EM**: Ultra‑low‑energy Proca EM field with **effective Compton‑like correlation length** \(\lambda_C\sim30\,\mathrm{kpc}\), as inferred from SPARC/BTFR; this corresponds to \(m_\gamma\sim(3\text{--}5)\times10^{-64}\,\mathrm{kg}\approx{\rm few}\times10^{-28}\,\mathrm{eV}\), comfortably below current photon‑mass bounds [@ParticleDataGroup2024]. In practice \(\lambda_C\) should be read as the **central scale of a finite front‑mode band**, not a single monochromatic wavelength.
 - **Lagrangian**:
   \[
   \mathcal{L}= -\tfrac14 F_{\mu\nu}F^{\mu\nu}+\tfrac12\mu_\gamma^{2}A_\mu A^\mu - J_\mu A^\mu,\quad \mu_\gamma = m_\gamma c/\hbar .
@@ -86,6 +86,10 @@ FDB is constructed so that uniform monitoring strength reproduces the usual \(1/
        + L_{\rm web}^{-1},
   \]
   where \(L_{\rm inner}\) denotes the scale of the inner disk shell (few–tens of kpc), \(L_{\rm outer}\) the circumgalactic shell scale, and \(L_{\rm web}\) the cosmic‑web filament/void scale. The plasma frequency enters only locally, through small corrections to these geometric scales once coupling has occurred.
+- **Wavelength regimes (three‑phase picture)**: ULE‑EM front modes organise into three qualitative regimes:
+  - \(\lambda\gg\lambda_C\): extremely long waves see the environment as effectively homogeneous and propagate as **GR‑like 1/r\(^2\)** gravity (no DM‑like correction).
+  - \(\lambda\approx\lambda_C\): only in this narrow band do the inner/outer shells strongly couple, generating the **FDB 1/r drift tail** responsible for flat rotation curves and BTFR.
+  - \(\lambda\ll\lambda_C\): wavelengths shorter than the relevant Debye/shielding scales are not efficiently trapped by the shells and again reduce to GR‑like behaviour; plasma dispersion is then a local skin‑depth effect rather than a global correlation setter.
 - **Galaxy–void interface and shells**: We treat the guided mode as **surface‑bound** along two effective shells:
   - an **inner shell** near \(R\sim(2\text{--}3)R_d\), where the disk–halo transition and sharp gradients first match \(\lambda_C\) and convert the spherical \(1/r^{2}\) flux into a cylindrical \(1/r\) tail;
   - an **outer shell** on CGM/IGM scales (tens–hundreds of kpc), which sets a quasi‑uniform baseline drift (the v\(_0\)–like offset in rotation curves).

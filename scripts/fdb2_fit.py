@@ -264,6 +264,24 @@ def fit_galaxy_v2(csv_path: str):
     g = load_sparc_csv(csv_path)
     galaxy_tag = os.path.splitext(os.path.basename(csv_path))[0].replace("_sparc", "")
 
+    # For the Milky Way, restrict the working radius range to ~30 kpc so that
+    # the fit and plots are comparable to SPARC galaxies, which typically have
+    # well-measured disks out to a few tens of kpc.
+    if galaxy_tag.upper() in {"MW", "MILKYWAY", "MILKY_WAY"}:
+        mask = g.R_kpc <= 30.0
+        if mask.any():
+            g = GalaxyData(
+                R_kpc=g.R_kpc[mask],
+                Vobs=g.Vobs[mask],
+                eVobs=g.eVobs[mask],
+                Vdisk=g.Vdisk[mask],
+                Vgas=g.Vgas[mask],
+                Vbul=g.Vbul[mask],
+                Sigma_gas=g.Sigma_gas[mask],
+                Sigma_star=g.Sigma_star[mask],
+            )
+            print(f"[MW] Restricted to R <= 30 kpc ({mask.sum()} points)")
+
     # Diagnostic Sigma_gas-based transition (for logging only)
     R_t_est, dR_est = estimate_transition_radius(g.R_kpc, g.Sigma_gas)
     print(f"Sigma_gas-based transition (diagnostic): R_t ≈ {R_t_est:.2f} kpc, dR ≈ {dR_est:.2f} kpc")

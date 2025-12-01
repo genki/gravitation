@@ -64,26 +64,24 @@ def main():
         print("Usage: convert_mw_to_sparc.py data/sparc/MilkyWayModel.mrt data/sparc/MW2018modelWSD.dat build/MW_sparc.csv")
         sys.exit(1)
     mrt_path, sd_path, out = sys.argv[1], sys.argv[2], sys.argv[3]
-    df_v = load_mw_vel_table(mrt_path)
     df_sd = load_mw_sd_table(sd_path)
-    if df_v.empty or df_sd.empty:
-        print("Failed to parse MW tables")
+    if df_sd.empty:
+        print("Failed to parse MW2018modelWSD.dat")
         sys.exit(1)
-    # Align by radius (they should have matching R)
-    df = df_sd.merge(
-        df_v[["Radius", "Vbulge", "Vgas", "Vdisk", "Vtot"]],
-        left_on="R",
-        right_on="Radius",
-        how="inner",
-    )
+
+    # For SPARC 一覧との整合性を優先し、MW2018modelWSD.dat 側の
+    # バリオン分解をそのまま利用する。Vobs は Vtotcor を採用し、
+    # Vdisk/Vgas/Vbulge は同じテーブルから取得する。
+    df = df_sd.sort_values("R").reset_index(drop=True)
+
     R_kpc = df["R"].to_numpy()
-    Vobs = df["Vtot_x"].to_numpy()
+    # Use corrected total rotation curve as "observed" Vobs, analogous to SPARC.
+    Vobs = df["Vtotcor"].to_numpy()
     eVobs = np.full_like(Vobs, 5.0)
-    Vdisk = df["Vdisk_x"].to_numpy()
-    Vgas = df["Vgas_x"].to_numpy()
-    Vbul = df["Vbulge_x"].to_numpy()
-    # Truncate bulge beyond a physical bulge radius to avoid spuriously large R_bulge_edge
-    Vbul[R_kpc > MW_BULGE_EDGE_KPC] = 0.0
+    Vdisk = df["Vdisk"].to_numpy()
+    Vgas = df["Vgas"].to_numpy()
+    Vbul = df["Vbulge"].to_numpy()
+
     # Surface densities:
     # - stellar disk: impose an exponential profile with fixed Rd for FDB Rd estimation
     Sigma_star = MW_DISK_SIGMA0 * np.exp(-R_kpc / MW_DISK_RD_KPC)

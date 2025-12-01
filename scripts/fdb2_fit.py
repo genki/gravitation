@@ -21,6 +21,7 @@ This file fits NGC 2403 as a first v2 test case.
 
 import sys
 import os
+import glob
 from dataclasses import dataclass
 from typing import Tuple
 
@@ -33,6 +34,8 @@ import matplotlib.pyplot as plt
 # In FDB picture this should be set by ULE-EM frequency / Compton scale and
 # is expected to be roughly common across similar galaxies.
 D_R_CONST_KPC = 1.0
+
+_GLOBAL_SIGMA_GAS_MAX: float | None = None
 
 
 @dataclass
@@ -133,19 +136,96 @@ def transition_weight(R: np.ndarray, R_t: float, dR: float) -> np.ndarray:
     return 0.5 * (1.0 + np.tanh(x))
 
 
+def coupling_from_scale(R: np.ndarray, Rd: float, lambda_c_kpc: float = 30.0) -> np.ndarray:
+    """
+    Geometric coupling factor f(L/λ_C) based on a single disk scale length.
+
+    For now we approximate the relevant scale as L(R) ~ max(R, Rd).
+    Then define x = L/λ_C and use a simple monotonic saturating form:
+
+        f(x) = x / (1 + x)
+
+    so that:
+      - x << 1 (L << λ_C)  -> f ~ 0
+      - x  ~ 1             -> f ~ 0.5
+      - x >> 1 (L >> λ_C)  -> f -> 1
+
+    This is a placeholder analytic form for the "how much of the 1/r tail
+    is available at this radius" coupling.
+    """
+    L = np.maximum(R, Rd)
+    x = L / max(lambda_c_kpc, 1e-3)
+    return x / (1.0 + x)
+
+
+def gas_smoothing_factor(Sigma_gas: np.ndarray, S0: float = 50.0, power: float = 1.0) -> np.ndarray:
+    """
+    Suppression factor g_gas(R) based on gas surface density.
+
+    Heuristic: high gas density and strong substructure tend to "roughen"
+    the effective interface, making it less like a single flat sheet from
+    the point of view of a long-wavelength carrier.
+
+    We use a simple monotonic form
+
+        g_gas(S) = 1 / (1 + (S / S0)^power),
+
+    applied to the *normalized* Sigma_gas (shifted so that S0~50 Msun/pc^2
+    corresponds to order-unity densities for typical spirals).
+    """
+    S = np.asarray(Sigma_gas, dtype=float)
+    Spos = np.clip(S, 0.0, None)
+    x = Spos / max(S0, 1e-3)
+    return 1.0 / (1.0 + x**power)
+
+
+def global_sigma_gas_max(build_dir: str = "build") -> float:
+    """
+    Return a global max Sigma_gas across all *_sparc.csv files in build/.
+    Used only for plotting normalization so that gas profiles are comparable
+    across galaxies.
+    """
+    global _GLOBAL_SIGMA_GAS_MAX
+    if _GLOBAL_SIGMA_GAS_MAX is not None:
+        return _GLOBAL_SIGMA_GAS_MAX
+    max_val = 0.0
+    pattern = os.path.join(build_dir, "*_sparc.csv")
+    for path in glob.glob(pattern):
+        try:
+            df = pd.read_csv(path)
+        except Exception:
+            continue
+        if "Sigma_gas" not in df.columns:
+            continue
+        vals = df["Sigma_gas"].to_numpy()
+        if vals.size == 0:
+            continue
+        local_max = np.nanmax(vals)
+        if np.isfinite(local_max):
+            max_val = max(max_val, float(local_max))
+    if max_val <= 0.0:
+        max_val = 1.0
+    _GLOBAL_SIGMA_GAS_MAX = max_val
+    return _GLOBAL_SIGMA_GAS_MAX
+
+
 def chi2_v2(
     vec: np.ndarray,
     g: GalaxyData,
     sigma_model: float = 8.0,
 ) -> float:
     """
-    Parameter vector: [Delta_v2, eps, kappa]
-    with a global shell thickness dR = D_R_CONST_KPC.
-    R_t is defined as bulge_edge + kappa * Rd.
+    Parameter vector: [Vflat2]
+
+    The total effective v^2 is a convex combination of the Newtonian
+    curve and a flat 1/r tail:
+
+        v_tot^2(R) = (1 - f_geom(R)) * v_Newt^2(R) + f_geom(R) * Vflat2,
+
+    so that幾何カップリング f_geom(L/λ_C) が 1/r^2→1/r への再配分を一意に決める。
     """
-    Delta_v2, eps, kappa = vec
-    dR = D_R_CONST_KPC
-    if Delta_v2 < 0 or not (0.0 <= eps <= 0.5):
+    Vflat2 = float(vec[0])
+    if Vflat2 <= 0:
         return 1e30
 
     R = g.R_kpc
@@ -153,15 +233,13 @@ def chi2_v2(
     eV = g.eVobs
     Vn = np.sqrt(np.clip(g.Vdisk**2 + g.Vgas**2 + g.Vbul**2, 0, None))
 
-    # Disk scale and bulge edge from stellar profile and Vbul/Vdisk
-    Rd, R_bulge_edge = estimate_Rd_and_bulge_edge(R, g.Sigma_star, g.Vbul, g.Vdisk)
-    R_t = R_bulge_edge + kappa * Rd
-    if R_t <= 0:
-        return 1e30
-
-    W = transition_weight(R, R_t, dR)
-    # v_tot^2 = v_Newt^2 * (1 - eps W) + Delta_v2 W
-    v2_tot = (1.0 - eps * W) * (Vn**2) + Delta_v2 * W
+    # Disk scale from stellar profile
+    Rd, _ = estimate_Rd_and_bulge_edge(R, g.Sigma_star, g.Vbul, g.Vdisk)
+    # geometric coupling f(L/λ_C) based on Rd (L ~ max(R,Rd))
+    f_geom = coupling_from_scale(R, Rd)
+    W = f_geom
+    # convex combination between Newtonian v^2 and flat tail Vflat2
+    v2_tot = (1.0 - W) * (Vn**2) + W * Vflat2
     V_tot = np.sqrt(np.clip(v2_tot, 0.0, None))
 
     err = np.sqrt(eV**2 + sigma_model**2)
@@ -194,15 +272,13 @@ def fit_galaxy_v2(csv_path: str):
     Rd, R_bulge_edge = estimate_Rd_and_bulge_edge(g.R_kpc, g.Sigma_star, g.Vbul, g.Vdisk)
     print(f"Estimated Rd ≈ {Rd:.2f} kpc, bulge edge ≈ {R_bulge_edge:.2f} kpc")
 
-    # Initial guess: Delta_v2 from outer observed v^2, eps small, kappa~3
+    # Initial guess: Vflat2 from outer observed v^2, kappa~3
     mask_outer = g.R_kpc > 3.0 * Rd
     if np.any(mask_outer):
         v_outer = np.median(g.Vobs[mask_outer])
-        v_newt_outer = np.median(np.sqrt(np.clip(
-            g.Vdisk[mask_outer]**2 + g.Vgas[mask_outer]**2 + g.Vbul[mask_outer]**2, 0, None)))
-        Delta0 = max(v_outer**2 - v_newt_outer**2, 0.0)
+        Vflat0 = max(v_outer**2, 1.0)
     else:
-        Delta0 = 0.0
+        Vflat0 = 1.0
     # Dwarf vs L* handling for kappa bounds
     vmax = float(np.nanmax(g.Vobs))
     if vmax < 80.0:
@@ -213,11 +289,9 @@ def fit_galaxy_v2(csv_path: str):
         # L* spirals: keep kappa >= 1
         kappa_min = 1.0
         kappa_init = 3.0
-    x0 = np.array([Delta0, 0.2, kappa_init])
+    x0 = np.array([Vflat0, kappa_init])
     bounds = [
-        (0.0, 5e4),      # Delta_v2
-        (0.0, 0.5),      # eps
-        (kappa_min, 5.0),      # kappa (offset in Rd units)
+        (1.0, 5e4),      # Vflat2
     ]
 
     res = minimize(
@@ -226,17 +300,19 @@ def fit_galaxy_v2(csv_path: str):
         method="L-BFGS-B",
         bounds=bounds,
     )
-    print("Best-fit v2 params [Delta_v2, eps, kappa]:", res.x)
+    print("Best-fit v2 params [Vflat2]:", res.x)
     print("chi2_v2 =", res.fun)
 
     # Build model curve
-    Delta_v2, eps, kappa = res.x
+    Vflat2 = float(res.x[0])
     R = g.R_kpc
     Vn = np.sqrt(np.clip(g.Vdisk**2 + g.Vgas**2 + g.Vbul**2, 0, None))
     Rd, R_bulge_edge = estimate_Rd_and_bulge_edge(R, g.Sigma_star, g.Vbul, g.Vdisk)
-    R_t = R_bulge_edge + kappa * Rd
-    W = transition_weight(R, R_t, D_R_CONST_KPC)
-    v2_tot = (1.0 - eps * W) * (Vn**2) + Delta_v2 * W
+    # R_bulge_edge は v2 では使わず、幾何スケール Rd のみを用いる
+    f_geom = coupling_from_scale(R, Rd)
+    g_gas = gas_smoothing_factor(g.Sigma_gas)
+    W = f_geom
+    v2_tot = (1.0 - W) * (Vn**2) + W * Vflat2
     V_tot = np.sqrt(np.clip(v2_tot, 0.0, None))
 
     # Report chi2 for outer (fit), inner, and all radii for evaluation
@@ -267,12 +343,14 @@ def fit_galaxy_v2(csv_path: str):
     ax0.legend()
     ax0.set_title(galaxy_tag)
 
-    # Bottom: W(R) and Sigma_gas profile
-    ax1.plot(R, W, label="W(R)")
-    # normalize Sigma_gas for display
-    if np.nanmax(g.Sigma_gas) > 0:
-        ax1.plot(R, g.Sigma_gas / np.nanmax(g.Sigma_gas), label="Sigma_gas (norm)")
-    ax1.axvline(R_t, color="k", ls="--", alpha=0.5, label="R_t")
+    # Bottom: f_geom(L/λ_C), gas factor (参考), W(R), and Sigma_gas profile
+    ax1.plot(R, f_geom, label="f_geom(L/λ_C)")
+    ax1.plot(R, g_gas, label="g_gas(Sigma_gas)")
+    ax1.plot(R, W, label="W(R)=f_geom")
+    # normalize Sigma_gas using a global max so that profiles are comparable
+    global_max = global_sigma_gas_max()
+    if global_max > 0:
+        ax1.plot(R, g.Sigma_gas / global_max, label="Sigma_gas (norm global)")
     ax1.set_xlabel("R [kpc]")
     ax1.set_ylabel("W, Σ_gas(norm)")
     ax1.set_ylim(0, 1.1)

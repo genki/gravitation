@@ -261,7 +261,8 @@ def rescale_stellar_inner(galaxy_tag: str, g: GalaxyData, sigma_model: float = 8
     # Inner region: up to min(3 kpc, 2 Rd) to avoid polluting with outer disk
     R_cut_inner = min(3.0, 2.0 * Rd)
     mask_inner = np.isfinite(R) & (R <= R_cut_inner)
-    if mask_inner.sum() < 5:
+    n_inner = int(mask_inner.sum())
+    if n_inner == 0:
         return g
 
     R_in = R[mask_inner]
@@ -282,7 +283,7 @@ def rescale_stellar_inner(galaxy_tag: str, g: GalaxyData, sigma_model: float = 8
 
     # Guard against pathological cases
     valid = np.isfinite(y) & np.isfinite(star2) & (star2 > 0)
-    if valid.sum() < 5:
+    if valid.sum() < 3:
         return g
 
     star2_v = star2[valid]
@@ -297,7 +298,7 @@ def rescale_stellar_inner(galaxy_tag: str, g: GalaxyData, sigma_model: float = 8
     # Constrain to a reasonable range
     s_hat = max(0.3, min(1.0, s_hat))
 
-    # Only apply if it actually reduces an obvious over-shoot
+    # Only apply if it actually reduces an obvious over-shoot.
     Vn_inner = np.sqrt(np.clip(star2 + Vgas2, 0, None))
     overshoot = (Vn_inner - Vobs_in) > 10.0  # km/s
     if not np.any(overshoot) or s_hat >= 0.98:

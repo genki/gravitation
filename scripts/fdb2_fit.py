@@ -388,6 +388,13 @@ def chi2_v2(
 
 def fit_galaxy_v2(csv_path: str):
     galaxy_tag = os.path.splitext(os.path.basename(csv_path))[0].replace("_sparc", "")
+    # Hard blacklist for galaxies that are clearly incompatible with the
+    # simple v2 assumptions (e.g. strong counter-rotating bulges).
+    # These should be documented in memo/galaxy/blacklist.md.
+    blacklist = {"NGC7331"}
+    if galaxy_tag.upper() in blacklist:
+        print(f"[{galaxy_tag}] Skipping v2 fit (blacklisted for global stats).")
+        return
     g_raw = load_sparc_csv(csv_path)
 
     # Apply inner stellar rescaling for HSB + bulge galaxies before any
@@ -466,7 +473,11 @@ def fit_galaxy_v2(csv_path: str):
 
     # Report chi2 for outer (fit), inner, and all radii for evaluation
     err_all = np.sqrt(g.eVobs**2 + 8.0**2)
-    R_star_edge = 3.0 * Rd
+    vmax = float(np.nanmax(g.Vobs))
+    if vmax < 80.0:
+        R_star_edge = 2.0 * Rd
+    else:
+        R_star_edge = 3.0 * Rd
     mask_outer = R > R_star_edge
     mask_inner = ~mask_outer
     def safe_chi2(mask):
@@ -489,6 +500,8 @@ def fit_galaxy_v2(csv_path: str):
     ax0.plot(R, Vn, label="Newton (rotmod)")
     ax0.plot(R, V_tot, label="FDB v2 total")
     ax0.set_ylabel("V [km/s]")
+    # Shade the region excluded from the v2 fit (R <= R_star_edge)
+    ax0.axvspan(R.min(), R_star_edge, color="0.92", alpha=0.6, zorder=0)
     ax0.legend()
     ax0.set_title(galaxy_tag)
 
@@ -503,6 +516,8 @@ def fit_galaxy_v2(csv_path: str):
     ax1.set_xlabel("R [kpc]")
     ax1.set_ylabel("W, Σ_gas(norm)")
     ax1.set_ylim(0, 1.1)
+    # 同じくフィットに使っていない内側領域を淡色で示す
+    ax1.axvspan(R.min(), R_star_edge, color="0.92", alpha=0.6, zorder=0)
     ax1.legend(fontsize=8)
 
     plt.tight_layout()

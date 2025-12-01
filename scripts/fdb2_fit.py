@@ -36,6 +36,7 @@ import matplotlib.pyplot as plt
 D_R_CONST_KPC = 1.0
 
 _GLOBAL_SIGMA_GAS_MAX: float | None = None
+_HSB_TAGS: set[str] | None = None
 
 
 @dataclass
@@ -209,6 +210,130 @@ def global_sigma_gas_max(build_dir: str = "build") -> float:
     return _GLOBAL_SIGMA_GAS_MAX
 
 
+def load_hsb_tags(sp_arc_dir: str = "data/sparc") -> set[str]:
+    """
+    Load the list of high-surface-brightness (HSB) galaxies from
+    SPARC's sets/hsb.txt. Used to decide where an inner stellar
+    mass rescaling is appropriate.
+    """
+    global _HSB_TAGS
+    if _HSB_TAGS is not None:
+        return _HSB_TAGS
+    hsb_path = os.path.join(sp_arc_dir, "sets", "hsb.txt")
+    tags: set[str] = set()
+    try:
+        with open(hsb_path, "r", encoding="utf-8") as f:
+            for line in f:
+                name = line.strip()
+                if not name:
+                    continue
+                # SPARC names may include spaces; our tags drop spaces.
+                tag = name.replace(" ", "")
+                tags.add(tag.upper())
+    except FileNotFoundError:
+        # Fail silently; we simply won't apply HSB-based corrections.
+        tags = set()
+    _HSB_TAGS = tags
+    return _HSB_TAGS
+
+
+def rescale_stellar_inner(galaxy_tag: str, g: GalaxyData, sigma_model: float = 8.0) -> GalaxyData:
+    """
+    For HSB + bulge galaxies, rescale the stellar contribution
+    (disk + bulge) in the inner region so that Newton and Vobs
+    are roughly consistent near the centre.
+
+    This is a lightweight 1-parameter adjustment:
+        V_newt_corr^2 = s * (Vdisk^2 + Vbul^2) + Vgas^2
+    with s<=1, fitted only for R <= R_cut_inner. Dwarfs/LSB are left
+    untouched.
+    """
+    tags_hsb = load_hsb_tags()
+    if galaxy_tag.upper() not in tags_hsb:
+        return g
+
+    R = g.R_kpc
+    Vobs = g.Vobs
+    eV = g.eVobs
+
+    # Estimate Rd for an inner cut in physical units
+    Rd, _ = estimate_Rd_and_bulge_edge(R, g.Sigma_star, g.Vbul, g.Vdisk)
+    # Inner region: up to min(3 kpc, 2 Rd) to avoid polluting with outer disk
+    R_cut_inner = min(3.0, 2.0 * Rd)
+    mask_inner = np.isfinite(R) & (R <= R_cut_inner)
+    if mask_inner.sum() < 5:
+        return g
+
+    R_in = R[mask_inner]
+    Vobs_in = Vobs[mask_inner]
+    err_in = np.sqrt(eV[mask_inner] ** 2 + sigma_model**2)
+    Vdisk2 = g.Vdisk[mask_inner] ** 2
+    Vbul2 = g.Vbul[mask_inner] ** 2
+    Vgas2 = g.Vgas[mask_inner] ** 2
+    star2 = Vdisk2 + Vbul2
+
+    # Require that stellar term actually dominates somewhere; otherwise skip.
+    if np.all(star2 <= 0):
+        return g
+
+    # Work in v^2 space: Vobs^2 ≈ s * star2 + Vgas2
+    y = np.clip(Vobs_in, 0.0, None) ** 2 - Vgas2
+    w = 1.0 / np.clip(err_in, 1.0, None) ** 2
+
+    # Guard against pathological cases
+    valid = np.isfinite(y) & np.isfinite(star2) & (star2 > 0)
+    if valid.sum() < 5:
+        return g
+
+    star2_v = star2[valid]
+    y_v = y[valid]
+    w_v = w[valid]
+
+    denom = np.sum(w_v * star2_v * star2_v)
+    if denom <= 0:
+        return g
+
+    s_hat = float(np.sum(w_v * star2_v * y_v) / denom)
+    # Constrain to a reasonable range
+    s_hat = max(0.3, min(1.0, s_hat))
+
+    # Only apply if it actually reduces an obvious over-shoot
+    Vn_inner = np.sqrt(np.clip(star2 + Vgas2, 0, None))
+    overshoot = (Vn_inner - Vobs_in) > 10.0  # km/s
+    if not np.any(overshoot) or s_hat >= 0.98:
+        return g
+
+    print(f"[{galaxy_tag}] Applying inner stellar rescale s={s_hat:.3f} (R<= {R_cut_inner:.2f} kpc)")
+
+    # Apply a radial taper: full s_hat at R<=R_cut_inner, smoothly ->1 outside ~2*R_cut_inner
+    R_taper_start = R_cut_inner
+    R_taper_end = 2.0 * R_cut_inner
+    if R_taper_end <= R_taper_start:
+        R_taper_end = R_taper_start + 0.5
+    taper = np.ones_like(R)
+    inner_core = R <= R_taper_start
+    outer = R >= R_taper_end
+    mid = (~inner_core) & (~outer)
+    taper[inner_core] = s_hat
+    taper[outer] = 1.0
+    # Linear interpolation in between
+    taper[mid] = s_hat + (R[mid] - R_taper_start) * (1.0 - s_hat) / (R_taper_end - R_taper_start)
+
+    Vdisk_new = g.Vdisk * np.sqrt(taper)
+    Vbul_new = g.Vbul * np.sqrt(taper)
+
+    return GalaxyData(
+        R_kpc=g.R_kpc,
+        Vobs=g.Vobs,
+        eVobs=g.eVobs,
+        Vdisk=Vdisk_new,
+        Vgas=g.Vgas,
+        Vbul=Vbul_new,
+        Sigma_gas=g.Sigma_gas,
+        Sigma_star=g.Sigma_star,
+    )
+
+
 def chi2_v2(
     vec: np.ndarray,
     g: GalaxyData,
@@ -261,8 +386,13 @@ def chi2_v2(
 
 
 def fit_galaxy_v2(csv_path: str):
-    g = load_sparc_csv(csv_path)
     galaxy_tag = os.path.splitext(os.path.basename(csv_path))[0].replace("_sparc", "")
+    g_raw = load_sparc_csv(csv_path)
+
+    # Apply inner stellar rescaling for HSB + bulge galaxies before any
+    # diagnostics or fitting, so that Newton and Vobs are closer in the
+    # central region. Dwarfs/LSB are returned unchanged.
+    g = rescale_stellar_inner(galaxy_tag, g_raw)
 
     # For the Milky Way, restrict the working radius range to ~30 kpc so that
     # the fit and plots are comparable to SPARC galaxies, which typically have

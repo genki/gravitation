@@ -2,70 +2,101 @@
 """
 Build a simple SVG mosaic `out/all.svg` from all `out/*_v2_summary.svg` plots.
 
-The mosaic does not rasterize the individual SVGs; instead it arranges them
-via <image> references in a fixed 5-column grid. This keeps everything in
-vector form while providing a quick visual index.
+各銀河の SVG を XML レベルで読み込み、<g> transform で 5 列グリッドに
+並べて 1 つの SVG として保存します（中身はベクタのまま）。
 """
 
 import glob
 import math
 import os
 from typing import List
+import xml.etree.ElementTree as ET
+import copy
 
 
-def collect_tags(out_dir: str = "out") -> List[str]:
+def collect_summary_svgs(out_dir: str = "out") -> List[str]:
     pattern = os.path.join(out_dir, "*_v2_summary.svg")
     files = sorted(glob.glob(pattern))
-    tags: List[str] = []
-    for f in files:
-        base = os.path.basename(f)
-        if base == "all.svg":
-            continue
-        if base.startswith("MW_"):
-            continue
-        tag = base.replace("_v2_summary.svg", "")
-        tags.append(tag)
-    return tags
+    files = [
+        f
+        for f in files
+        if os.path.basename(f) != "all.svg"
+        and not os.path.basename(f).startswith("MW_")
+    ]
+    return files
 
 
-def build_mosaic(out_dir: str = "out", ncols: int = 5, tile_px: int = 300) -> None:
-    tags = collect_tags(out_dir)
-    if not tags:
+def parse_size(attr: str, default: float = 300.0) -> float:
+    if not attr:
+        return default
+    # strip common units (pt, px); keep numeric part
+    s = attr.strip()
+    for suf in ("pt", "px", "cm", "mm", "in"):
+        if s.endswith(suf):
+            s = s[: -len(suf)]
+            break
+    try:
+        return float(s)
+    except ValueError:
+        return default
+
+
+def build_mosaic(out_dir: str = "out", ncols: int = 5, tile_px: float = 300.0) -> None:
+    files = collect_summary_svgs(out_dir)
+    if not files:
         print("No *_v2_summary.svg files found under", out_dir)
         return
 
-    n = len(tags)
+    n = len(files)
     nrows = math.ceil(n / ncols)
+
+    # 名前空間の設定（matplotlib SVG と互換）
+    ET.register_namespace("", "http://www.w3.org/2000/svg")
+    ns = {"svg": "http://www.w3.org/2000/svg"}
+
     width = ncols * tile_px
     height = nrows * tile_px
 
-    lines = [
-        '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
-        '<svg xmlns="http://www.w3.org/2000/svg"',
-        '     xmlns:xlink="http://www.w3.org/1999/xlink"',
-        f'     width="{width}" height="{height}">',
-    ]
+    root = ET.Element(
+        "{http://www.w3.org/2000/svg}svg",
+        attrib={
+            "width": f"{width}",
+            "height": f"{height}",
+            "viewBox": f"0 0 {width} {height}",
+        },
+    )
 
-    for idx, tag in enumerate(tags):
+    for idx, path in enumerate(files):
         row = idx // ncols
         col = idx % ncols
         x = col * tile_px
         y = row * tile_px
-        href = f"{tag}_v2_summary.svg"
-        lines.append(
-            f'  <image xlink:href="{href}" x="{x}" y="{y}" '
-            f'width="{tile_px}" height="{tile_px}" />'
-        )
 
-    lines.append("</svg>")
+        try:
+            tree = ET.parse(path)
+        except Exception as e:
+            print(f"skip {path}: parse error {e}")
+            continue
+        src_root = tree.getroot()
+        w_src = parse_size(src_root.get("width"), tile_px)
+        h_src = parse_size(src_root.get("height"), tile_px)
+        sx = tile_px / w_src if w_src > 0 else 1.0
+        sy = tile_px / h_src if h_src > 0 else 1.0
+
+        g = ET.SubElement(
+            root,
+            "{http://www.w3.org/2000/svg}g",
+            attrib={"transform": f"translate({x},{y}) scale({sx},{sy})"},
+        )
+        # src_root の子ノードをコピー（metadata などもまとめて）
+        for child in list(src_root):
+            g.append(copy.deepcopy(child))
 
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "all.svg")
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines))
-    print(f"Saved SVG mosaic referencing {n} panels to {out_path}")
+    ET.ElementTree(root).write(out_path, encoding="utf-8", xml_declaration=True)
+    print(f"Saved SVG mosaic with {len(files)} panels to {out_path}")
 
 
 if __name__ == "__main__":
     build_mosaic()
-

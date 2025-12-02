@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 """
-Build a mosaic image `out/all.svg` from all `*_v2_summary.svg` plots.
+Build a simple SVG mosaic `out/all.svg` from all `out/*_v2_summary.svg` plots.
 
-The layout is a fixed 5-column grid, with as many rows as needed to
-include every available summary image. This script is intentionally
-simple and only depends on matplotlib, which is already used elsewhere
-in the project.
+The mosaic does not rasterize the individual SVGs; instead it arranges them
+via <image> references in a fixed 5-column grid. This keeps everything in
+vector form while providing a quick visual index.
 """
 
 import glob
@@ -13,15 +12,8 @@ import math
 import os
 from typing import List
 
-import matplotlib.pyplot as plt
 
-
-def collect_summary_tags(out_dir: str = "out") -> List[str]:
-    """
-    Return a sorted list of galaxy tags for which a per-galaxy v2 summary SVG exists.
-
-    Excludes MW and any pre-existing aggregate files.
-    """
+def collect_tags(out_dir: str = "out") -> List[str]:
     pattern = os.path.join(out_dir, "*_v2_summary.svg")
     files = sorted(glob.glob(pattern))
     tags: List[str] = []
@@ -36,48 +28,44 @@ def collect_summary_tags(out_dir: str = "out") -> List[str]:
     return tags
 
 
-def build_mosaic(out_dir: str = "out", ncols: int = 5) -> None:
-    tags = collect_summary_tags(out_dir)
+def build_mosaic(out_dir: str = "out", ncols: int = 5, tile_px: int = 300) -> None:
+    tags = collect_tags(out_dir)
     if not tags:
         print("No *_v2_summary.svg files found under", out_dir)
         return
 
     n = len(tags)
     nrows = math.ceil(n / ncols)
+    width = ncols * tile_px
+    height = nrows * tile_px
 
-    fig, axes = plt.subplots(nrows, ncols, figsize=(3 * ncols, 3 * nrows))
-    if nrows == 1 and ncols == 1:
-        axes = [[axes]]
-    elif nrows == 1:
-        axes = [axes]
-    elif ncols == 1:
-        axes = [[ax] for ax in axes]
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8" standalone="no"?>',
+        '<svg xmlns="http://www.w3.org/2000/svg"',
+        '     xmlns:xlink="http://www.w3.org/1999/xlink"',
+        f'     width="{width}" height="{height}">',
+    ]
 
-    flat_axes = [ax for row in axes for ax in row]
-
-    for ax, tag in zip(flat_axes, tags):
-        svg_path = os.path.join(out_dir, f"{tag}_v2_summary.svg")
-        # 読み込みではなく、テキストとしてラベルだけ付ける簡易ビュー:
-        ax.text(
-            0.5,
-            0.5,
-            tag,
-            ha="center",
-            va="center",
-            fontsize=10,
+    for idx, tag in enumerate(tags):
+        row = idx // ncols
+        col = idx % ncols
+        x = col * tile_px
+        y = row * tile_px
+        href = f"{tag}_v2_summary.svg"
+        lines.append(
+            f'  <image xlink:href="{href}" x="{x}" y="{y}" '
+            f'width="{tile_px}" height="{tile_px}" />'
         )
-        ax.set_axis_off()
 
-    for ax in flat_axes[len(tags) :]:
-        ax.set_axis_off()
+    lines.append("</svg>")
 
-    plt.tight_layout()
     os.makedirs(out_dir, exist_ok=True)
     out_path = os.path.join(out_dir, "all.svg")
-    fig.savefig(out_path, format="svg")
-    plt.close(fig)
-    print(f"Saved mosaic placeholder with {len(tags)} panels to {out_path}")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+    print(f"Saved SVG mosaic referencing {n} panels to {out_path}")
 
 
 if __name__ == "__main__":
     build_mosaic()
+

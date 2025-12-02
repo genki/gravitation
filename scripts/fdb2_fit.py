@@ -521,10 +521,10 @@ def fit_galaxy_v2(csv_path: str):
     ax1.legend(fontsize=8)
 
     plt.tight_layout()
-    out_png = os.path.join("out", f"{galaxy_tag}_v2_summary.png")
-    plt.savefig(out_png, dpi=150)
+    out_svg = os.path.join("out", f"{galaxy_tag}_v2_summary.svg")
+    plt.savefig(out_svg, format="svg")
     plt.close(fig)
-    print(f"Saved {out_png}")
+    print(f"Saved {out_svg}")
 
 
 if __name__ == "__main__":

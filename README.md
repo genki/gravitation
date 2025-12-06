@@ -2,6 +2,11 @@
 
 このリポジトリは「Future Determination Bias (FDB)」仮説を中心にした重力研究用の単一ソース・ペーパー一式を収めています。pandoc で Markdown→LaTeX/PDF にビルドし、図・計算スクリプト・入力データをすべて同一ディレクトリツリーで完結させました。公開後は https://github.com/genki/gravitation から取得できます。最新 PDF（英語版 `main.pdf` / 日本語版 `main.ja.pdf`）は Release の latest から取得できます: <https://github.com/genki/gravitation/releases/latest>.
 
+### What is FDB?（3行で）
+- **重力の再解釈**: GR と同型の 1/r² 幾何を、超低エネルギー電磁場（ULE‑EM）前波による情報ドリフトとして読み替える枠組み。
+- **基礎一貫性**: レンズ効果や重力波など既存の検証と同じ数学的構造を保ち、自由度を増やさずに記述する。
+- **条件付き拡張**: 特定スケール／環境では同じ枠組みから 1/r 的有効力が立ち上がりうるため、銀河回転や BTFR も同一規格化で扱える余地を持つ。
+
 ## ディレクトリ構成
 
 | パス | 内容 |

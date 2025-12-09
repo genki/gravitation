@@ -23,3 +23,4 @@
 - `.env` の `GITHUB_TOKEN` を使って `gh workflow run wiki-to-pages.yml` を実行したが、`HTTP 403: Resource not accessible by personal access token` で失敗（workflow scope 不足と思われる）。PAT に `workflow` 権限を付けて再試行する必要あり。
 - 代替としてローカルで wiki をクローンし pandoc で静的HTMLを生成、`gh-pages` ワークツリーに同期して直接 `git push origin gh-pages` を実行しデプロイ完了（コミット bb164ae）。
 - 「What is FDB?（3行で）」の表現を GR 同型の 1/r² 幾何を主軸にした文言へ修正し、wiki Home.md と README の該当箇所を更新。再度 pandoc 生成・`gh-pages` へ手動 push（コミット 7a32ff5）。
+- 学習なし「宇宙型ディフュージョン」最小デモを `demo/univ/` に追加（スクリプト・README）。`pip install torch numpy matplotlib` が前提。ローカル実行では matplotlib 未インストールで ModuleNotFoundError を確認（依存を入れれば動作見込み）。メインへ push 済み（コミット a95acd6）。

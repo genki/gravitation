@@ -3,6 +3,7 @@
 ## 結果サマリ
 - 指定本文を `computing-field.md` としてリポジトリに追加。
 - 同内容の Wiki ページ `Computing-Field` を追加し、Home からリンクを追加。
+- `scripts/check-math.js` で Wiki ページの数式をチェックし、未レンダリングの数式記法が残らない形（プレーン表記）へ修正した。
 
 ## 主要変更点
 - 追加: `computing-field.md`

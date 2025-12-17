@@ -11,6 +11,7 @@
 
 ## 実行メモ
 - `.venv/bin/python sim/2-soliton/simulate_two_solitons.py` でGIFが `sim/2-soliton/out/` に生成されることを確認。
+- 生成物: `sim/2-soliton/out/two_soliton_V1_exact_fixedsim_60f.gif`（60 frames）
 - Matplotlib 3.8 系で `tostring_rgb` の deprecation warning が出るが、現状動作には影響なし。
 
 ## 次の一手

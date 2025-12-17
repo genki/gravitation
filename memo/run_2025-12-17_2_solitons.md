@@ -3,6 +3,7 @@
 ## 結果サマリ
 - 縮小宇宙（共形時間）で advanced 解が「計算場」として意味を持つ理由を、物質ソリトン×情報ソリトンの2ソリトン共鳴・局所収束として整理し、`2-solitons.md` にまとめた。
 - `scripts/check-math.js` で数式マーカーを確認し、GitHub Wiki ページ `2-Solitons` として追加（Home からリンク追加、check-math で raw math なしを確認）。
+- 数式が `pre` にならないよう、Wiki 側は `$$...$$` の GitHub 数式記法に統一し、`\\eta_\\star` 等の記法で check-math 上もレンダリングされることを確認した。
 
 ## 主要変更点
 - 追加: `2-solitons.md`

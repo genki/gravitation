@@ -10,7 +10,7 @@
 
 ## 次の一手
 - wiki→Pages の自動生成が走った後、GitHub Pages 上で `Computing-Field` が出力されることを確認。
-- もし即時反映が必要なら、手動で `gh-pages` を再生成して push する。
+- 即時反映のため、wiki を pandoc で静的HTML化して `gh-pages` に手動 push した（`Computing-Field.html` を追加）。
 
 ## 通知
 - `make notify-done` が Makefile に無く、自動通知手順は実行できない（代替手段の整備が必要）。

@@ -28,7 +28,7 @@ out_gif = OUT_DIR / "two_soliton_V1_exact_fixedsim_240f.gif"
 # ==============================
 N_FRAMES = 240
 eta_star = 8.0  # resonance time
-eta_end = 16.0  # includes re-emission phase
+eta_end = 32.0  # includes re-emission phase (2x interval)
 c = 1.0
 
 # ==============================

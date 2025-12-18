@@ -10,8 +10,8 @@
 - 追加: `sim/2-soliton/.gitignore`（生成物をコミットしない）
 
 ## 実行メモ
-- `.venv/bin/python sim/2-soliton/simulate_two_solitons.py` でGIFが `sim/2-soliton/out/` に生成されることを確認。
-- 生成物: `sim/2-soliton/out/two_soliton_V1_exact_fixedsim_60f.gif`（60 frames）
+- `.venv/bin/python sim/2-soliton/simulate_two_solitons.py` でGIFが `out/2-soliton/` に生成されることを確認。
+- 生成物: `out/2-soliton/two_soliton_V1_3d_z0_fixedsim_120f.gif`（120 frames, η∈[0,32]）
 - Matplotlib 3.8 系で `tostring_rgb` の deprecation warning が出るが、現状動作には影響なし。
 
 ## 次の一手

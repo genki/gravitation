@@ -63,7 +63,8 @@ python3 -m venv .venv
 
 出力：
 
-- `out/2-soliton/two_soliton_V1_exact_fixedsim_240f.gif`
+- `out/2-soliton/two_soliton_V1_3d_z0_fixedsim_120f.gif`
+  - 現行は 3D 場を定義し、**z=0 断面**を描画します。
 
 ---
 

@@ -161,3 +161,4 @@ tmp/
 wandb/
 .yarn/
 old/
+out/2-soliton/

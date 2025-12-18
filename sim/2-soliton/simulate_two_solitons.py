@@ -19,13 +19,14 @@ from matplotlib.gridspec import GridSpec
 # ==============================
 # Output
 # ==============================
-OUT_DIR = Path(__file__).resolve().parent / "out"
-out_gif = OUT_DIR / "two_soliton_V1_exact_fixedsim_60f.gif"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+OUT_DIR = REPO_ROOT / "out" / "2-soliton"
+out_gif = OUT_DIR / "two_soliton_V1_exact_fixedsim_240f.gif"
 
 # ==============================
 # Time parameters (conformal time)
 # ==============================
-N_FRAMES = 60
+N_FRAMES = 240
 eta_star = 8.0  # resonance time
 eta_end = 16.0  # includes re-emission phase
 c = 1.0
@@ -234,4 +235,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

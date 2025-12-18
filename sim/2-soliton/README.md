@@ -63,7 +63,7 @@ python3 -m venv .venv
 
 出力：
 
-- `sim/2-soliton/out/two_soliton_V1_exact_fixedsim_60f.gif`
+- `out/2-soliton/two_soliton_V1_exact_fixedsim_240f.gif`
 
 ---
 
@@ -85,4 +85,3 @@ python3 -m venv .venv
 - Hopfion の厳密解（Bateman/Rañada 形式）への差し替え
 - H-index と等高線数の 1 対 1 対応を強制する表示規約
 - 論文用（白背景・ベクター無し）図版への派生
-

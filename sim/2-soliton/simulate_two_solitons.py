@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
-# === Two‑Soliton Simulation (V1 exact style) ===
-# Material soliton (advanced EM Hopfion) + Info soliton (retarded EM Hopfion)
-# Output: GIF only
+# === Two‑Soliton Simulation (V1 style, conformal fields) ===
+#
+# Goal: visualize the conformal-time evolution of a *single* Maxwell solution
+# built from the superposition of two exact Bateman-constructed null fields:
+# - material soliton A: "advanced Hopfion-like" (time-reversed) with (p,q)=(1,3)
+# - information soliton B: "retarded Hopfion" with (p,q)=(1,1), rotated to propagate from +x to 0
+#
+# Output: GIF only (z=0 slice of the 3D fields).
 
 from __future__ import annotations
 
@@ -16,193 +21,102 @@ import numpy as np
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.gridspec import GridSpec
 
+from hopfion import HopfionSpec, hopfion_fields, rotation_propagate_z_to_minus_x
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
 # ==============================
 # Output
 # ==============================
-REPO_ROOT = Path(__file__).resolve().parents[2]
-OUT_DIR = REPO_ROOT / "out" / "2-soliton"
-out_gif = OUT_DIR / "two_soliton_V1_3d_z0_fixedsim_120f.gif"
+OUT_DIR = _repo_root() / "out" / "2-soliton"
+out_gif = OUT_DIR / "two_soliton_V1_hopfion_z0_120f.gif"
 
 # ==============================
 # Time parameters (conformal time)
 # ==============================
-# Note: keep the time interval, reduce sampling density by 1/2.
 N_FRAMES = 120
-eta_star = 8.0  # resonance time
-eta_end = 32.0  # includes re-emission phase
+eta_end = 32.0
 c = 1.0
 
 # ==============================
-# Spatial domain (V1 style) + 3D grid (z=0 slice visualized)
+# Spatial domain (V1 style)
 # ==============================
 L = 10.0
 nx_bg = 110  # background grid (x,y)
-nz_bg = 41  # z grid (3D simulation backbone)
-nx_sl = 24  # streamline grid (x,y)
-nz_sl = 21  # z grid for streamline fields
+nx_sl = 24  # streamline grid
 
 x = np.linspace(-L, L, nx_bg)
 y = np.linspace(-L, L, nx_bg)
-z = np.linspace(-L, L, nz_bg)
 X, Y = np.meshgrid(x, y)
+Z0 = np.zeros_like(X)
 
 xs = np.linspace(-L, L, nx_sl)
 ys = np.linspace(-L, L, nx_sl)
-zs = np.linspace(-L, L, nz_sl)
 Xs, Ys = np.meshgrid(xs, ys)
+Zs0 = np.zeros_like(Xs)
 
 # ==============================
-# Matter soliton parameters
+# Two-soliton configuration
 # ==============================
-h0 = 3  # initial H-index
-sigma_m = 1.9
-A_m_pre = 1.0
-A_m_post = 1.25  # density increase after resonance
+d = 8.0  # initial separation along +x for the incoming info soliton
+eta_star = d / c  # nominal "encounter time" marker (for annotation only)
 
-# ==============================
-# Info soliton parameters
-# ==============================
-d = 8.0  # initial separation
-info_center = (d, 0.0)
-A_info0 = 1.1
-sigma0 = 0.55
-alpha_decay = 1.15  # amplitude dilution
-sigma_growth = 0.35  # diffusion
-A_reemit0 = 1.0
+MATTER = HopfionSpec(
+    p=1,
+    q=3,
+    kind="advanced",
+    center=(0.0, 0.0, 0.0),
+    time_shift=0.0,
+    rot=None,
+)
 
-
-# ==============================
-# Utility functions
-# ==============================
-def tangential(theta: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    return -np.sin(theta), np.cos(theta)
-
-def _stack_z(XX: np.ndarray, YY: np.ndarray, zz: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    # broadcast (ny,nx) with (nz,) -> (nz,ny,nx)
-    nz = int(zz.shape[0])
-    XX3 = np.broadcast_to(XX, (nz,) + XX.shape)
-    YY3 = np.broadcast_to(YY, (nz,) + YY.shape)
-    ZZ3 = np.broadcast_to(zz[:, None, None], (nz,) + XX.shape)
-    return XX3, YY3, ZZ3
+INFO = HopfionSpec(
+    p=1,
+    q=1,
+    kind="retarded",
+    center=(d, 0.0, 0.0),
+    time_shift=0.0,
+    rot=rotation_propagate_z_to_minus_x(),
+)
 
 
-# ==============================
-# Field definitions
-# ==============================
-def matter_fields_3d(XX: np.ndarray, YY: np.ndarray, zz: np.ndarray, eta: float):
-    n = h0 if eta < eta_star else h0 + 1
-    A = A_m_pre if eta < eta_star else A_m_post
-    XX3, YY3, ZZ3 = _stack_z(XX, YY, zz)
-    r = np.sqrt(XX3**2 + YY3**2 + ZZ3**2) + 1e-9
-    th = np.arctan2(YY3, XX3)
-    amp = A * np.exp(-((r / sigma_m) ** 2))
-    angle = n * th
-    tx, ty = tangential(angle)
-    Ex = amp * tx
-    Ey = amp * ty
-    Ez = np.zeros_like(Ex)
-    angleB = angle + np.pi / 2
-    bx, by = tangential(angleB)
-    Bx = 0.95 * amp * bx
-    By = 0.95 * amp * by
-    Bz = np.zeros_like(Bx)
+def total_fields_conformal_z0(eta: float):
+    Em = hopfion_fields(eta, X, Y, Z0, MATTER)
+    Ei = hopfion_fields(eta, X, Y, Z0, INFO)
+    Ex = Em[0] + Ei[0]
+    Ey = Em[1] + Ei[1]
+    Ez = Em[2] + Ei[2]
+    Bx = Em[3] + Ei[3]
+    By = Em[4] + Ei[4]
+    Bz = Em[5] + Ei[5]
     return Ex, Ey, Ez, Bx, By, Bz
 
 
-def ring_profile(r: np.ndarray, R: float, sigma: float) -> np.ndarray:
-    return np.exp(-((r - R) ** 2) / (2 * sigma**2))
-
-
-def info_incoming_fields_3d(XX: np.ndarray, YY: np.ndarray, zz: np.ndarray, eta: float):
-    XX3, YY3, ZZ3 = _stack_z(XX, YY, zz)
-    Ex = np.zeros_like(XX3)
-    Ey = np.zeros_like(YY3)
-    Ez = np.zeros_like(ZZ3)
-    Bx = np.zeros_like(XX3)
-    By = np.zeros_like(YY3)
-    Bz = np.zeros_like(ZZ3)
-    cx, cy = info_center
-    dx = XX3 - cx
-    dy = YY3 - cy
-    dz = ZZ3
-    r = np.sqrt(dx**2 + dy**2 + dz**2) + 1e-9
-    rt = np.hypot(dx, dy) + 1e-9
-    R = c * eta
-    sigma = sigma0 * (1.0 + sigma_growth * R / (L + 1e-9))
-    A = A_info0 / ((1.0 + R) ** alpha_decay)
-    prof = A * ring_profile(r, R, sigma)
-    Ex += prof * (dx / r)
-    Ey += prof * (dy / r)
-    Ez += prof * (dz / r)
-    # Choose a simple azimuthal B around z-axis (perpendicular to radial in xy).
-    Bx += prof * (-dy / rt)
-    By += prof * (dx / rt)
-    return Ex, Ey, Ez, Bx, By, Bz
-
-
-def info_reemit_fields_3d(XX: np.ndarray, YY: np.ndarray, zz: np.ndarray, eta: float):
-    if eta < eta_star:
-        XX3, YY3, ZZ3 = _stack_z(XX, YY, zz)
-        z0 = np.zeros_like(XX3)
-        return z0, z0, z0, z0, z0, z0
-    XX3, YY3, ZZ3 = _stack_z(XX, YY, zz)
-    Ex = np.zeros_like(XX3)
-    Ey = np.zeros_like(YY3)
-    Ez = np.zeros_like(ZZ3)
-    Bx = np.zeros_like(XX3)
-    By = np.zeros_like(YY3)
-    Bz = np.zeros_like(ZZ3)
-    dx = XX3
-    dy = YY3
-    dz = ZZ3
-    r = np.sqrt(dx**2 + dy**2 + dz**2) + 1e-9
-    rt = np.hypot(dx, dy) + 1e-9
-    R = c * (eta - eta_star)
-    sigma = sigma0 * (1.0 + sigma_growth * R / (L + 1e-9))
-    A = A_reemit0 / ((1.0 + R) ** alpha_decay)
-    prof = A * ring_profile(r, R, sigma)
-    Ex += prof * (dx / r)
-    Ey += prof * (dy / r)
-    Ez += prof * (dz / r)
-    Bx += prof * (-dy / rt)
-    By += prof * (dx / rt)
-    return Ex, Ey, Ez, Bx, By, Bz
-
-
-def total_fields_3d(XX: np.ndarray, YY: np.ndarray, zz: np.ndarray, eta: float):
-    Emx, Emy, Emz, Bmx, Bmy, Bmz = matter_fields_3d(XX, YY, zz, eta)
-    Einx, Einy, Einz, Binx, Biny, Binz = info_incoming_fields_3d(XX, YY, zz, eta)
-    Erox, Eroy, Eroz, Brox, Broy, Broz = info_reemit_fields_3d(XX, YY, zz, eta)
-    return (
-        Emx + Einx + Erox,
-        Emy + Einy + Eroy,
-        Emz + Einz + Eroz,
-        Bmx + Binx + Brox,
-        Bmy + Biny + Broy,
-        Bmz + Binz + Broz,
-    )
-
-
-def _z0_index(zz: np.ndarray) -> int:
-    return int(np.argmin(np.abs(zz - 0.0)))
+def total_fields_stream_z0(eta: float):
+    Em = hopfion_fields(eta, Xs, Ys, Zs0, MATTER)
+    Ei = hopfion_fields(eta, Xs, Ys, Zs0, INFO)
+    Ex = Em[0] + Ei[0]
+    Ey = Em[1] + Ei[1]
+    Bx = Em[3] + Ei[3]
+    By = Em[4] + Ei[4]
+    return Ex, Ey, Bx, By
 
 
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    etas = np.linspace(0, eta_end, N_FRAMES)
-    iz0_bg = _z0_index(z)
-    iz0_sl = _z0_index(zs)
+    etas = np.linspace(0.0, eta_end, N_FRAMES)
 
-    # fixed color scales
+    # fixed color scales over the whole run
     maxE = 0.0
     maxB = 0.0
     for eta in etas:
-        Ex, Ey, Ez, Bx, By, Bz = total_fields_3d(X, Y, z, float(eta))
-        Ex0, Ey0, Ez0 = Ex[iz0_bg], Ey[iz0_bg], Ez[iz0_bg]
-        Bx0, By0, Bz0 = Bx[iz0_bg], By[iz0_bg], Bz[iz0_bg]
-        maxE = max(maxE, float(np.sqrt(Ex0**2 + Ey0**2 + Ez0**2).max()))
-        maxB = max(maxB, float(np.sqrt(Bx0**2 + By0**2 + Bz0**2).max()))
+        Ex, Ey, Ez, Bx, By, Bz = total_fields_conformal_z0(float(eta))
+        maxE = max(maxE, float(np.sqrt(Ex * Ex + Ey * Ey + Ez * Ez).max()))
+        maxB = max(maxB, float(np.sqrt(Bx * Bx + By * By + Bz * Bz).max()))
 
     vmaxE = maxE * 1.02
     vmaxB = maxB * 1.02
@@ -212,15 +126,10 @@ def main() -> None:
     ) as writer:
         for eta in etas:
             eta = float(eta)
-            Ex, Ey, Ez, Bx, By, Bz = total_fields_3d(X, Y, z, eta)
-            Ex0, Ey0, Ez0 = Ex[iz0_bg], Ey[iz0_bg], Ez[iz0_bg]
-            Bx0, By0, Bz0 = Bx[iz0_bg], By[iz0_bg], Bz[iz0_bg]
-            magE = np.sqrt(Ex0**2 + Ey0**2 + Ez0**2)
-            magB = np.sqrt(Bx0**2 + By0**2 + Bz0**2)
-
-            Exs, Eys, Ezs, Bxs, Bys, Bzs = total_fields_3d(Xs, Ys, zs, eta)
-            Exs0, Eys0 = Exs[iz0_sl], Eys[iz0_sl]
-            Bxs0, Bys0 = Bxs[iz0_sl], Bys[iz0_sl]
+            Ex, Ey, Ez, Bx, By, Bz = total_fields_conformal_z0(eta)
+            magE = np.sqrt(Ex * Ex + Ey * Ey + Ez * Ez)
+            magB = np.sqrt(Bx * Bx + By * By + Bz * Bz)
+            Exs, Eys, Bxs, Bys = total_fields_stream_z0(eta)
 
             fig = plt.figure(figsize=(10.6, 4.2), dpi=45, facecolor="black")
             gs = GridSpec(1, 4, width_ratios=[1, 0.04, 1, 0.04], wspace=0.18)
@@ -238,8 +147,8 @@ def main() -> None:
                 vmax=vmaxE,
                 cmap="viridis",
             )
-            axE.streamplot(xs, ys, Exs0, Eys0, color="red", density=0.55, linewidth=0.7)
-            fig.colorbar(imE, cax=caxE).set_label("|E|")
+            axE.streamplot(xs, ys, Exs, Eys, color="red", density=0.55, linewidth=0.7)
+            fig.colorbar(imE, cax=caxE).set_label("|E| (conformal)")
 
             imB = axB.imshow(
                 magB,
@@ -249,8 +158,8 @@ def main() -> None:
                 vmax=vmaxB,
                 cmap="viridis",
             )
-            axB.streamplot(xs, ys, Bxs0, Bys0, color="cyan", density=0.55, linewidth=0.7)
-            fig.colorbar(imB, cax=caxB).set_label("|B|")
+            axB.streamplot(xs, ys, Bxs, Bys, color="cyan", density=0.55, linewidth=0.7)
+            fig.colorbar(imB, cax=caxB).set_label("|B| (conformal)")
 
             for ax in (axE, axB):
                 ax.set_xlim(-L, L)
@@ -258,21 +167,22 @@ def main() -> None:
                 ax.set_aspect("equal")
                 ax.set_xlabel("x")
                 ax.set_ylabel("y")
-                ax.plot(0, 0, "wo", markersize=5)
-                if eta < eta_star:
-                    ax.plot(d, 0, marker="*", color="white", markersize=7)
+                ax.plot(0, 0, "wo", markersize=5, label="matter center")
+                ax.plot(d, 0, marker="*", color="white", markersize=7, label="info start")
 
-            H_val = h0 if eta < eta_star else h0 + 1
             fig.suptitle(
-                f"Conformal time η={eta:0.2f}   H(core)={H_val}   "
-                f"(η*={eta_star:0.2f})   z=0 slice   centers separated at η=0 by d={d}",
+                "Two Bateman null fields (conformal Maxwell), z=0 slice  "
+                f"η={eta:0.2f}  (η★≈{eta_star:0.2f})  "
+                f"matter(p,q)=({MATTER.p},{MATTER.q},{MATTER.kind})  "
+                f"info(p,q)=({INFO.p},{INFO.q},{INFO.kind})",
                 color="white",
                 y=0.98,
-                fontsize=10,
+                fontsize=9,
             )
 
             canvas = FigureCanvas(fig)
             canvas.draw()
+            # Matplotlib 3.8+: tostring_rgb is deprecated but still works; keep for now.
             img = np.frombuffer(canvas.tostring_rgb(), dtype=np.uint8)
             img = img.reshape(canvas.get_width_height()[::-1] + (3,))
             writer.append_data(img)

@@ -2,16 +2,18 @@
 
 ## 結果サマリ
 - `sim/2-soliton/` に Two‑Soliton（物質ソリトン＋情報ソリトン）V1可視化の実行一式を追加し、GIF生成まで動作確認した。
+- その後、簡易場の合成ではなく Bateman 構成（Riemann–Silberstein `F=E+iB`）に基づく Hopfion 系の合成へ置換し、共形場のまま `z=0` 断面を出力する形に更新した。
 
 ## 主要変更点
 - 追加: `sim/2-soliton/README.md`
 - 追加: `sim/2-soliton/simulate_two_solitons.py`
+- 追加: `sim/2-soliton/hopfion.py`
 - 追加: `sim/2-soliton/requirements.txt`
 - 追加: `sim/2-soliton/.gitignore`（生成物をコミットしない）
 
 ## 実行メモ
 - `.venv/bin/python sim/2-soliton/simulate_two_solitons.py` でGIFが `out/2-soliton/` に生成されることを確認。
-- 生成物: `out/2-soliton/two_soliton_V1_3d_z0_fixedsim_120f.gif`（120 frames, η∈[0,32]）
+- 生成物: `out/2-soliton/two_soliton_V1_hopfion_z0_120f.gif`（120 frames, η∈[0,32]）
 - Matplotlib 3.8 系で `tostring_rgb` の deprecation warning が出るが、現状動作には影響なし。
 
 ## 次の一手

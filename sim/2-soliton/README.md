@@ -7,7 +7,9 @@
 
 の **共形時間 η における時間発展**を GIF として生成するための、実行可能な最小パッケージです。
 
-注意：ここでの場は **定性的可視化**のための簡易モデルであり、厳密な Maxwell–Hopfion 解（Bateman/Rañada 等）ではありません。
+注意：ここでは **共形場の Maxwell（真空・線形）**の枠内で、Bateman 構成に基づく **null electromagnetic field**
+（Riemann–Silberstein ベクトル `F = E + iB = ∇(α^p)×∇(β^q)`）を用いて可視化します。
+「共鳴」や「核更新」のように見える現象は、合成場の観測量（|E|,|B|等）に現れる干渉・重ね合わせとして生じます。
 
 ---
 
@@ -21,21 +23,18 @@
 
   本コードは共形時間 $\eta$ を直接用い、Maxwell 方程式の共形不変性を利用する（という立て付け）で描きます。
 
-- **物質ソリトン（核）**
-  - advanced EM Hopfion（の簡易模型）
-  - 初期 H-index = `h0`
-  - 共鳴時刻 `eta_star` で **H → H+1**
-  - エネルギー分布（|E|, |B|）は **等方的**
+- **物質ソリトンA（核）**
+  - advanced Hopfion（Bateman場の時間反転として定義）
+  - 本実装では Bateman 構成のパラメータを `(p,q)=(1,3)` として選びます（H=3 の代用ラベル）。
 
-- **情報ソリトン**
-  - retarded EM Hopfion（の簡易模型）
-  - 入射：固定中心から半径 `R=c*η` の殻として伝播
-  - 拡散：殻幅増大＋振幅減衰（希薄化）
-  - 共鳴後：物質核中心から **再放射**
+- **情報ソリトンB**
+  - retarded Hopfion（Bateman場）
+  - `(p,q)=(1,1)`（Hopfion）
+  - `x=d` から `-x` 方向へ進むように回転して配置します。
 
 - **可視化（V1）**
-  - 背景：|E|, |B|（imshow）
-  - 重ね：E/B の streamlines（赤／シアン）
+  - 背景：共形場の `|E|`, `|B|`（3Dベクトルのノルムを `z=0` 断面で表示）
+  - 重ね：`z=0` 断面での `E_xy` / `B_xy` streamlines（赤／シアン）
   - colorbar あり
   - 黒背景
 
@@ -63,8 +62,8 @@ python3 -m venv .venv
 
 出力：
 
-- `out/2-soliton/two_soliton_V1_3d_z0_fixedsim_120f.gif`
-  - 現行は 3D 場を定義し、**z=0 断面**を描画します。
+- `out/2-soliton/two_soliton_V1_hopfion_z0_120f.gif`
+  - Bateman 構成の 3D 場を評価し、**z=0 断面**を描画します（共形場のまま）。
 
 ---
 
@@ -72,12 +71,10 @@ python3 -m venv .venv
 
 スクリプト内（`UniverseConfig` ではなく上部の定数）を調整してください：
 
-- 初期 H-index：`h0`
-- 共鳴時刻：`eta_star`
-- 再放射の強さ：`A_reemit0`
-- 情報ソリトンの希薄化：`alpha_decay`, `sigma_growth`
+- 時間区間：`eta_end`、フレーム数：`N_FRAMES`
+- 2体系の配置：`d`（情報ソリトンの初期位置）
+- “H” に相当させるラベル：`MATTER.p/q` と `INFO.p/q`（Bateman場の指数）
 - 空間サイズ：`L`
-- フレーム数：`N_FRAMES`
 
 ---
 

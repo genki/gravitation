@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Information-Kernel</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-label">FDB wiki</span>
+  <span class="spacer">•</span>
+  <a href="https://github.com/genki/gravitation" class="pill">Repository</a>
+  <a href="https://github.com/genki/gravitation/wiki">Edit on Wiki</a>
+  <a href="https://github.com/genki/gravitation/releases/latest">Latest PDFs</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">Information-Kernel</h1>
+</header>
+<h1
+id="情報カーネル-k_h共形電磁場を畳み込んで情報トポロジーを読み取る">情報カーネル
+(K_H)：共形電磁場を畳み込んで「情報＝トポロジー」を読み取る</h1>
+<h2 id="1-外から見るとは局所観測では読めない情報を非局所演算で読む">1.
+「外から見る」とは：局所観測では読めない情報を、非局所演算で読む</h2>
+<p>計算場宇宙論の鍵は、内部観測者が見ているのはあくまで線形・局所な
+Maxwell 場であり、
+“宇宙が計算している”という構造（未来畳み込み・位相保護・トポロジカル更新）が可視化されるのは
+**外部視点（共形時間全体を扱う視点）**に限られる、という点でした。</p>
+<p>この構造を数学的に言い換えると、</p>
+<blockquote>
+<p>「<strong>情報は局所場そのものには現れず</strong>、空間全体（あるいは境界条件を含む全体）にわたる
+<strong>非局所汎関数</strong>として現れる」</p>
+</blockquote>
+<p>となります。</p>
+<p>H-index（linking
+数）はまさにこのタイプの量で、**場線の“結び目・絡み”**を数えるため、局所的な
+<span
+class="math inline">(<em>E</em>(<em>x</em>),<em>B</em>(<em>x</em>))</span>
+だけでは原理的に読み切れません。
+そこで「外からの読み取り」に対応するのが、<strong>畳み込み＝非局所カーネル</strong>です。</p>
+<hr />
+<h2
+id="2-hopfion-とトポロジカル情報maxwell-解の中に結び目が埋め込める">2.
+Hopfion と「トポロジカル情報」：Maxwell 解の中に結び目が埋め込める</h2>
+<p>Maxwell 方程式には、電場線・磁場線が結び目やリンクを形成する **null
+解（Hopfion
+を含む族）**が存在し、時間発展の中でそのトポロジーが保たれる条件も議論されています。(<a
+href="https://link.aps.org/doi/10.1103/PhysRevLett.111.150404?utm_source=chatgpt.com"
+title="Tying Knots in Light Fields | Phys. Rev. Lett. - APS Journals">APS
+Journals</a>)</p>
+<p>このとき「結び目の量」を測る代表が
+**ヘリシティ（helicity）**で、Hopfion
+のような構造ではヘリシティが「トポロジカルな結びつき」の尺度として働きます。(<a
+href="https://link.aps.org/doi/10.1103/PhysRevLett.111.150404?utm_source=chatgpt.com"
+title="Tying Knots in Light Fields | Phys. Rev. Lett. - APS Journals">APS
+Journals</a>)</p>
+<p>ここで重要なのは：</p>
+<ul>
+<li><strong>Hopfion の“トポロジカルさ”は、場の形状そのもの（<span
+class="math inline">(<em>E</em>,<em>B</em>)</span>
+の空間配置）に符号化されている</strong></li>
+<li>それを読むには
+<strong>ヘリシティのような非局所量</strong>が必要</li>
+</ul>
+<p>という点です。</p>
+<hr />
+<h2 id="3-情報カーネルの原型ヘリシティ密度とヘリシティ流連続の式">3.
+情報カーネルの原型：ヘリシティ密度とヘリシティ流（連続の式）</h2>
+<p>「読み取り」は、単に整数を返す黒箱ではなく、</p>
+<ul>
+<li><strong>どこに情報が局在しているか</strong></li>
+<li><strong>どこからどこへ情報が流れたか</strong></li>
+</ul>
+<p>まで出せると強力です。</p>
+<p>電磁場には、双対対称な形で</p>
+<ul>
+<li><p>ヘリシティ密度</p>
+<p><span
+class="math display">$$h_H=\frac12(\mathbf{A}\cdot\mathbf{B}-\mathbf{C}\cdot\mathbf{E})$$</span></p></li>
+<li><p>ヘリシティ流（フラックス）</p>
+<p><span
+class="math display">$$\mathbf{j}_H=\frac12(\mathbf{E}\times\mathbf{A}+\mathbf{B}\times\mathbf{C})$$</span></p></li>
+</ul>
+<p>が導入でき、条件の下で <strong>連続の式</strong></p>
+<p><span
+class="math display">∂<sub><em>t</em></sub><em>h</em><sub><em>H</em></sub> + ∇ ⋅ <strong>j</strong><sub><em>H</em></sub> = 0</span></p>
+<p>を満たすことが知られています。(<a
+href="https://dml.riken.jp/images/pub/nori/pdf/NewJPhys_033026.pdf?utm_source=chatgpt.com"
+title="Dual electromagnetism: helicity, spin, momentum and ...">Quantum
+Computing RIKEN</a>)</p>
+<p>これは、あなたの用語に寄せると：</p>
+<ul>
+<li><span
+class="math inline"><em>h</em><sub><em>H</em></sub></span>：局所の「情報量（トポロジカル情報の密度）」</li>
+<li><span
+class="math inline"><strong>j</strong><sub><em>H</em></sub></span>：局所の「情報流（情報浴の偏りを含む）」</li>
+</ul>
+<p>として解釈できる土台です。</p>
+<hr />
+<h2
+id="4-k_h-の中身nablatimes-の逆biotsavart-畳み込みで-ac-を場から再構成する">4.
+<span class="math inline"><em>K</em><sub><em>H</em></sub></span>
+の中身：<span class="math inline">(∇×)</span> の逆＝Biot–Savart
+畳み込みで <span class="math inline">(<em>A</em>,<em>C</em>)</span>
+を場から再構成する</h2>
+<p>ここで問題になるのが「<span
+class="math inline">(<strong>A</strong>,<strong>C</strong>)</span>
+はポテンシャルなのでゲージ依存では？」という点です。
+しかしあなたの狙いは「外部情報を入れない」ことであり、むしろ</p>
+<blockquote>
+<p><strong><span
+class="math inline">(<strong>A</strong>,<strong>C</strong>)</span> を
+<span class="math inline">(<em>E</em>,<em>B</em>)</span>
+から非局所に再構成してしまう</strong></p>
+</blockquote>
+<p>のが筋になります。</p>
+<h3 id="41-位置空間畳み込み核での実装イメージ">4.1
+位置空間（畳み込み核）での実装イメージ</h3>
+<p><span class="math inline">∇ ⋅ <strong>B</strong> = 0</span>
+かつ境界条件が良い（十分減衰、あるいは周期境界など）なら、Coulomb
+型の選び方で</p>
+<p><span
+class="math display"><strong>A</strong> = (∇×)<sup>−1</sup><strong>B</strong></span></p>
+<p>が定義でき、これは <strong>Biot–Savart
+型の畳み込み</strong>になります。 この構造は「ヘリシティ積分は二重点の
+<span class="math inline"><strong>B</strong></span>
+を用いた二重積分になる」という形でも現れます。(<a
+href="https://www.aanda.org/articles/aa/full_html/2020/03/aa36675-19/aa36675-19.html?utm_source=chatgpt.com"
+title="Spatial scales and locality of magnetic helicity">A&amp;A
+Journal</a>)</p>
+<p>直観的には</p>
+<ul>
+<li><strong>場を全空間で畳み込んで</strong>（= 非局所）</li>
+<li><strong>渦の“逆変換”としてポテンシャルを得て</strong></li>
+<li><strong>内積を取ることで“絡み”を測る</strong></li>
+</ul>
+<p>という流れです。</p>
+<h3 id="42-フーリエ空間計算場宇宙論向きの実装">4.2
+フーリエ空間（計算場宇宙論向きの実装）</h3>
+<p>プログラマ的には、<span
+class="math inline"><em>K</em><sub><em>H</em></sub></span>
+はフーリエ空間で最も綺麗に書けます（周期箱や FFT を想定）：</p>
+<p><span
+class="math display">$$\mathbf{A}(\mathbf{k})=\frac{i\,\mathbf{k}\times
+\mathbf{B}(\mathbf{k})}{|\mathbf{k}|^2},\qquad
+\mathbf{C}(\mathbf{k})=-\frac{i\,\mathbf{k}\times
+\mathbf{E}(\mathbf{k})}{|\mathbf{k}|^2}\quad(\mathbf{k}\neq0).$$</span></p>
+<p>そして逆 FFT して <span class="math inline">$h_H=\tfrac12(A\cdot B -
+C\cdot E)$</span> を作る。 この <span
+class="math inline">$\tfrac{1}{|\mathbf{k}|^2}$</span>
+が、あなたの言う「フーリエ係数欠損を埋める」方向（長距離・低周波成分が強く効く）と相性が良い核になります。</p>
+<p>まとめると、情報カーネル <span
+class="math inline"><em>K</em><sub><em>H</em></sub></span> は</p>
+<p><span
+class="math display">(<em>E</em>,<em>B</em>) → (∇×)<sup>−1</sup> → (<em>A</em>,<em>C</em>) → (<em>h</em><sub><em>H</em></sub>,<strong>j</strong><sub><em>H</em></sub>)</span></p>
+<p>という“読解器（decoder）”です。(<a
+href="https://dml.riken.jp/images/pub/nori/pdf/NewJPhys_033026.pdf?utm_source=chatgpt.com"
+title="Dual electromagnetism: helicity, spin, momentum and ...">Quantum
+Computing RIKEN</a>)</p>
+<hr />
+<h2 id="5-共形電磁場への適用縮小宇宙では共形スライス上で-k_h-を回す">5.
+共形電磁場への適用：縮小宇宙では「共形スライス上で <span
+class="math inline"><em>K</em><sub><em>H</em></sub></span> を回す」</h2>
+<p>あなたの縮小宇宙モデルでは、空間と時間が同時に縮小する共形構造を採用します。
+このとき外部視点で扱うべき対象は、<strong>物理座標の <span
+class="math inline">(<em>E</em>,<em>B</em>)</span>
+ではなく</strong>、</p>
+<ul>
+<li>共形時間 <span class="math inline"><em>η</em></span>
+上のスライス</li>
+<li>共形座標 <span class="math inline"><strong>x</strong></span>
+上で表現された場（共形電磁場）</li>
+</ul>
+<p>です。</p>
+<p>重要なのは次です：</p>
+<ul>
+<li>Maxwell
+方程式は（真空で）共形変換と相性が良く、「共形スライス上の場の姿」を議論できる（＝“外から見る”が可能になる）。</li>
+<li><span class="math inline"><em>K</em><sub><em>H</em></sub></span>
+は「空間全体の畳み込み」なので、<strong>共形スライス全体</strong>に対して適用するのが自然。</li>
+</ul>
+<p>つまり、計算場宇宙論では</p>
+<p><span class="math display">$$
+(E(\eta,\mathbf{x}),B(\eta,\mathbf{x}))\ \xrightarrow{K_H}\
+(h_H(\eta,\mathbf{x}),\mathbf{j}_H(\eta,\mathbf{x})) $$</span></p>
+<p>が、<strong>外部視点での“情報読み取り”の最小手続き</strong>になります。</p>
+<hr />
+<h2
+id="6-2物質ソリトン系での意味合成場に対する-k_h-は自己項相互項を必ず生む">6.
+2物質ソリトン系での意味：合成場に対する <span
+class="math inline"><em>K</em><sub><em>H</em></sub></span>
+は「自己項＋相互項」を必ず生む</h2>
+<p>2つの物質ソリトン（A,B）が作る合成場を</p>
+<p><span
+class="math display">(<em>E</em>,<em>B</em>)<sub>tot</sub> = (<em>E</em>,<em>B</em>)<sub><em>A</em></sub> + (<em>E</em>,<em>B</em>)<sub><em>B</em></sub></span></p>
+<p>とすると、ヘリシティ型の量は二次汎関数なので必ず</p>
+<ul>
+<li>自己ヘリシティ（Aだけ、Bだけ）</li>
+<li>相互ヘリシティ（cross term）</li>
+</ul>
+<p>に分解されます。 この「相互項」が、あなたの語彙でいう
+<strong>共鳴・情報交換</strong>の候補になります。(<a
+href="https://www.aanda.org/articles/aa/full_html/2020/03/aa36675-19/aa36675-19.html?utm_source=chatgpt.com"
+title="Spatial scales and locality of magnetic helicity">A&amp;A
+Journal</a>)</p>
+<h3
+id="ローカルな読み取り物質核の内部状態としての情報">ローカルな読み取り（“物質核の内部状態”としての情報）</h3>
+<p>「裸の <span
+class="math inline"><em>H</em></span>」を持ち込まずに内部状態を定義したいなら、例えば</p>
+<ul>
+<li><p>A の近傍領域 <span
+class="math inline"><em>V</em><sub><em>A</em></sub></span> を取り</p>
+<p><span
+class="math display"><em>H</em><sub><em>A</em></sub>(<em>η</em>) = ∫<sub><em>V</em><sub><em>A</em></sub></sub><em>h</em><sub><em>H</em></sub>(<em>η</em>,<strong>x</strong>) <em>d</em><sup>3</sup><em>x</em></span></p></li>
+<li><p>連続の式から</p>
+<p><span class="math display">$$\frac{d}{d\eta}H_A(\eta)=-\int_{\partial
+V_A}\mathbf{j}_H\cdot d\mathbf{S}$$</span></p></li>
+</ul>
+<p>とすれば、「入射情報ソリトンで <span
+class="math inline"><em>H</em><sub><em>A</em></sub></span>
+が増え、出ていく側では減る」という更新は、<strong>場から導出した <span
+class="math inline">(<em>h</em><sub><em>H</em></sub>,<strong>j</strong><sub><em>H</em></sub>)</span>
+だけで記述</strong>できます。(<a
+href="https://dml.riken.jp/images/pub/nori/pdf/NewJPhys_033026.pdf?utm_source=chatgpt.com"
+title="Dual electromagnetism: helicity, spin, momentum and ...">Quantum
+Computing RIKEN</a>)</p>
+<p>ここまで来ると、</p>
+<ul>
+<li>“<span class="math inline"><em>H</em></span>
+を宇宙外から与える”必要がなく</li>
+<li>“<span class="math inline"><em>H</em></span>
+を電磁場から読む”だけで内部状態が定義され</li>
+</ul>
+<p>あなたの懸念（宇宙外情報問題）を避けられます。</p>
+<hr />
+<h2 id="7-整数としての-h-index-にどう寄せるか量子化位相保護の条件">7.
+整数としての <span class="math inline"><em>H</em></span>-index
+にどう寄せるか：量子化（位相保護）の条件</h2>
+<p>注意点として、ヘリシティは一般には実数で、必ずしも整数ではありません。
+整数の Hopf index と同一視するには、例えば</p>
+<ul>
+<li>無限遠での減衰（あるいは空間のコンパクト化）</li>
+<li>適切なゲージ／相対ヘリシティの扱い</li>
+<li>Hopfion のような位相保護クラス（null 条件など）</li>
+</ul>
+<p>が関わります。
+境界をまたぐ場合に「相対ヘリシティ」が必要になることも強調されています。(<a
+href="https://ntrs.nasa.gov/api/citations/20230012619/downloads/helicity.pdf?utm_source=chatgpt.com"
+title="helicity.pdf">NASA Technical Reports Server</a>)
+また、結び目構造が保たれる条件として null
+条件が重要である議論もあります。(<a
+href="https://irvinelab.uchicago.edu/papers/Kedia_2018_J._Phys._A__Math._Theor._51_025204.pdf?utm_source=chatgpt.com"
+title="When do knots in light stay knotted? - Irvine Lab">Irvine
+Lab</a>)</p>
+<p>計算場宇宙論的には、ここを</p>
+<ul>
+<li>縮小宇宙の共形境界条件</li>
+<li>retarded/advanced の非干渉性</li>
+<li>情報浴における null 的伝播</li>
+</ul>
+<p>と結びつけて「整数性＝位相保護」の理由づけに使うのが自然です。</p>
+<hr />
+<h2 id="8-実装メモプログラムとしての-k_h最小レシピ">8.
+実装メモ：プログラムとしての <span
+class="math inline"><em>K</em><sub><em>H</em></sub></span>（最小レシピ）</h2>
+<p>共形スライス（固定 <span
+class="math inline"><em>η</em></span>）で、離散格子上の <span
+class="math inline">(<em>E</em>,<em>B</em>)</span> が得られるとき：</p>
+<ol type="1">
+<li><p>FFT：<span
+class="math inline">(<em>E</em>(<strong>x</strong>),<em>B</em>(<strong>x</strong>)) → <em>E</em>(<strong>k</strong>), <em>B</em>(<strong>k</strong>)</span></p></li>
+<li><p><span class="math inline"><strong>k</strong> ≠ 0</span> で</p>
+<p><span class="math display">$$A(\mathbf{k})=\frac{i\,\mathbf{k}\times
+B(\mathbf{k})}{|\mathbf{k}|^2},\quad
+C(\mathbf{k})=-\frac{i\,\mathbf{k}\times
+E(\mathbf{k})}{|\mathbf{k}|^2}$$</span></p></li>
+<li><p>逆 FFT：<span
+class="math inline">(<em>A</em>(<strong>x</strong>),<em>C</em>(<strong>x</strong>))</span></p></li>
+<li><p>情報密度・流束：</p>
+<p><span class="math display">$$h_H=\tfrac12(A\cdot B - C\cdot E),\quad
+\mathbf{j}_H=\tfrac12(E\times A + B\times C)$$</span></p></li>
+<li><p>物質核周りで積分して <span
+class="math inline">(<em>H</em><sub><em>A</em></sub>(<em>η</em>),<em>H</em><sub><em>B</em></sub>(<em>η</em>))</span>
+を定義、時間発展を追跡</p></li>
+</ol>
+<p>この手順がそのまま「共形電磁場を畳み込んで情報を読む」実装になります。(<a
+href="https://dml.riken.jp/images/pub/nori/pdf/NewJPhys_033026.pdf?utm_source=chatgpt.com"
+title="Dual electromagnetism: helicity, spin, momentum and ...">Quantum
+Computing RIKEN</a>)</p>
+<hr />
+<h2
+id="9-結語情報カーネルは外部視点の読み取り器でありh-を場の内部量に戻す">9.
+結語：情報カーネルは「外部視点の読み取り器」であり、<span
+class="math inline"><em>H</em></span> を場の内部量に戻す</h2>
+<p>あなたが提案した</p>
+<blockquote>
+<p>電磁場を畳み込んで <span class="math inline"><em>H</em></span>-index
+と一致するカーネル <span
+class="math inline"><em>K</em><sub><em>H</em></sub></span>
+を導出する</p>
+</blockquote>
+<p>という方向は、</p>
+<ul>
+<li><span class="math inline"><em>H</em></span>
+を「宇宙外のラベル」から</li>
+<li>「共形電磁場に内在する情報」へ戻す</li>
+</ul>
+<p>ための最も自然な処方です。</p>
+<p>そして <span
+class="math inline"><em>K</em><sub><em>H</em></sub></span> を
+<strong>密度 <span
+class="math inline"><em>h</em><sub><em>H</em></sub></span> と流束 <span
+class="math inline"><strong>j</strong><sub><em>H</em></sub></span></strong>
+まで含む“読み取り器”として定義しておけば、</p>
+<ul>
+<li>共鳴（情報流入）</li>
+<li><span class="math inline"><em>H</em></span>
+増分（局所領域への情報蓄積）</li>
+<li>情報浴の偏り（<span
+class="math inline"><strong>j</strong><sub><em>H</em></sub></span>
+の方向性）</li>
+<li>再放射（情報流出）</li>
+</ul>
+<p>が、いずれも
+<strong>共形電磁場の内部演算</strong>として統一的に語れるようになります。</p>
+<hr />
+<p>必要なら次の段階として、この <span
+class="math inline"><em>K</em><sub><em>H</em></sub></span> を使って</p>
+<ul>
+<li><strong>2物質ソリトンの相互項（mutual
+helicity）だけを抽出するカーネル</strong></li>
+<li>そこから <strong>見かけの力（情報流勾配）</strong>
+を定義する最小更新則</li>
+<li>その更新則が <strong><span
+class="math inline">1/<em>r</em><sup>2</sup></span>
+と等価原理</strong>を同時に満たす条件</li>
+</ul>
+<p>まで、あなたの用語だけで「記事の続編」としてまとめられます。</p>
+</body>
+</html>

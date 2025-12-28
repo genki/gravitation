@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Computing-Univ</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-label">FDB wiki</span>
+  <span class="spacer">•</span>
+  <a href="https://github.com/genki/gravitation" class="pill">Repository</a>
+  <a href="https://github.com/genki/gravitation/wiki">Edit on Wiki</a>
+  <a href="https://github.com/genki/gravitation/releases/latest">Latest PDFs</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">Computing-Univ</h1>
+</header>
+<h1
+id="計算場理論縮小共形宇宙における-em-hopfion-と情報カーネルがつくる計算する宇宙">計算場理論：縮小共形宇宙における
+EM Hopfion と情報カーネルがつくる「計算する宇宙」</h1>
+<p>以下は、これまでの議論（縮小宇宙・advanced/retarded EM
+Hopfion・H-index・情報浴・重力様作用・情報カーネル・共形揺らぎ・「宇宙外」視点）を、<strong>計算場理論（外部視点＝計算法則）<strong>として一貫した記事の形にまとめたものです。
+（※ここで述べるのは「標準理論の既存結果の説明」ではなく、あなたの提示している枠組みを</strong>自洽的に定義し、何が最小仮定かを明確にする</strong>ことを目的にしています。）</p>
+<hr />
+<h2 id="0-要旨">0. 要旨</h2>
+<p>計算場理論では、宇宙を「物質」と「情報」が電磁場（Maxwell場）の線形ダイナミクスの上で結び目（Hopfion）として現れる系として捉える。
+ただし、観測者が宇宙の内部にいる限り、電磁場は線形であるため“宇宙が計算している様子”は直接見えない。そこで本理論は、<strong>縮小宇宙の共形時空を“外から見る”視点</strong>を導入し、さらに電磁場そのものから導出される<strong>情報カーネル</strong>によって、局所時空における「物質ソリトン性」と「情報ソリトン性」を読み出す。</p>
+<ul>
+<li><strong>advanced EM Hopfion</strong>：物質ソリトン（核）</li>
+<li><strong>retarded EM Hopfion</strong>：情報ソリトン（放射）</li>
+<li><strong>H-index（linking数）</strong>：整数の位相情報（トポロジカルな“計算カウント”）</li>
+<li><strong>情報カーネル (<span
+class="math inline"><em>K</em><sub><em>H</em></sub></span>)</strong>：裸の
+H を使わず、電磁場を畳み込んで局所情報を抽出する接続（connection）</li>
+<li><strong>共形揺らぎ</strong>：フーリエ係数型の揺らぎに「共形スケール帯でサイズ一定」という拘束を課したもの</li>
+<li><strong>重力様作用</strong>：情報浴の偏りが、共形揺らぎの縮小を方向づけ、有効運動として観測される</li>
+</ul>
+<hr />
+<h2 id="1-縮小宇宙が必要な理由advanced-解に意味を与える">1.
+縮小宇宙が必要な理由：advanced 解に「意味」を与える</h2>
+<p>真空 Maxwell 方程式は retarded 解（遅延解）だけでなく advanced
+解（先進解）も許す。しかし通常の定常時空では、advanced
+解は因果直感と噛み合いにくく、物理実在として扱うのが難しい。</p>
+<p>計算場理論では、ここに宇宙論的な仮定を置く：</p>
+<ul>
+<li>宇宙の外部視点から見た時空は、共形時間 <span
+class="math inline"><em>η</em></span> に伴って
+<strong>空間スケールも時間スケールも同時に縮小</strong>する</li>
+<li>その縮小により、advanced 解が「中心へ向かって縮む構造」として、なお
+Maxwell 方程式を満たしながら意味を持つ</li>
+</ul>
+<p>あなたの言い方に沿えば、</p>
+<ul>
+<li>先進波は中心へ光速で縮小するトポロジカルソリトン構造であり、同時に未来へ進む波でもある</li>
+<li>空間だけでなく時間の尺度も同様に縮小することで、Maxwell
+方程式が連続的に維持される</li>
+<li>その結果「縮小宇宙（共形時空）」において advanced
+解を実在的対象として扱う道が開ける</li>
+</ul>
+<hr />
+<h2 id="2-em-hopfion-の二重相物質ソリトンと情報ソリトン">2. EM Hopfion
+の二重相：物質ソリトンと情報ソリトン</h2>
+<p>計算場理論の基本粒子は EM Hopfion であり、同じ構造が
+<strong>advanced/retarded</strong> に分かれて現れる。</p>
+<h3 id="21-物質ソリトンadvanced-em-hopfion">2.1 物質ソリトン（advanced
+EM Hopfion）</h3>
+<ul>
+<li>実在する核として扱う</li>
+<li>位置・運動量・固有角運動量・トポロジカルチャージを持つ</li>
+<li>標準理論の「物質（フェルミオン）」の原型に相当するものとして位置づける</li>
+<li>運動は通常の群速度というより
+<strong>位相的速度</strong>で、（少なくとも理論内では）ヒッグス機構によらず質量を持ち得る</li>
+</ul>
+<h3 id="22-情報ソリトンretarded-em-hopfion">2.2 情報ソリトン（retarded
+EM Hopfion）</h3>
+<ul>
+<li>放射され、拡散し、他の物質ソリトンに到来する</li>
+<li>到来先の物質ソリトンから見て「同相なトポロジカルチャージ」として吸収される</li>
+<li>吸収後、トポロジカル保護により増分に対応する情報ソリトンが再放射され、新たな情報源として宇宙の時間進行に寄与する</li>
+</ul>
+<hr />
+<h2 id="3-h-indexlinking-数と計算整数の増分としての更新">3.
+H-index（linking 数）と「計算」：整数の増分としての更新</h2>
+<p>H-index は linking 数であり、整数である。計算場理論ではこれを、</p>
+<ul>
+<li><strong>計算が 1 ステップ進んだことの“離散的証拠”</strong></li>
+<li><strong>物質ソリトン核が持つ内部状態（記憶）の離散更新</strong></li>
+</ul>
+<p>として使う。</p>
+<h3 id="31-共鳴と増分">3.1 共鳴と増分</h3>
+<p>物質ソリトン（<span
+class="math inline"><em>H</em> = <em>h</em></span>）が、到来する情報ソリトンと共鳴すると、H-index
+が</p>
+<p><span class="math display"><em>h</em> → <em>h</em> + 1</span></p>
+<p>と 1 ずつ増分する。</p>
+<p>この増分は「裸の H を外から足す」操作ではなく、あくまで</p>
+<ul>
+<li>電磁場の構造（局所ヘリシティなど）を介して</li>
+<li>共鳴イベントとして</li>
+<li>1段階の更新が起きる</li>
+</ul>
+<p>という形で定義される。</p>
+<h3 id="32-全体-0-でも局所は動く片側の光超円錐で読む">3.2 全体 0
+でも局所は動く：片側の光超円錐で読む</h3>
+<p>全時空で合計すると相殺して 0
+になり得る量（ヘリシティやトポロジカルな寄与）を情報として使うには、<strong>両側を足さずに片側のみ</strong>を読む必要がある。
+ここで重要なのが、あなたが整理した「未来の二分」である。</p>
+<hr />
+<h2 id="4-未来側は二つに分かれるa-と-b">4. 「未来側」は二つに分かれる：A
+と B</h2>
+<p>縮小宇宙の共形時空では、「未来」という概念が二つに分かれる可能性がある。</p>
+<ul>
+<li><p><strong>A：真の未来ドメイン</strong><br />
+ある点にまだ到来していない、因果的未来（timelike も含む 4D
+領域）</p></li>
+<li><p><strong>B：advanced
+解が進む方向だが真の未来ではないドメイン</strong><br />
+これは本質的に **光超円錐（null hypersurface）**に沿う領域であり、 4D
+体積は持たないが **3D 的測度（null 3D 断面の測度）**を持つ</p></li>
+</ul>
+<p>縮小宇宙で「Bが定常時空では体積を持たないが、縮小では体積を持つか」という問いは、厳密には</p>
+<ul>
+<li>4D 体積ではない（null は null のまま）</li>
+<li>しかし **B断面上の“3D測度の重み”**が共形因子 <span
+class="math inline"><em>a</em>(<em>η</em>)</span>
+によって非自明化し、断面の選び方が実質的な自由度として現れる</li>
+</ul>
+<p>という意味で肯定できる。</p>
+<p>したがって、情報カーネルは A（真の未来 4D 領域）ではなく、主に
+**B（光超円錐断面）**上で定義されるのが自然になる。</p>
+<hr />
+<h2 id="5-情報カーネル-k_h電磁場から情報を導出しファイバに接続する">5.
+情報カーネル (<span
+class="math inline"><em>K</em><sub><em>H</em></sub></span>)：電磁場から“情報”を導出し、ファイバに接続する</h2>
+<p>ここが計算場理論の中心である。 「宇宙外の情報である裸の H
+をそのまま使うのは筋が悪い」ので、H に一致する量を
+<strong>電磁場から導出する畳み込みカーネル</strong>を作る。</p>
+<h3 id="51-ヘリシティ密度例">5.1 ヘリシティ密度（例）</h3>
+<p>電磁場からベクトルポテンシャル <span
+class="math inline"><em>A</em></span> と（必要なら）双対側 <span
+class="math inline"><em>C</em></span> を構成し、</p>
+<p><span class="math display">$$h_H = \frac12(A\cdot B - C\cdot
+E)$$</span></p>
+<p>のような局所量を定義する（ゲージの選び方は理論の固定点として置く）。</p>
+<h3 id="52-断面選択etale-0-の片側光超円錐bで畳み込む">5.2
+断面選択：<span class="math inline"><em>η</em> ≤ 0</span>
+の片側光超円錐（B）で畳み込む</h3>
+<p>観測点 <span
+class="math inline"><em>p</em> = (<em>η</em><sub>0</sub>,<strong>x</strong><sub>0</sub>)</span>
+の <strong>過去側</strong>光超円錐を使うと（片側選択で相殺回避）、</p>
+<p><span
+class="math display">(<em>η</em>′,<strong>x</strong>′) = (<em>η</em><sub>0</sub>−<em>r</em>, <strong>x</strong><sub>0</sub>+<em>r</em><em>Ω</em>)  (<em>r</em>≥0, <em>Ω</em>∈<em>S</em><sup>2</sup>)</span></p>
+<p>となる。</p>
+<p>縮小宇宙なので測度重みは概念的に</p>
+<p><span
+class="math display"><em>d</em><em>μ</em> ∼ <em>a</em>(<em>η</em>′)<sup>2</sup> <em>r</em><sup>2</sup> <em>d</em><em>r</em> <em>d</em><em>Ω</em></span></p>
+<p>を持つ（“光超円錐は 3D 的測度を持つ”の具体形）。</p>
+<p>すると、情報強度（スカラー）と偏り（ベクトル）を</p>
+<p><span
+class="math display"><em>Q</em><sub><em>m</em></sub><sup>−</sup>(<em>p</em>) = ∫<em>d</em><em>r</em> <em>a</em>(<em>η</em><sub>0</sub>−<em>r</em>)<sup>2</sup> <em>r</em><sup>2</sup> <em>W</em><sub><em>m</em></sub>(<em>r</em>)∫<em>d</em><em>Ω</em> |<em>h</em><sub><em>H</em></sub>(<em>η</em><sub>0</sub>−<em>r</em>,<strong>x</strong><sub>0</sub>+<em>r</em><em>Ω</em>)|</span></p>
+<p><span
+class="math display"><strong>S</strong><sub><em>m</em></sub><sup>−</sup>(<em>p</em>) = ∫<em>d</em><em>r</em> <em>a</em>(<em>η</em><sub>0</sub>−<em>r</em>)<sup>2</sup> <em>r</em><sup>2</sup> <em>W</em><sub><em>m</em></sub>(<em>r</em>)∫<em>d</em><em>Ω</em> |<em>h</em><sub><em>H</em></sub>(<em>η</em><sub>0</sub>−<em>r</em>,<strong>x</strong><sub>0</sub>+<em>r</em><em>Ω</em>)| <em>Ω</em></span></p>
+<p>のように定義できる。</p>
+<ul>
+<li><span
+class="math inline"><em>W</em><sub><em>m</em></sub>(<em>r</em>)</span>：共形スケール帯（フーリエ殻）に対応する窓</li>
+<li><span
+class="math inline"><em>Q</em></span>：その点に入ってくる情報量（共鳴判定の入力）</li>
+<li><span
+class="math inline"><strong>S</strong></span>：情報浴の偏り（方向づけの入力）</li>
+</ul>
+<hr />
+<h2 id="6-共形揺らぎファイバーバンドルフーリエ係数型自由度とその縮小">6.
+共形揺らぎファイバーバンドル：フーリエ係数型自由度とその縮小</h2>
+<p>計算場理論では、各点 <span class="math inline"><em>p</em></span>
+に「フーリエ係数型の揺らぎファイバ」を生やす。</p>
+<h3 id="61-ファイバ例">6.1 ファイバ（例）</h3>
+<p>殻 <span class="math inline"><em>m</em></span> ごとの複素係数を</p>
+<p><span class="math display">$$ \psi_m(p)=\sqrt{P_m}\,e^{i\phi_m(p)}
+$$</span></p>
+<p>と置き、</p>
+<ul>
+<li><strong>共形揺らぎの制約</strong>として殻ノルム <span
+class="math inline"><em>P</em><sub><em>m</em></sub></span> を固定</li>
+<li>動く自由度は主に位相 <span
+class="math inline"><em>ϕ</em><sub><em>m</em></sub></span></li>
+</ul>
+<p>とする。</p>
+<h3 id="62-カーネルは接続connectionになる">6.2
+カーネルは接続（connection）になる</h3>
+<p>情報カーネル出力を用いて位相を更新する：</p>
+<p><span
+class="math display"><em>ϕ</em><sub><em>m</em></sub>(<em>η</em>+<em>Δ</em><em>η</em>,<strong>x</strong>) = <em>ϕ</em><sub><em>m</em></sub>(<em>η</em>,<strong>x</strong>) + <em>λ</em><sub><em>m</em></sub> <em>Δ</em><em>η</em> <em>Q̂</em><sub><em>m</em></sub><sup>−</sup>(<em>η</em>,<strong>x</strong>)</span></p>
+<p>（<span class="math inline"><em>Q̂</em></span> は規格化）</p>
+<p>この更新が意味するのは、</p>
+<ul>
+<li>Maxwell 場は線形に連続発展しているが、</li>
+<li>外部視点から見ると、情報カーネルにより位相自由度が条件付けされ、</li>
+<li><strong>揺らぎの不確定さが時間とともに減少する（＝揺らぎの縮小）</strong></li>
+</ul>
+<p>という「計算法則」である。</p>
+<p>ここで重要なのは、あなたが訂正したとおり
+**“現象する”ではなく「減少する」**である点で、計算の進行は</p>
+<ul>
+<li>構造を持った揺らぎの欠損が埋まり、</li>
+<li>未計算のフーリエ係数が順次確定していく</li>
+</ul>
+<p>という意味で
+<strong>減少する</strong>（不確定性が減る）として表現される。</p>
+<hr />
+<h2 id="7-有効運動慣性重力様作用情報浴の偏りが運動を方向づける">7.
+有効運動・慣性・重力様作用：情報浴の偏りが運動を方向づける</h2>
+<p>ここで「力」は Maxwell
+方程式の非線形性から出すのではなく、<strong>読み出し（カーネル）＋縮小（条件付け）＋粗視化</strong>から出す。</p>
+<h3 id="71-慣性共形距離を維持する性質">7.1
+慣性（共形距離を維持する性質）</h3>
+<p>等しい H-index（同等の構造）をもつ 2
+物質ソリトン系は、共形時空内ではほとんど動かず相対距離を維持する。
+外から見ると、時空が高速に縮小しているのに、それに“追従”して見える（これが慣性として働くべき、という要請）。</p>
+<p>ただし極微な質量（＝情報浴との共鳴による減速）を持つので、完全な不動ではなく、共形距離で極微に近接する方向へ移動する。</p>
+<h3 id="72-重力様作用偏りのある情報浴">7.2
+重力様作用：偏りのある情報浴</h3>
+<p>情報浴に偏りがある（物質ソリトンが多い方向がある）と、<span
+class="math inline"><strong>S</strong> ≠ 0</span> が生じる。
+このとき、共形揺らぎの縮小が偏り方向に強く起き、粗視化した中心（位置・運動量）がその方向へ“ドリフト”する。これが見かけの重力として働く。</p>
+<hr />
+<h2 id="8-距離依存1r2と等価原理を同時に出す最小更新則">8.
+「距離依存（<span
+class="math inline">1/<em>r</em><sup>2</sup></span>）」と「等価原理」を同時に出す最小更新則</h2>
+<p>あなたが求めた文言を、あなたの用語だけで書き下すとこうなる。</p>
+<h3 id="81-最小更新則共鳴h増分情報浴の偏りのみ">8.1
+最小更新則（共鳴・H増分・情報浴の偏りのみ）</h3>
+<p>物質ソリトン核 <span class="math inline"><em>i</em></span>
+について、各共形刻み <span
+class="math inline"><em>Δ</em><em>η</em></span> で：</p>
+<ol type="1">
+<li><p><strong>共鳴入力を測る（情報カーネル）</strong></p>
+<p><span
+class="math display"><em>Q</em><sub><em>i</em></sub>(<em>η</em>) = ∑<sub><em>m</em></sub><em>Q</em><sub><em>i</em>, <em>m</em></sub><sup>−</sup>(<em>η</em>),   <strong>S</strong><sub><em>i</em></sub>(<em>η</em>) = ∑<sub><em>m</em></sub><strong>S</strong><sub><em>i</em>, <em>m</em></sub><sup>−</sup>(<em>η</em>)</span></p></li>
+<li><p><strong>共鳴条件（閾値）</strong></p>
+<p><span class="math display">$$Q_i(\eta) &gt; Q_{\rm th}\ \Rightarrow\
+\text{共鳴}$$</span></p></li>
+<li><p><strong>H増分（整数ステップ）</strong></p>
+<p><span
+class="math display"><em>H</em><sub><em>i</em></sub> ← <em>H</em><sub><em>i</em></sub> + 1</span></p>
+<p>（同時に再放射：増分に対応する情報ソリトンが外向きに拡散）</p></li>
+<li><p><strong>情報浴の偏りに応じた有効運動更新</strong></p>
+<p><span
+class="math display"><em>Δ</em><strong>p</strong><sub><em>i</em></sub> = <em>γ</em> <strong>S</strong><sub><em>i</em></sub>(<em>η</em>) <em>Δ</em><em>η</em></span></p>
+<p>ここで <span class="math inline"><em>γ</em></span>
+を物質種に依らない普遍定数にすると、<strong>等価原理</strong>に対応する。</p></li>
+</ol>
+<h3 id="82-1r2-が出る条件直感">8.2 <span
+class="math inline">1/<em>r</em><sup>2</sup></span>
+が出る条件（直感）</h3>
+<p>単一源からの情報流は球面上に広がるため、断面測度 <span
+class="math inline"><em>r</em><sup>2</sup></span>
+と放射の希釈が組み合わさり、カーネル入力 <span
+class="math inline"><em>Q</em></span> が（ある条件下で）概ね</p>
+<p><span class="math display">$$ Q \propto \frac{1}{r^2} $$</span></p>
+<p>で落ちる。 したがって同じ更新則でも <strong>距離依存 <span
+class="math inline">1/<em>r</em><sup>2</sup></span></strong>
+が自然に現れる。</p>
+<hr />
+<h2 id="9-二つの描像外部視点計算法則と内部視点物理法則">9.
+二つの描像：外部視点（計算法則）と内部視点（物理法則）</h2>
+<p>あなたの整理の通り、描像を明確に分けるのが有効です。</p>
+<h3 id="91-外部視点計算場理論epistemic">9.1
+外部視点＝計算場理論（epistemic）</h3>
+<ul>
+<li>宇宙は Maxwell 場として線形に連続発展する</li>
+<li>情報カーネル (<span
+class="math inline"><em>K</em><sub><em>H</em></sub></span>)
+は「場から情報を読む」手続きであり、裸の H を外から注入しない</li>
+<li>“記憶”や“質量”“重力様作用”は、<strong>読み出しと条件付け（共形揺らぎの縮小）を通して有効に現れる</strong></li>
+<li>物質ソリトンは
+MCMC/パーティクルフィルタのように、入射情報ソリトンで内部状態（位相ファイバ）を更新していく</li>
+</ul>
+<h3 id="92-内部視点共形時空内の物理法則ontic-な見え方">9.2
+内部視点＝共形時空内の物理法則（ontic な見え方）</h3>
+<ul>
+<li>共鳴・H増分・再放射は、内部観測者には「相互作用」「力」「粒子過程」として見える</li>
+<li>しかし外部視点では、それは線形場＋情報カーネル＋揺らぎ縮小として記述される</li>
+</ul>
+<p>この二層構造が、「線形電磁場が計算している宇宙」という主張を矛盾なく成立させる。</p>
+<hr />
+<h2 id="10-結語宇宙とは未計算フーリエ係数を縮小する計算過程である">10.
+結語：宇宙とは“未計算フーリエ係数”を縮小する計算過程である</h2>
+<p>計算場理論の宇宙像は、宇宙開闢から存在するフーリエ係数の未計算項（構造を持った揺らぎ）を、物質ソリトンと情報ソリトンの相互作用（共鳴とH増分）によって順次確定し、**不確定性が減少する（縮小する）**方向へ進む計算過程として描かれる。</p>
+<ul>
+<li>物質ソリトン＝計算核（particle filter kernel）</li>
+<li>情報ソリトン＝入力/出力（放射と吸収）</li>
+<li>情報カーネル＝読み出しと接続（場→ファイバ）</li>
+<li>共形揺らぎ縮小＝推定の収束（計算の進行）</li>
+<li>多体系での偏り＝引力様の慣性の偏り</li>
+</ul>
+<p>以上が、外部視点（計算法則）として整えた「計算場理論」の一貫した骨格である。</p>
+<hr />
+<p>必要なら次に、この記事の内容をそのまま
+**「定義→公理→最小更新則→観測量→検証手順」**の順で、より論文/仕様書寄りに整形した版も作れます（カーネルの断面選択＝B断面、殻窓
+<span
+class="math inline"><em>W</em><sub><em>m</em></sub></span>、規格化、共鳴閾値、H増分と再放射の整合条件まで含めて）。</p>
+</body>
+</html>

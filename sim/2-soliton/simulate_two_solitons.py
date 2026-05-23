@@ -32,7 +32,7 @@ def _repo_root() -> Path:
 # Output
 # ==============================
 OUT_DIR = _repo_root() / "out" / "2-soliton"
-out_gif = OUT_DIR / "two_soliton_V1_hopfion_z0_120f.gif"
+out_gif = OUT_DIR / "two_soliton_V1_hopfion_z0_shrinkphys_120f.gif"
 
 # ==============================
 # Time parameters (conformal time)
@@ -42,21 +42,39 @@ eta_end = 32.0
 c = 1.0
 
 # ==============================
+# Shrinking-universe coordinate mapping (visualization only)
+# ==============================
+# We keep *conformal fields* (E,B in conformal coordinates) but optionally
+# visualize them on a fixed *physical* window via:
+#   x_comoving = x_phys / a(eta)
+# so that a null propagation radius ~ c*eta in comoving coordinates becomes
+# ~ a(eta)*c*eta in physical coordinates, which can look "staying" when
+# a(eta) ~ eta0/(eta+eta0).
+USE_PHYSICAL_WINDOW = True
+ETA0 = 8.0  # a(eta) = eta0/(eta+eta0), so a(eta)*eta -> eta0 as eta->inf
+
+
+def scale_factor_a(eta: float) -> float:
+    eta = float(eta)
+    return float(ETA0 / (ETA0 + max(eta, 0.0)))
+
+
+# ==============================
 # Spatial domain (V1 style)
 # ==============================
-L = 10.0
+L = 10.0  # window half-size (interpreted as physical if USE_PHYSICAL_WINDOW=True)
 nx_bg = 110  # background grid (x,y)
 nx_sl = 24  # streamline grid
 
-x = np.linspace(-L, L, nx_bg)
-y = np.linspace(-L, L, nx_bg)
-X, Y = np.meshgrid(x, y)
-Z0 = np.zeros_like(X)
+_xw = np.linspace(-L, L, nx_bg)
+_yw = np.linspace(-L, L, nx_bg)
+Xw, Yw = np.meshgrid(_xw, _yw)
+Zw0 = np.zeros_like(Xw)
 
-xs = np.linspace(-L, L, nx_sl)
-ys = np.linspace(-L, L, nx_sl)
-Xs, Ys = np.meshgrid(xs, ys)
-Zs0 = np.zeros_like(Xs)
+_xs = np.linspace(-L, L, nx_sl)
+_ys = np.linspace(-L, L, nx_sl)
+Xsw, Ysw = np.meshgrid(_xs, _ys)
+Zsw0 = np.zeros_like(Xsw)
 
 # ==============================
 # Two-soliton configuration
@@ -64,12 +82,24 @@ Zs0 = np.zeros_like(Xs)
 d = 8.0  # initial separation along +x for the incoming info soliton
 eta_star = d / c  # nominal "encounter time" marker (for annotation only)
 
+# Diagnostics (why "advanced looks diffusive" etc.)
+PRINT_DIAGNOSTICS = True
+DIAG_GRID_L = 6.0
+DIAG_GRID_N = 33
+
+# For the advanced core: if time_shift=0, η increases will show the advanced pulse
+# moving *away* from the convergence region in this particular Bateman solution,
+# which can look like “diffusion” on a fixed z=0 slice. To visualize an *incoming*
+# advanced pulse (approaching the core as η increases), shift its time origin so
+# that the pulse arrives near η=eta_end.
+MATTER_TIME_SHIFT = eta_end
+
 MATTER = HopfionSpec(
     p=1,
     q=3,
     kind="advanced",
     center=(0.0, 0.0, 0.0),
-    time_shift=0.0,
+    time_shift=MATTER_TIME_SHIFT,
     rot=None,
 )
 
@@ -83,9 +113,18 @@ INFO = HopfionSpec(
 )
 
 
+def _coords_for_eta(eta: float, X: np.ndarray, Y: np.ndarray, Z: np.ndarray):
+    if not USE_PHYSICAL_WINDOW:
+        return X, Y, Z, 1.0
+    a = scale_factor_a(eta)
+    # Map from fixed physical window (Xw,Yw) to comoving coordinates.
+    return X / a, Y / a, Z / a, a
+
+
 def total_fields_conformal_z0(eta: float):
-    Em = hopfion_fields(eta, X, Y, Z0, MATTER)
-    Ei = hopfion_fields(eta, X, Y, Z0, INFO)
+    Xc, Yc, Zc, _a = _coords_for_eta(eta, Xw, Yw, Zw0)
+    Em = hopfion_fields(eta, Xc, Yc, Zc, MATTER)
+    Ei = hopfion_fields(eta, Xc, Yc, Zc, INFO)
     Ex = Em[0] + Ei[0]
     Ey = Em[1] + Ei[1]
     Ez = Em[2] + Ei[2]
@@ -96,8 +135,9 @@ def total_fields_conformal_z0(eta: float):
 
 
 def total_fields_stream_z0(eta: float):
-    Em = hopfion_fields(eta, Xs, Ys, Zs0, MATTER)
-    Ei = hopfion_fields(eta, Xs, Ys, Zs0, INFO)
+    Xc, Yc, Zc, _a = _coords_for_eta(eta, Xsw, Ysw, Zsw0)
+    Em = hopfion_fields(eta, Xc, Yc, Zc, MATTER)
+    Ei = hopfion_fields(eta, Xc, Yc, Zc, INFO)
     Ex = Em[0] + Ei[0]
     Ey = Em[1] + Ei[1]
     Bx = Em[3] + Ei[3]
@@ -105,10 +145,46 @@ def total_fields_stream_z0(eta: float):
     return Ex, Ey, Bx, By
 
 
+def _diagnose_component(name: str, spec: HopfionSpec, eta: float) -> None:
+    L = float(DIAG_GRID_L)
+    n = int(DIAG_GRID_N)
+    x = np.linspace(-L, L, n)
+    X3, Y3, Z3 = np.meshgrid(x, x, x, indexing="ij")
+    Ex, Ey, Ez, Bx, By, Bz = hopfion_fields(float(eta), X3, Y3, Z3, spec)
+    u = 0.5 * (Ex * Ex + Ey * Ey + Ez * Ez + Bx * Bx + By * By + Bz * Bz)
+    Sx = Ey * Bz - Ez * By
+    Sy = Ez * Bx - Ex * Bz
+    Sz = Ex * By - Ey * Bx
+    dV = (2.0 * L / (n - 1)) ** 3
+    Ut = float(u.sum() * dV)
+    if not np.isfinite(Ut) or Ut <= 0:
+        print(f"[diag] {name} eta={eta:.2f}: Ut invalid ({Ut})")
+        return
+    xbar = float((u * X3).sum() * dV / Ut)
+    ybar = float((u * Y3).sum() * dV / Ut)
+    zbar = float((u * Z3).sum() * dV / Ut)
+    # Energy-weighted mean Poynting direction indicator.
+    Smean_z = float(((Sz * u).sum() * dV / Ut))
+    print(
+        f"[diag] {name} eta={eta:.2f}: "
+        f"centroid=({xbar:+.2f},{ybar:+.2f},{zbar:+.2f})  "
+        f"<Sz>_u={Smean_z:+.3f}  time_shift={spec.time_shift:+.2f} kind={spec.kind}"
+    )
+
+
 def main() -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     etas = np.linspace(0.0, eta_end, N_FRAMES)
+
+    if PRINT_DIAGNOSTICS:
+        # Diagnose each component propagation on a coarse 3D box.
+        _diagnose_component("MATTER", MATTER, float(etas[0]))
+        _diagnose_component("MATTER", MATTER, float(etas[len(etas) // 2]))
+        _diagnose_component("MATTER", MATTER, float(etas[-1]))
+        _diagnose_component("INFO", INFO, float(etas[0]))
+        _diagnose_component("INFO", INFO, float(etas[len(etas) // 2]))
+        _diagnose_component("INFO", INFO, float(etas[-1]))
 
     # fixed color scales over the whole run
     maxE = 0.0
@@ -131,7 +207,7 @@ def main() -> None:
             magB = np.sqrt(Bx * Bx + By * By + Bz * Bz)
             Exs, Eys, Bxs, Bys = total_fields_stream_z0(eta)
 
-            fig = plt.figure(figsize=(10.6, 4.2), dpi=45, facecolor="black")
+            fig = plt.figure(figsize=(10.6, 4.2), dpi=240, facecolor="black")
             gs = GridSpec(1, 4, width_ratios=[1, 0.04, 1, 0.04], wspace=0.18)
 
             axE = fig.add_subplot(gs[0, 0], facecolor="black")
@@ -147,7 +223,7 @@ def main() -> None:
                 vmax=vmaxE,
                 cmap="viridis",
             )
-            axE.streamplot(xs, ys, Exs, Eys, color="red", density=0.55, linewidth=0.7)
+            axE.streamplot(_xs, _ys, Exs, Eys, color="red", density=0.55, linewidth=0.7)
             fig.colorbar(imE, cax=caxE).set_label("|E| (conformal)")
 
             imB = axB.imshow(
@@ -158,21 +234,22 @@ def main() -> None:
                 vmax=vmaxB,
                 cmap="viridis",
             )
-            axB.streamplot(xs, ys, Bxs, Bys, color="cyan", density=0.55, linewidth=0.7)
+            axB.streamplot(_xs, _ys, Bxs, Bys, color="cyan", density=0.55, linewidth=0.7)
             fig.colorbar(imB, cax=caxB).set_label("|B| (conformal)")
 
             for ax in (axE, axB):
                 ax.set_xlim(-L, L)
                 ax.set_ylim(-L, L)
                 ax.set_aspect("equal")
-                ax.set_xlabel("x")
-                ax.set_ylabel("y")
+                ax.set_xlabel("x (physical)" if USE_PHYSICAL_WINDOW else "x (comoving)")
+                ax.set_ylabel("y (physical)" if USE_PHYSICAL_WINDOW else "y (comoving)")
                 ax.plot(0, 0, "wo", markersize=5, label="matter center")
                 ax.plot(d, 0, marker="*", color="white", markersize=7, label="info start")
 
+            a = scale_factor_a(eta) if USE_PHYSICAL_WINDOW else 1.0
             fig.suptitle(
                 "Two Bateman null fields (conformal Maxwell), z=0 slice  "
-                f"η={eta:0.2f}  (η★≈{eta_star:0.2f})  "
+                f"η={eta:0.2f}  (η★≈{eta_star:0.2f})  a(η)={a:0.3f}  "
                 f"matter(p,q)=({MATTER.p},{MATTER.q},{MATTER.kind})  "
                 f"info(p,q)=({INFO.p},{INFO.q},{INFO.kind})",
                 color="white",

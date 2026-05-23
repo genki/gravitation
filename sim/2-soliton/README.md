@@ -11,6 +11,10 @@
 （Riemann–Silberstein ベクトル `F = E + iB = ∇(α^p)×∇(β^q)`）を用いて可視化します。
 「共鳴」や「核更新」のように見える現象は、合成場の観測量（|E|,|B|等）に現れる干渉・重ね合わせとして生じます。
 
+補足：縮小宇宙で「中心へ集まっていく（= その場に留まって見える）」見え方を反映するため、
+本スクリプトはデフォルトで **固定の物理ウィンドウ**上に描き、
+各フレームで `x_comoving = x_phys / a(η)` の **座標写像のみ**を行います（場のスケーリングはしません）。
+
 ---
 
 ## 1. 概要（物理モデルの要点）
@@ -62,7 +66,7 @@ python3 -m venv .venv
 
 出力：
 
-- `out/2-soliton/two_soliton_V1_hopfion_z0_120f.gif`
+- `out/2-soliton/two_soliton_V1_hopfion_z0_shrinkphys_120f.gif`
   - Bateman 構成の 3D 場を評価し、**z=0 断面**を描画します（共形場のまま）。
 
 ---
@@ -75,6 +79,13 @@ python3 -m venv .venv
 - 2体系の配置：`d`（情報ソリトンの初期位置）
 - “H” に相当させるラベル：`MATTER.p/q` と `INFO.p/q`（Bateman場の指数）
 - 空間サイズ：`L`
+- 縮小宇宙の可視化（座標写像のみ）：
+  - ON/OFF: `USE_PHYSICAL_WINDOW`
+  - `a(η)=η0/(η+η0)` の `η0`: `ETA0`
+- advanced の「到来（中心へ集まる）」の見え方：
+  - `MATTER_TIME_SHIFT` を `eta_end` 近辺にすると、η増加に対して z=0 断面で強度が増える（到来）挙動を作れます
+- 伝播方向の簡易確認：
+  - `PRINT_DIAGNOSTICS=True` で、3Dボックス上のエネルギー重心と `⟨S_z⟩` を標準出力に出します
 
 ---
 

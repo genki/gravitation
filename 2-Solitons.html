@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2-Solitons</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-label">FDB wiki</span>
+  <span class="spacer">•</span>
+  <a href="https://github.com/genki/gravitation" class="pill">Repository</a>
+  <a href="https://github.com/genki/gravitation/wiki">Edit on Wiki</a>
+  <a href="https://github.com/genki/gravitation/releases/latest">Latest PDFs</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">2-Solitons</h1>
+</header>
+<h1
+id="2ソリトン共鳴と計算場縮小宇宙で-advanced-解が意味を持つ理由">2ソリトン共鳴と「計算場」：縮小宇宙で
+advanced 解が意味を持つ理由</h1>
+<p>本ノートは、次の主張（証明スケッチ）を、**収束の意味（局所収束）**を明確にした形でまとめる。</p>
+<blockquote>
+<p>物質ソリトン（advanced Hopfion, H=h）と、null
+的距離にある放射情報ソリトン（retarded Hopfion, H=+1）からなる
+2ソリトン配置が、縮小宇宙（共形時間
+<code>η→∞</code>）の下で、少なくとも物質ソリトン中心近傍において
+<code>H=h+1</code> の 1物質ソリトン解へ収束する。</p>
+</blockquote>
+<p>結論は二段階：</p>
+<ul>
+<li><strong>強い形（局所化データ）</strong>：更新後の差場が外向き放射として殻状に局在していれば、中心近傍では
+<strong>有限の共形時間で完全に一致</strong>しうる（Huygens
+的描像）。</li>
+<li><strong>弱い形（尾がある一般）</strong>：尾（tail）が残る場合でも、差場の
+<strong>局所エネルギーは <code>η→∞</code> で 0
+に落ちる</strong>（局所収束）。</li>
+</ul>
+<p>これにより、縮小宇宙で advanced
+解を「未来側畳み込みを担う計算場」として扱うとき、<strong>2ソリトン共鳴（核更新）→外向き放射→近傍は新核へ収束</strong>という流れが、Maxwell
+の線形性・一意性と整合する。</p>
+<hr />
+<h2 id="0-前提縮小宇宙共形平坦と-maxwell-の共形不変性">0.
+前提：縮小宇宙（共形平坦）と Maxwell の共形不変性</h2>
+<p>縮小宇宙を共形平坦として</p>
+<p><span
+class="math display"><em>d</em><em>s</em><sup>2</sup> = <em>a</em>(<em>η</em>)<sup>2</sup>(−<em>c</em><sup>2</sup> <em>d</em><em>η</em><sup>2</sup>+<em>d</em><strong>x</strong><sup>2</sup>),   <em>a</em>(<em>η</em>) ↓ 0 (<em>η</em>→∞).</span></p>
+<p>と書く。ここで <span
+class="math inline">(<em>c</em>/<em>s</em>)</span> は <span
+class="math inline"><em>a</em>(<em>η</em>)</span>
+の具体形（縮小率）に吸収してよい。</p>
+<p>4次元 Maxwell
+方程式は（真空・4次元で）共形変換と相性が良く、共形平坦時空では共形座標
+<code>(η, x)</code> を用いて「Minkowski 上の Maxwell
+と同型に扱える」という立て付けが取れる。これが「空間も時間も同じ比率で縮むと
+Maxwell が連続的に維持される」という主張の数学的な背骨になる。</p>
+<p>この結果、以後は共形時間 <span class="math inline"><em>η</em></span>
+を「Maxwell が素直に書ける時間」として用い、</p>
+<ul>
+<li>伝播速度（因果構造）は <code>η</code> 上で常に <code>c</code></li>
+<li>“null 的距離”も <code>η</code> で素直に表現できる</li>
+</ul>
+<p>という環境が整う。</p>
+<hr />
+<h2 id="1-何を収束と呼ぶか中心近傍の局所収束">1.
+何を「収束」と呼ぶか：中心近傍の局所収束</h2>
+<p>物質ソリトン中心（収束点）を <span
+class="math inline"><em>x</em> = 0</span> とし、任意の固定半径 <span
+class="math inline"><em>ρ</em> &gt; 0</span> に対して</p>
+<p><span
+class="math display"><em>K</em><sub><em>ρ</em></sub> := {<strong>x</strong> ∈ ℝ<sup>3</sup> ∣ |<strong>x</strong>| ≤ <em>ρ</em>}.</span></p>
+<p>上で 2ソリトン場 <code>F^(2)</code> が 1ソリトン場
+<code>F^(1)_(h+1)</code>
+に近づくことを、<strong>局所収束</strong>として定義する。</p>
+<p>収束のノルムとしては、次のいずれかを採用できる：</p>
+<ul>
+<li><strong>点wise 収束</strong>（強い）</li>
+<li><strong>局所エネルギー収束</strong>（扱いやすい標準形）</li>
+</ul>
+<p>ここでは後者（差場の局所エネルギーが 0）を主に用いる：</p>
+<p><span
+class="math display"><em>δ</em><em>F</em>(<em>η</em>,<strong>x</strong>) := <em>F</em><sup>(2)</sup>(<em>η</em>,<strong>x</strong>) − <em>F</em><sub><em>h</em> + 1</sub><sup>(1)</sup>(<em>η</em>,<strong>x</strong>).</span></p>
+<p><span
+class="math display"><em>E</em><sub><em>ρ</em></sub>(<em>η</em>) := ∫<sub>|<strong>x</strong>| ≤ <em>ρ</em></sub>(|<em>δ</em><strong>E</strong>(<em>η</em>,<strong>x</strong>)|<sup>2</sup>+|<em>δ</em><strong>B</strong>(<em>η</em>,<strong>x</strong>)|<sup>2</sup>) <em>d</em><sup>3</sup><em>x</em> → 0  (<em>η</em>→∞).</span></p>
+<hr />
+<h2 id="2-2ソリトン解と-1ソリトン解の書き方">2. 2ソリトン解と
+1ソリトン解の書き方</h2>
+<h3 id="21-1物質ソリトン解hh-と-hh1">2.1 1物質ソリトン解（H=h と
+H=h+1）</h3>
+<p>物質ソリトン（advanced Hopfion）を、共形座標での Maxwell 解として</p>
+<p><span
+class="math display"><em>F</em><sub><em>h</em></sub><sup>(1)</sup>(<em>η</em>,<strong>x</strong>),   <em>F</em><sub><em>h</em> + 1</sub><sup>(1)</sup>(<em>η</em>,<strong>x</strong>)</span></p>
+<p>で表す。<code>H</code> は linking 数（整数）としての内部ラベル。</p>
+<h3 id="22-2ソリトン解物質h情報1">2.2
+2ソリトン解：物質（h）＋情報（+1）</h3>
+<p>情報ソリトン（retarded Hopfion）を</p>
+<p><span
+class="math display"><em>F</em><sub>info</sub>(<em>η</em>,<strong>x</strong>)</span></p>
+<p>とし、初期時刻 <code>η=η0</code> において「中心から null
+的距離」にある（<code>η=η*</code>
+で中心近傍へ到達する）ように配置する：</p>
+<p><span
+class="math display">|<strong>x</strong><sub>info</sub>(<em>η</em><sub>0</sub>)| = <em>c</em>(<em>η</em><sub>⋆</sub>−<em>η</em><sub>0</sub>).</span></p>
+<p>2ソリトン場を形式的に</p>
+<p><span
+class="math display"><em>F</em><sup>(2)</sup>(<em>η</em>,<strong>x</strong>) = <em>F</em><sub><em>h</em></sub><sup>(1)</sup>(<em>η</em>,<strong>x</strong>) + <em>F</em><sub>info</sub>(<em>η</em>,<strong>x</strong>) + (interaction
+correction).</span></p>
+<p>と書く。</p>
+<hr />
+<h2 id="3-核心共鳴核更新後に差場が外向き放射として分離する">3.
+核心：共鳴（核更新）後に「差場」が外向き放射として分離する</h2>
+<p>FDB 拡張の更新則（共鳴）では、</p>
+<ul>
+<li><code>H: h → h+1</code> のジャンプが起きる</li>
+<li>増分はトポロジカル保護される</li>
+<li>増分に対応する retarded
+情報ソリトンが放射される（書き込み放射）</li>
+</ul>
+<p>とする。</p>
+<p>更新が終わった後の時刻を <code>η1 &gt; η*</code>
+とし、中心近傍の小球</p>
+<p><span
+class="math display"><em>B</em><sub><em>R</em></sub> := {<strong>x</strong> ∈ ℝ<sup>3</sup> ∣ |<strong>x</strong>| ≤ <em>R</em>}.</span></p>
+<p>の外では相互作用項が消える（＝核更新は局所）と仮定する。すると差場</p>
+<p><span
+class="math display"><em>δ</em><em>F</em>(<em>η</em>,<strong>x</strong>) := <em>F</em><sup>(2)</sup>(<em>η</em>,<strong>x</strong>) − <em>F</em><sub><em>h</em> + 1</sub><sup>(1)</sup>(<em>η</em>,<strong>x</strong>)</span></p>
+<p>は <code>η ≥ η1</code> で（少なくとも <code>|x| ≥ R</code>
+の領域で）ソースのない Maxwell を満たす：</p>
+<p><span
+class="math display"><em>d</em> <em>δ</em><em>F</em> = 0,   <em>d</em>  * <em>δ</em><em>F</em> = 0   (<em>η</em>≥<em>η</em><sub>1</sub>, |<strong>x</strong>|≥<em>R</em>).</span></p>
+<p>従って「2ソリトンが 1ソリトンへ収束する」は同値に</p>
+<blockquote>
+<p><code>δF</code> が中心近傍で 0 に収束する</p>
+</blockquote>
+<p>を示せばよい。</p>
+<hr />
+<h2 id="4-η-で-δf0-が言える理由2ルート">4. <code>η→∞</code> で
+<code>δF→0</code> が言える理由（2ルート）</h2>
+<h3 id="41-ルートa局所化していれば有限時間で消える強い">4.1
+ルートA：局所化していれば有限時間で消える（強い）</h3>
+<p>もし <code>δF(η1,·)</code> が
+<strong>外向き放射</strong>で、ある殻状領域（例：<code>R&lt;|x|&lt;R+Δ</code>）に実効的に局在しているなら、有限伝播速度と（3+1
+の波動方程式の）Huygens 的描像により、</p>
+<ul>
+<li>波は光円錐（球面）に沿って伝播し</li>
+<li>波面が通過した後の内側に尾が残らない（理想化）</li>
+</ul>
+<p>という状況が成立する。</p>
+<p>結果として、任意の <code>ρ&lt;R</code> に対して</p>
+<p><span class="math display">$$
+\eta_\rho:=\eta_1+\frac{(R-\rho)+\Delta}{c}
+$$</span></p>
+<p>以降、中心近傍で</p>
+<p><span
+class="math display"><em>δ</em><em>F</em>(<em>η</em>,<strong>x</strong>) = 0   (<em>η</em>≥<em>η</em><sub><em>ρ</em></sub>, |<strong>x</strong>|≤<em>ρ</em>)</span></p>
+<p>が言える（<code>η→∞</code> どころか
+<strong>有限時間で一致</strong>）。</p>
+<p>これは「情報ソリトンが null
+に来て共鳴し、以後は書き込み放射として外へ出る」像と、数学的に最も相性が良い“強い”ルート。</p>
+<h3 id="42-ルートb尾が残っても局所エネルギーは-0-へ弱いが一般">4.2
+ルートB：尾が残っても局所エネルギーは 0 へ（弱いが一般）</h3>
+<p>Hopfion
+のような構造は厳密にはコンパクトサポートでないことが多く、ルートAの「有限時間でゼロ」は一般には期待できない。その場合でも、<code>δF</code>
+を自由 Maxwell
+の放射成分と見なせるなら、局所領域に残るエネルギーが時間とともに減る（局所エネルギー減衰）という形で</p>
+<p><span
+class="math display"><em>E</em><sub><em>ρ</em></sub>(<em>η</em>) → 0   (<em>η</em>→∞)</span></p>
+<p>が期待できる（束縛モードが <code>F^(1)_(h+1)</code>
+側に吸収され、<code>δF</code>
+が放射として外へ出る、というモデル設計と整合）。</p>
+<p>この弱い収束でも、中心近傍での「見かけ上の核」は <code>H=h+1</code>
+側へ近づく。</p>
+<hr />
+<h2 id="5-h-indexlinking-数が-h1-に固定されること">5. H-index（linking
+数）が <code>h+1</code> に固定されること</h2>
+<p><code>H</code> をリンク数（整数）として定義している以上、「最終的に
+<code>H=h+1</code> の
+1物質ソリトンになる」には近傍での位相的整合が必要：</p>
+<p><span
+class="math display"><em>H</em>[<em>F</em><sup>(2)</sup>(<em>η</em>,⋅)]|<sub><em>K</em><sub><em>ρ</em></sub></sub> = <em>h</em> + 1   (十分大きい
+<em>η</em>で).</span></p>
+<p>ここは共鳴（核更新）の定義そのものとして、</p>
+<ul>
+<li>共鳴時刻 <code>η*</code> で情報ソリトン（単位
+<code>+1</code>）が核に接続される</li>
+<li>以後、核内部はトポロジカル保護により整数値が変化しない（追加の特異過程を許さない）</li>
+</ul>
+<p>を要請すれば固定される。</p>
+<p>さらに 4章の局所収束（<code>δF→0</code>）があれば、近傍の場は
+<code>F^(1)_(h+1)</code> と同型になり、近傍の不変量も <code>h+1</code>
+に一致する。</p>
+<hr />
+<h2 id="6-更新直後が外向き放射になる十分条件線形性一意性">6.
+「更新直後が外向き放射」になる十分条件（線形性＋一意性）</h2>
+<p>縮小宇宙（共形時間 <code>η</code>）での真空 Maxwell
+は、（<code>η</code> を通常時刻と思って）次の2点だけを使えばよい：</p>
+<ol type="1">
+<li><strong>線形性</strong>：解の和は解</li>
+<li><strong>Cauchy
+問題の一意性</strong>：同じ初期データからは同じ解しか出ない</li>
+</ol>
+<p>更新時刻を <code>η=η*</code>、中心を <code>x=x_c</code> とし、</p>
+<ul>
+<li>新しい物質ソリトン核（advanced, <code>H=h+1</code>）を
+<code>F_m^(h+1)(η,x; η*,x_c)</code></li>
+<li>同一点からの放射情報ソリトン（retarded, <code>H=+1</code>）を
+<code>F_rad^(1)(η,x; η*,x_c)</code></li>
+</ul>
+<p>と書く。</p>
+<p>ここで更新条件を「更新直後の Cauchy データが和に一致する」として</p>
+<p><span
+class="math display"><em>F</em><sub>+</sub>(<em>η</em><sub>⋆</sub>,<strong>x</strong>) = <em>F</em><sub>m</sub><sup>(<em>h</em>+1)</sup>(<em>η</em><sub>⋆</sub>,<strong>x</strong>) + <em>F</em><sub>rad</sub><sup>(1)</sup>(<em>η</em><sub>⋆</sub>,<strong>x</strong>).</span></p>
+<p>（同様に <span
+class="math inline"><strong>E</strong>, <strong>B</strong></span>
+の初期データでも一致）</p>
+<p>と置く（制約 <code>div E=0</code>, <code>div B=0</code>
+も各項が満たせば和も満たす）。</p>
+<p>すると線形性により <code>F_sum := F_m^(h+1) + F_rad^(1)</code> は
+<code>η&gt;η*</code> の真空 Maxwell の解であり、<code>η=η*</code>
+の初期データが <code>F_+</code> と一致する。Cauchy 一意性から</p>
+<p><span
+class="math display"><em>F</em><sub>+</sub>(<em>η</em>,<strong>x</strong>) = <em>F</em><sub>m</sub><sup>(<em>h</em>+1)</sup>(<em>η</em>,<strong>x</strong>) + <em>F</em><sub>rad</sub><sup>(1)</sup>(<em>η</em>,<strong>x</strong>)   (<em>η</em>≥<em>η</em><sub>⋆</sub>).</span></p>
+<p>が従う。よって核との差分は</p>
+<p><span
+class="math display"><em>δ</em><em>F</em>(<em>η</em>,<strong>x</strong>) := <em>F</em><sub>+</sub>(<em>η</em>,<strong>x</strong>) − <em>F</em><sub>m</sub><sup>(<em>h</em>+1)</sup>(<em>η</em>,<strong>x</strong>) = <em>F</em><sub>rad</sub><sup>(1)</sup>(<em>η</em>,<strong>x</strong>).</span></p>
+<p>となり、**非核成分は純粋に retarded（外向き放射）**である。</p>
+<p>この十分条件が成立すれば、4章の「外向き放射→近傍収束」へ直結する。</p>
+<hr />
+<h2 id="7-まとめ">7. まとめ</h2>
+<p>「縮小宇宙で Maxwell を保ったまま advanced
+解が計算場として意味を持つ」ことを、2ソリトン共鳴の観点から整理すると：</p>
+<ol type="1">
+<li>縮小宇宙を共形平坦で表し、共形時間 <code>η</code> で Maxwell を
+Minkowski 的に扱う。</li>
+<li>共鳴（核更新）後は <code>F^(2) = F^(1)_(h+1) + δF</code>
+と分解でき、<code>δF</code> は（核外で）自由 Maxwell
+の放射成分になる。</li>
+<li><code>δF</code> が外向き放射なら、中心近傍では
+<ul>
+<li>局所化していれば有限時間で消える（強い）</li>
+<li>一般でも局所エネルギーが 0 へ落ちる（弱い）</li>
+</ul></li>
+<li>トポロジカル保護により、近傍の <code>H</code> は <code>h+1</code>
+に固定される。</li>
+<li>とくに「更新直後の Cauchy データ＝新核＋同一点からの retarded
+放射」という条件は、線形性＋一意性で“外向き放射”を十分条件として保証する。</li>
+</ol>
+<hr />
+<h2 id="参考背景文献リンク">参考（背景文献リンク）</h2>
+<ul>
+<li>共形平坦時空と Maxwell の扱い（共形不変性の枠組み）<br />
+<code>https://inspirehep.net/files/3ea65f1920b0e7a9b0a5a211956eff2b</code></li>
+<li>Huygens 原理（奇数次元での尾なしの描像）<br />
+<code>https://mathtube.org/sites/default/files/lecture-notes/Lamoureux_Michael.pdf</code></li>
+<li>局所エネルギー減衰（Morawetz 型見積もりの概観）<br />
+<code>https://www.ams.org/journals/notices/201610/rnoti-p1158.pdf</code></li>
+<li>Maxwell の局所エネルギー減衰（例：arXiv 1305.5261）<br />
+<code>https://api.semanticscholar.org/arXiv:1305.5261</code></li>
+</ul>
+</body>
+</html>

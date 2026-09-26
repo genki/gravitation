@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Informing-Tensor</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-label">FDB wiki</span>
+  <span class="spacer">•</span>
+  <a href="https://github.com/genki/gravitation" class="pill">Repository</a>
+  <a href="https://github.com/genki/gravitation/wiki">Edit on Wiki</a>
+  <a href="https://github.com/genki/gravitation/releases/latest">Latest PDFs</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">Informing-Tensor</h1>
+</header>
+<h1 id="informing-tensor-in-fdb-theory">Informing Tensor in FDB
+Theory</h1>
+<h2 id="1-概観">1. 概観</h2>
+<p>FDB
+理論において重力的相互作用は「場の歪み」ではなく、超低エネルギー電磁波（ULE-EM）の
+<strong>因果的フロント（wavefront）</strong>
+が担う情報伝達として描かれる。この「知らせ」をテンソル場として表すのが
+<strong>informing tensor</strong> <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span>
+である。</p>
+<ul>
+<li>GR の線形化重力波 <span
+class="math inline"><em>h</em><sub><em>μ</em><em>ν</em></sub><sup>TT</sup></span>
+に対応するスピン2の成分を持つ</li>
+<li>宇宙網や銀河エバネッセント帯という媒質効果を含んだ「ULE-EM
+前波モード」の有効表示</li>
+</ul>
+<hr />
+<h2 id="2-基本アイデア">2. 基本アイデア</h2>
+<ol type="1">
+<li><strong>通知レベル（informing）</strong>:
+物質の運動状態・慣性の偏りが ULE-EM の wavefront
+を通じて因果的に全空間へ届く。これを担う場が <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span>。</li>
+<li><strong>ポテンシャルレベル（information potential）</strong>:
+informing tensor の静的成分や蓄積が「情報ポテンシャル」 <span
+class="math inline"><em>Φ</em><sub>FDB</sub></span>
+を形づくり、その勾配が観測される重力ポテンシャルとなる。</li>
+</ol>
+<p>→ ソースの運動状態を「知らせる」テンソル場として、GR
+の重力波＋弱場ポテンシャルの役割を FDB 的に再構成したもの。</p>
+<hr />
+<h2 id="3-定義と構成">3. 定義と構成</h2>
+<h3 id="31-物質テンソルと-green-関数">3.1 物質テンソルと Green 関数</h3>
+<p>物質のストレス・エネルギーテンソルを <span
+class="math inline"><em>T</em><sub><em>α</em><em>β</em></sub><sup>(mat)</sup>(<em>x</em>)</span>
+とする。ULE-EM を Proca 型で書けば</p>
+<p><span
+class="math display">(□+<em>μ</em><sup>2</sup>)<em>A</em><sub><em>μ</em></sub>(<em>x</em>) = <em>J</em><sub><em>μ</em></sub>(<em>x</em>)</span></p>
+<p>解は遅延 Green 関数で</p>
+<p><span
+class="math display"><em>A</em><sub><em>μ</em></sub>(<em>x</em>) = ∫<em>d</em><sup>4</sup><em>x</em>′ <em>G</em><sub>ret</sub>(<em>x</em>,<em>x</em>′) <em>J</em><sub><em>μ</em></sub>(<em>x</em>′)</span></p>
+<p>Hadamard 形式で</p>
+<p><span
+class="math display"><em>G</em><sub>ret</sub> = <em>G</em><sub>front</sub> + <em>G</em><sub>tail</sub></span></p>
+<p>FDB では「重力的情報」を担うのは <strong>front
+部のみ</strong>。ミンコフスキー背景・ <span
+class="math inline"><em>μ</em> → 0</span> で</p>
+<p><span class="math display">$$
+G_{\text{front}}(x,x')=\frac{1}{2\pi}\,\theta(t-t')\,\delta\!\big((x-x')^2\big)
+$$</span></p>
+<h3 id="32-tt-射影と-informing-tensor">3.2 TT 射影と informing
+tensor</h3>
+<p>背景ミンコフスキーに対する transverse-traceless 射影 <span
+class="math inline"><em>P</em><sub>TT</sub></span> を用いて定義：</p>
+<p><span
+class="math display"><em>I</em><sub><em>μ</em><em>ν</em></sub>(<em>x</em>) ≡ <em>κ</em> (<em>P</em><sub>TT</sub>)<sub><em>μ</em><em>ν</em></sub><sup><em>α</em><em>β</em></sup>∫<em>d</em><sup>4</sup><em>x</em>′ <em>G</em><sub>front</sub>(<em>x</em>,<em>x</em>′) <em>T</em><sub><em>α</em><em>β</em></sub><sup>(mat)</sup>(<em>x</em>′)</span></p>
+<ul>
+<li><span class="math inline"><em>κ</em></span>: FDB
+固有結合定数（有効重力定数 <span
+class="math inline"><em>G</em><sub>eff</sub></span> に対応）</li>
+<li><span class="math inline"><em>P</em><sub>TT</sub></span>:
+スピン2横波・トレースレスのみ抽出</li>
+<li>因果構造は <span
+class="math inline"><em>G</em><sub>front</sub></span>
+により常に光円錐上の前波のみが寄与</li>
+</ul>
+<hr />
+<h2 id="4-運動方程式と-gr-重力波との対応">4. 運動方程式と GR
+重力波との対応</h2>
+<h3 id="41-真空中">4.1 真空中</h3>
+<p><span
+class="math display">□<em>I</em><sub><em>μ</em><em>ν</em></sub> ≃ 0,   ∂<sup><em>μ</em></sup><em>I</em><sub><em>μ</em><em>ν</em></sub> = 0,   <em>I</em><sup><em>μ</em></sup><sub><em>μ</em></sub> = 0</span></p>
+<p>線形化 GR の重力波方程式と同型。</p>
+<h3 id="42-遠方場四重極放射">4.2 遠方場・四重極放射</h3>
+<p>遅延 front を <span
+class="math inline">$G_{\text{front}}\sim\frac{1}{4\pi}\frac{\delta(t'-(t-r/c))}{r}$</span>
+とすると</p>
+<p><span class="math display">$$ I_{\mu\nu}(t,\mathbf{x})\simeq
+\frac{\kappa}{4\pi r}(P_{\text{TT}})_{\mu\nu}{}^{\alpha\beta}\int
+d^3x'\,T^{\text{(mat)}}_{\alpha\beta}\!\left(t-\frac{r}{c},\mathbf{x}'\right)
+$$</span></p>
+<p>質量四重極モーメント</p>
+<p><span class="math display">$$ Q_{ij}(t)=\int
+d^3x'\,\rho(t,\mathbf{x}')\left(x'_i
+x'_j-\frac{1}{3}\delta_{ij}|\mathbf{x}'|^2\right) $$</span></p>
+<p>より遠方の TT 成分</p>
+<p><span class="math display">$$ I_{ij}^{\text{TT}}\simeq
+\frac{2G_{\text{eff}}}{c^4 r}\,\frac{d^2
+Q_{ij}^{\text{TT}}}{dt^2}\bigg|_{t-r/c} $$</span></p>
+<p>放射パワー（情報放射）</p>
+<p><span class="math display">$$
+P=-\frac{G_{\text{eff}}}{5c^5}\left\langle\dddot{Q}_{ij}\dddot{Q}_{ij}\right\rangle
+$$</span></p>
+<p>→ GR の四重極放射公式と一致。連星パルサ軌道減衰を再現可能。</p>
+<hr />
+<h2 id="5-通知の普遍性と情報ポテンシャル">5.
+通知の普遍性と情報ポテンシャル</h2>
+<h3 id="51-通知の普遍性">5.1 通知の普遍性</h3>
+<p>front Green
+関数により、ソースの運動情報は距離に依らず光円錐上で同じ内容が届く（時間遅れのみ）。GR
+的な因果的普遍性を担保。</p>
+<h3 id="52-情報ポテンシャルとの関係">5.2 情報ポテンシャルとの関係</h3>
+<p>静的ポテンシャルはカーネル積分</p>
+<p><span
+class="math display"><em>Φ</em><sub>FDB</sub>(<strong>x</strong>) = ∫<em>d</em><sup>3</sup><em>x</em>′ <em>K</em>(<strong>x</strong>,<strong>x</strong>′) <em>ρ</em>(<strong>x</strong>′)</span></p>
+<ul>
+<li>球対称では <span
+class="math inline"><em>K</em><sub>sphere</sub>(<em>r</em>) ≈ <em>e</em><sup>−<em>r</em>/<em>λ</em></sup>/<em>r</em></span>
+に近く GR/ニュートンへ漸近</li>
+<li>ディスク銀河・フィラメントでは反射・導波・ループ蓄積により増幅した
+<span class="math inline"><em>K</em><sub>disk</sub></span>
+が形成され、回転曲線フラット化などを説明</li>
+</ul>
+<hr />
+<h2 id="6-境界条件銀河エバネッセント帯">6.
+境界条件：銀河エバネッセント帯</h2>
+<p>銀河ディスクはプラズマ勾配と遮断帯で ULE-EM
+静的成分を閉じ込める。<br />
+informing tensor を</p>
+<ul>
+<li>静的・超長波成分（情報ポテンシャル形成に効く）</li>
+<li>時間変化の速い成分（GR 的重力波に対応し銀河を貫通）</li>
+</ul>
+<p>に分けることで、回転曲線の説明と重力波透過を両立。</p>
+<hr />
+<h2 id="7-gr-との関係と課題">7. GR との関係と課題</h2>
+<h3 id="71-一致する部分">7.1 一致する部分</h3>
+<ul>
+<li>波動方程式・偏極（スピン2・2自由度）</li>
+<li>四重極放射公式 → 連星パルサ減衰と整合</li>
+<li>弱重力・低速極限で太陽系テストと整合（ <span
+class="math inline"><em>Φ</em><sub>FDB</sub></span>
+の適切な同定が前提）</li>
+</ul>
+<h3 id="72-異なる拡張する部分">7.2 異なる・拡張する部分</h3>
+<ul>
+<li>担体が ULE-EM の前波で具体化</li>
+<li>情報ポテンシャル核 <span class="math inline"><em>K</em></span>
+が幾何・トポロジー（銀河エバネッセント帯・宇宙網）に依存</li>
+<li>ループ蓄積により DM 的効果や有効負圧を生む余地</li>
+</ul>
+<h3 id="73-未解決課題">7.3 未解決課題</h3>
+<ul>
+<li>informing tensor の有効作用の構成</li>
+<li>宇宙網背景での <span
+class="math inline"><em>G</em><sub>front</sub></span> の厳密形</li>
+<li>構造形成シミュレーションでの <span
+class="math inline"><em>K</em>(<strong>x</strong>,<strong>x</strong>′)</span>
+の具体化</li>
+<li>Bullet Cluster や Lyman-α forest との詳細照合</li>
+</ul>
+<hr />
+<h2 id="8-まとめ">8. まとめ</h2>
+<ul>
+<li>informing tensor <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span> は
+ULE-EM の <strong>causal wavefront</strong> を介して <span
+class="math inline"><em>T</em><sub><em>α</em><em>β</em></sub><sup>(mat)</sup></span>
+の情報を伝えるスピン2横波・トレースレス場。</li>
+<li>線形領域では GR
+の重力波と同型の方程式・放射公式を持ち、観測と整合可能。</li>
+<li>静的成分の蓄積が形成する <span
+class="math inline"><em>Φ</em><sub>FDB</sub></span>
+は構造依存で、銀河回転曲線のフラット化や宇宙加速の説明余地を与える。</li>
+</ul>
+<p>FDB における「重力情報の因果的通知」を担う中核場として、informing
+tensor は GR 重力波テンソルの媒質付き一般化に相当する。</p>
+</body>
+</html>

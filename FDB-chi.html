@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDB-chi</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-label">FDB wiki</span>
+  <span class="spacer">•</span>
+  <a href="https://github.com/genki/gravitation" class="pill">Repository</a>
+  <a href="https://github.com/genki/gravitation/wiki">Edit on Wiki</a>
+  <a href="https://github.com/genki/gravitation/releases/latest">Latest PDFs</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">FDB-chi</h1>
+</header>
+<h1 id="fdb-における-heavy-mode-χ-粒子の詳細解説">FDB における heavy
+mode χ 粒子の詳細解説</h1>
+<p>ここでは、これまでの議論で出てきた <strong>FDB モデルの heavy mode χ
+粒子</strong> を、まとめて整理します。<br />
+あくまで「FDB
+という仮想モデルの中での有効粒子」という立場での話です。</p>
+<hr />
+<h2 id="1-位置づけと基本イメージ">1. 位置づけと基本イメージ</h2>
+<h3 id="11-fdb-のざっくりした背景">1.1 FDB のざっくりした背景</h3>
+<p>FDB（仮称）は、次のような絵を前提にしています：</p>
+<ul>
+<li>宇宙空間には<br />
+<strong>超低周波の電磁波（ULE‑EMW）</strong>
+が「海」のように満ちている。</li>
+<li>銀河の円盤・バルジのまわりには<br />
+プラズマ密度の急激な変化（勾配）やカットオフ層があり、<br />
+そこで <strong>エバネッセント場（しみ出す電磁場）</strong>
+が形成される。</li>
+<li>ULE‑EMW とエバネッセント場＋プラズマ勾配の組み合わせによって、<br />
+光や星の軌道が曲げられ、それが「暗黒物質的な重力」として見えている。</li>
+</ul>
+<p>この「見かけの重力」を担っているのが FDB の本体で、<br />
+<strong>χ
+粒子はその内部自由度として現れる「重い励起モード（quasi‑particle）」</strong><br />
+という位置づけになります。</p>
+<hr />
+<h3 id="12-χ-粒子とは何か直感">1.2 χ 粒子とは何か（直感）</h3>
+<ul>
+<li><strong>元の正体</strong>：<br />
+ULE‑EMW セクターの中に存在する
+<strong>重い固有振動モード</strong>。</li>
+<li><strong>見かけ</strong>：<br />
+標準模型の目線から見ると、
+<ul>
+<li>電荷 0</li>
+<li>色荷 0</li>
+<li>質量は WIMP 級（数十〜数百 GeV）</li>
+<li>ごく弱く標準模型に結合
+という意味で、<strong>ダークマター風の粒子</strong>
+として振る舞う。</li>
+</ul></li>
+</ul>
+<p>ただし ΛCDM 的な DM とは違い、</p>
+<blockquote>
+<p>「宇宙全体に均一に存在する新粒子」<br />
+ではなく<br />
+「銀河のエバネッセント層の<strong>殻の中だけ</strong>で定義される準粒子」</p>
+</blockquote>
+<p>というのが重要なポイントです。</p>
+<hr />
+<h2 id="2-場の描像とパラメータ">2. 場の描像とパラメータ</h2>
+<h3 id="21-有効場としての-χ">2.1 有効場としての χ</h3>
+<p>FDBの有効理論では、χ はたとえば <strong>実スカラー場</strong>
+として書けます：</p>
+<ul>
+<li>自由項</li>
+</ul>
+<p><span class="math display">$$\mathcal{L}_{\text{free}} =
+\frac{1}{2}(\partial_\mu \chi)(\partial^\mu \chi) - \frac{1}{2}m_\chi^2
+\chi^2$$</span></p>
+<ul>
+<li>ここでの <span
+class="math inline"><em>m</em><sub><em>χ</em></sub></span> は
+<ul>
+<li>ガンマ線スペクトル（10〜100 GeV 帯）に合わせて</li>
+<li>典型的には</li>
+</ul></li>
+</ul>
+<p><span
+class="math display"><em>m</em><sub><em>χ</em></sub> ∼ 50〜500 GeV</span></p>
+<pre><code>程度の WIMP スケールを想定。</code></pre>
+<p>これは「場の内部モードの固有エネルギー」であって、<br />
+宇宙論的な暗黒物質質量密度 Ω とは直接は結び付きません。</p>
+<hr />
+<h3 id="22-大きさコンプトン波長">2.2 「大きさ」（コンプトン波長）</h3>
+<p>質量 <span class="math inline"><em>m</em><sub><em>χ</em></sub></span>
+に対するコンプトン波長は</p>
+<p><span class="math display">$$\lambda_C = \frac{\hbar}{m_\chi
+c}$$</span></p>
+<p>なので、たとえば：</p>
+<ul>
+<li><span
+class="math inline"><em>m</em><sub><em>χ</em></sub> = 100 GeV</span> →
+<span
+class="math inline"><em>λ</em><sub><em>C</em></sub> ∼ 2 × 10<sup>−18</sup> m</span></li>
+<li><span
+class="math inline"><em>m</em><sub><em>χ</em></sub> = 500 GeV</span> →
+<span
+class="math inline"><em>λ</em><sub><em>C</em></sub> ∼ 4 × 10<sup>−19</sup> m</span></li>
+</ul>
+<p>銀河スケール（kpc〜pc）から見れば完全に点状で、</p>
+<blockquote>
+<p><strong>天体物理のスケールでは「点粒子」として扱ってよい</strong></p>
+</blockquote>
+<p>というオーダーです。</p>
+<hr />
+<h2 id="3-生成メカニズムuleemw--χ-へのモード変換">3.
+生成メカニズム：ULE‑EMW → χ へのモード変換</h2>
+<h3 id="31-どこで-χ-が生まれるか">3.1 どこで χ が生まれるか</h3>
+<p>χ は「どこでも湧く」わけではなく、</p>
+<ul>
+<li>銀河円盤・バルジの周辺</li>
+<li>プラズマ密度 <span
+class="math inline"><em>n</em><sub><em>e</em></sub></span>
+の勾配が大きい領域</li>
+<li>電磁波のカットオフ層・反射層</li>
+<li>そこに立つ <strong>エバネッセント場</strong></li>
+</ul>
+<p>などが重なった <strong>エバネッセント層の殻</strong>
+の内部で生成される、という想定です。</p>
+<p>模式的には、χ の生成源 <span
+class="math inline"><em>Q</em><sub><em>χ</em></sub></span> は</p>
+<p><span
+class="math display"><em>Q</em><sub><em>χ</em></sub>(<strong>r</strong>) ∝ |<em>E⃗</em><sub>ULE</sub>(<strong>r</strong>)|<sup>2</sup> |∇<em>n</em><sub><em>e</em></sub>(<strong>r</strong>)|<sup>2</sup></span></p>
+<p>のように、</p>
+<ul>
+<li>ULE‑EMW の強さ</li>
+<li>プラズマ密度勾配</li>
+<li>エバネッセント場</li>
+</ul>
+<p>の組み合わせに依存する形をイメージできます。</p>
+<h3 id="32-対生成としての-χ反χ">3.2 「対生成」としての χ・反χ</h3>
+<p>χ は場としてはスカラーですが、粒子レベルで見ると</p>
+<ul>
+<li>χ と反χ のペアが<br />
+ULE‑EMW＋エバネッセント場のエネルギーから <strong>対生成</strong>
+される</li>
+<li>生成された χ／反χ は
+<ul>
+<li>銀河の重力ポテンシャル</li>
+<li>FDB 的な「殻のポテンシャル」
+によって局所的に閉じ込められる（準粒子として存在）</li>
+</ul></li>
+</ul>
+<p>…というイメージで扱えます。</p>
+<hr />
+<h2 id="4-安定性と対消滅寿命スケール">4.
+安定性と対消滅（寿命スケール）</h2>
+<h3 id="41-なぜ事実上安定なのか">4.1 なぜ「事実上安定」なのか</h3>
+<p>χ の数密度を <span
+class="math inline"><em>n</em><sub><em>χ</em></sub></span>、対消滅断面積を
+<span class="math inline">⟨<em>σ</em><em>v</em>⟩</span> とすると<br />
+対消滅による 1 粒子あたりのタイムスケールは</p>
+<p><span class="math display">$$\tau_\text{ann} \sim
+\frac{1}{n_\chi\langle\sigma v\rangle}$$</span></p>
+<p>銀河中心付近のオーダーを入れると：</p>
+<ul>
+<li><span
+class="math inline"><em>m</em><sub><em>χ</em></sub> ∼ 100〜500 GeV</span></li>
+<li>質量密度 <span
+class="math inline"><em>ρ</em><sub><em>χ</em></sub></span> を 数十
+GeV/cm³、数密度 <span
+class="math inline"><em>n</em><sub><em>χ</em></sub> ∼ 0.1 cm<sup>−3</sup></span>
+程度と仮置き。</li>
+<li>ガンマ線強度からみた有効断面積</li>
+</ul>
+<p><span
+class="math display">⟨<em>σ</em><em>v</em>⟩ ∼ 10<sup>−26〜25</sup> cm<sup>3</sup>/s</span></p>
+<p>すると、</p>
+<p><span
+class="math display"><em>τ</em><sub>ann</sub> ∼ 10<sup>26</sup> s</span></p>
+<ul>
+<li>宇宙の年齢：約 4×10^{17} s</li>
+<li>χ の対消滅タイムスケール：約 10^{26} s</li>
+</ul>
+<p>→ <strong>宇宙年齢の 10⁸〜10⁹ 倍長い</strong></p>
+<p>したがって、</p>
+<blockquote>
+<p><strong>宇宙論的には χ は「ほぼ安定」とみなしてよい</strong><br />
+（ごくわずかな分だけ、対消滅でエネルギーが γ にリークしている）</p>
+</blockquote>
+<p>という性質になります。</p>
+<h3 id="42-γ-線への変換効率">4.2 γ 線への変換効率</h3>
+<p>銀河中心の 20 GeV 帯のガンマ線放射強度は</p>
+<ul>
+<li>中心近傍で</li>
+</ul>
+<p><span
+class="math display"><em>J</em><sub><em>γ</em></sub> ∼ 10<sup>−11</sup> ∼ 10<sup>−10</sup> W/m<sup>2</sup>/sr</span></p>
+<p>程度のオーダーと見積もられます。</p>
+<p>一方、FDB heavy mode のエネルギー密度が<br />
+<span
+class="math inline"><em>ρ</em><sub><em>χ</em></sub> ∼ 10<sup>−3</sup> J/m<sup>3</sup></span>
+程度あるとすると、</p>
+<p><span class="math display">$$\frac{j_\gamma}{\rho_\chi} \sim
+10^{-26}\ \mathrm{s^{-1}}$$</span></p>
+<p>となり、</p>
+<blockquote>
+<p><strong>FDB 側のエネルギーの 10⁻⁸〜10⁻⁹ 分程度が<br />
+宇宙年齢スケールでガンマ線になってリークしている</strong></p>
+</blockquote>
+<p>だけで充分説明できる、というオーダーになります。</p>
+<hr />
+<h2 id="5-空間分布と殻の役割">5. 空間分布と「殻」の役割</h2>
+<h3 id="51-χ-が存在できる領域殻の内側だけ">5.1 χ
+が存在できる領域：殻の内側だけ</h3>
+<p>FDB に自然な仮定として：</p>
+<blockquote>
+<p><strong>χ が安定して準粒子として存在できるのは<br />
+エバネッセント場とプラズマ勾配が強い殻の内部だけで、<br />
+殻の外に出ると ULE‑EMW の連続モードに溶けてしまう（χ
+としての識別が失われる）</strong></p>
+</blockquote>
+<p>という描像が考えられます。</p>
+<ul>
+<li>殻の内側
+<ul>
+<li>χ は固有モードとして定義される</li>
+<li>数密度 <span
+class="math inline"><em>n</em><sub><em>χ</em></sub></span>
+が意味を持つ</li>
+</ul></li>
+<li>殻の外側
+<ul>
+<li>その固有モードは存在せず、χ は <strong>元の超低周波 EM
+モードに再変換</strong></li>
+<li>「DM 粒子が銀河系外へ飛び出す」イメージではなく<br />
+「χ の身分が消えて場の海に戻る」イメージに近い</li>
+</ul></li>
+</ul>
+<h3 id="52-銀河の重力との関係">5.2 銀河の重力との関係</h3>
+<p>ここが ΛCDM と決定的に違うところで：</p>
+<ul>
+<li>ΛCDM DM
+<ul>
+<li>DM 粒子の質量分布そのものが <strong>重力源の本体</strong>。</li>
+</ul></li>
+<li>FDB
+<ul>
+<li>重力効果の主役は<br />
+<strong>ULE‑EMW＋エバネッセント層の場の構造</strong>。</li>
+<li>χ はその内部で現れる <strong>付随的な heavy モード</strong>
+であり、<br />
+重力の本体ではない。</li>
+</ul></li>
+</ul>
+<p>したがって、</p>
+<ul>
+<li>χ の質量が DM 並みになくても</li>
+<li>χ の分布が宇宙全体に広がっていなくても</li>
+</ul>
+<p><strong>FDB
+の重力現象自体は成立しうる</strong>、というのが特徴です。</p>
+<hr />
+<h2 id="6-ガンマ線観測との関係">6. ガンマ線観測との関係</h2>
+<h3 id="61-銀河中心-20-gev-付近のガンマ線">6.1 銀河中心 20 GeV
+付近のガンマ線</h3>
+<p>FDB heavy mode χ を採用すると、</p>
+<ul>
+<li>χχ 対消滅</li>
+</ul>
+<p><span class="math display"><em>χ</em><em>χ</em> → SM
+粒子 → <em>π</em><sup>0</sup> → <em>γ</em><em>γ</em></span></p>
+<ul>
+<li>あるいは有効演算子</li>
+</ul>
+<p><span class="math display">$$\frac{\alpha_\text{eff}}{4\Lambda}\,\chi
+F_{\mu\nu}F^{\mu\nu}$$</span></p>
+<ul>
+<li>などを経由して <strong>10〜100 GeV γ</strong> を生成できます。</li>
+</ul>
+<p>空間分布は、</p>
+<p><span
+class="math display"><em>I</em><sub><em>γ</em></sub>(<em>l</em>,<em>b</em>) ∝ ∫<em>ρ</em><sub><em>χ</em></sub><sup>2</sup>(<em>r</em>(<em>l</em>,<em>b</em>,<em>s</em>)) <em>d</em><em>s</em></span></p>
+<p>という DM 風の J‑factor 形（ρ²）を持つので、</p>
+<ul>
+<li>銀河中心を中心とするほぼ球対称なハロー</li>
+<li>|b|, |l|≲10〜20° くらいで強い</li>
+</ul>
+<p>という「GC excess 風」の分布を素直に再現できます。</p>
+<h3 id="62-矮小銀河で-γ-が見えない理由fdb-的には自然">6.2 矮小銀河で γ
+が見えない理由（FDB 的には自然）</h3>
+<p>矮小銀河（dSph）では：</p>
+<ul>
+<li>規模が小さい（半径 ~0.1–1 kpc）</li>
+<li>ガスやプラズマが極端に少ない</li>
+<li>構造が単純（バーやスパイラルもない）</li>
+</ul>
+<p>→ エバネッセント場＋プラズマ勾配による χ 生成源 <span
+class="math inline"><em>Q</em><sub><em>χ</em></sub></span> が<br />
+<strong>元々非常に小さい</strong> と期待されます。</p>
+<p>結果として：</p>
+<ul>
+<li>χ の総量も小さい</li>
+<li>対消滅 γ も極めて弱い</li>
+<li>Fermi などの感度では「見えない」のが自然</li>
+</ul>
+<p>という解釈になり、<br />
+「矮小銀河から DM annihilation γ が見えない」という ΛCDM/WIMP の tension
+は、<br />
+FDB heavy mode χ にとっては問題になりません。</p>
+<hr />
+<h2 id="7-msp-説との関係">7. MSP 説との関係</h2>
+<p>銀河中心の GeV γ excess については、</p>
+<ul>
+<li><strong>MSP（ミリ秒パルサー）集団起源説</strong></li>
+<li><strong>WIMP/χ 対消滅説</strong></li>
+</ul>
+<p>が競っている状況ですが、それぞれ：</p>
+<ul>
+<li><p>MSP 説</p>
+<ul>
+<li>バルジ＋厚いディスク内の多数のパルサー</li>
+<li>点源の重ね合わせ → なめらかな拡散に見える</li>
+<li>高緯度・大きな角距離までの球対称ハローは説明しにくい</li>
+</ul></li>
+<li><p>FDB heavy mode χ 説</p>
+<ul>
+<li>殻の内部で生成された heavy mode χ が、<br />
+DM ハロー風の分布＋対消滅で γ を出す</li>
+<li>球対称ハロー成分を自然に持てる</li>
+<li>MSP 由来の成分と「混在」している可能性もある</li>
+</ul></li>
+</ul>
+<p>という整理になります。</p>
+<p>観測的には：</p>
+<ul>
+<li>スペクトルだけでは両者の区別は難しく</li>
+<li>空間分布（球対称 vs X型バルジ）や点源性の有無で<br />
+どこまで切り分けられるか、という問題になります。</li>
+</ul>
+<hr />
+<h2 id="8-時間発展と準定常性">8. 時間発展と準定常性</h2>
+<p>χ の数密度進化は概ね</p>
+<p><span class="math display">$$\frac{dn_\chi}{dt} = Q_\text{prod} -
+\langle\sigma v\rangle n_\chi^2 - \Gamma_\text{leak} n_\chi$$</span></p>
+<p>のように書けます（漏れ：殻外でのモード溶解など）。</p>
+<p>銀河形成史と合わせると：</p>
+<ol type="1">
+<li><p><strong>銀河形成初期（z≳2）</strong></p>
+<ul>
+<li>ディスク・バルジ形成 → 殻と勾配が立ち上がる</li>
+<li>χ の生成 <span class="math inline"><em>Q</em><sub>prod</sub></span>
+が増え、nχ が成長。</li>
+</ul></li>
+<li><p><strong>中間期</strong></p></li>
+</ol>
+<ul>
+<li>χ が増えると <span
+class="math inline">⟨<em>σ</em><em>v</em>⟩<em>n</em><sub><em>χ</em></sub><sup>2</sup></span>
+や漏れが効き始める
+<ul>
+<li>生成と消失が徐々に釣り合う。</li>
+</ul></li>
+</ul>
+<ol start="3" type="1">
+<li><h2 id="現在z0"><strong>現在（z~0）</strong></h2></li>
+</ol>
+<p><span class="math display">$$\frac{dn_\chi}{dt} \approx
+0$$</span></p>
+<p>の準定常状態</p>
+<ul>
+<li>回転曲線や γ 線ハローが大きく時間変化していないことと整合的。</li>
+</ul>
+<p>この意味で、</p>
+<blockquote>
+<p><strong>χ は増え続けている途中というより、<br />
+すでに「生成＝消失＋漏れ」が概ね釣り合った準定常状態にある</strong></p>
+</blockquote>
+<p>と見るのが自然です。</p>
+<hr />
+<h2 id="9-まとめ">9. まとめ</h2>
+<ul>
+<li><p><strong>χ 粒子とは？</strong></p>
+<ul>
+<li>ULE‑EMW セクターの
+<strong>重い固有振動モード</strong>（準粒子）</li>
+<li>質量は WIMP 級（50〜500 GeV）</li>
+<li>電荷 0・弱結合で、見かけ上「ダークマター風」に振る舞う。</li>
+</ul></li>
+<li><p><strong>どこで生まれ、どこにいるか？</strong></p>
+<ul>
+<li>銀河円盤・バルジ周辺の
+<strong>エバネッセント場＋プラズマ勾配が強い殻の内部</strong></li>
+<li>殻の外に出ると ULE‑EMW の連続モードに溶けて χ
+としての身分を失う。</li>
+</ul></li>
+<li><p><strong>何を説明するのか？</strong></p>
+<ul>
+<li>銀河中心の 10〜100 GeV γ を、χχ
+対消滅からの放射として説明しうる。</li>
+<li>ガンマ線強度のオーダーは FDB
+エネルギー密度からみて十分小さく、<br />
+エネルギー予算的に自然。</li>
+</ul></li>
+<li><p><strong>宇宙論への影響は？</strong></p>
+<ul>
+<li>宇宙全体に均一に存在する粒子ではないので、<br />
+FLRW 宇宙の暗黒物質成分 Ω に直接は寄与しない。</li>
+<li>宇宙論スケールでは「重力源はあくまで FDB
+本体（ULE‑EMW＋殻）」であり、<br />
+χ は銀河スケールの局所現象。</li>
+</ul></li>
+<li><p><strong>矮小銀河・MSP などとの整合</strong></p>
+<ul>
+<li>矮小銀河ではガス・プラズマ構造が貧弱 → χ 生成が弱く γ も弱い →
+非検出は自然。</li>
+<li>銀河中心では MSP 集団の寄与と χ heavy mode
+対消滅が「両方」あり得る。</li>
+</ul></li>
+</ul>
+<p>こういう形で整理しておくと、<br />
+FDB heavy mode χ を「DM 的な見え方をするが、本体は ULE‑EMW
+の内部励起」という立場で<br />
+一貫して扱いやすくなると思います。</p>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDB-Glossary</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-label">FDB wiki</span>
+  <span class="spacer">•</span>
+  <a href="https://github.com/genki/gravitation" class="pill">Repository</a>
+  <a href="https://github.com/genki/gravitation/wiki">Edit on Wiki</a>
+  <a href="https://github.com/genki/gravitation/releases/latest">Latest PDFs</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">FDB-Glossary</h1>
+</header>
+<h1 id="fdb-glossary--用語集">FDB Glossary / 用語集</h1>
+<ul>
+<li><p><strong>ULE‑EM (Ultra‑Low‑Energy EM)</strong><br />
+超低エネルギーの Proca 電磁場。コンプトン長 <span
+class="math inline"><em>λ</em><sub><em>C</em></sub> ∼ 10<sup>1</sup>–10<sup>2</sup> kpc</span>
+を想定し、宇宙網や銀河外縁で導波・反射される。</p></li>
+<li><p><strong>Wavefront (前波)</strong><br />
+ULE‑EM の光円錐上に載った因果的前縁。グリーン関数 <span
+class="math inline">$G_{\rm front}$</span> で表し、informing tensor
+の核になる。</p></li>
+<li><p><strong>Informing tensor <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span></strong><br />
+ULE‑EM 前波を TT 射影で束ねたスピン2テンソル。定義:</p></li>
+</ul>
+<p><span class="math display">$$
+I_{\mu\nu}(x)=\kappa (P_{\rm TT})_{\mu\nu}{}^{\alpha\beta} \int d^4x'\,
+G_{\rm front}(x,x')\, T^{\rm (mat)}_{\alpha\beta}(x')
+$$</span></p>
+<p>真空では GR の <span class="math inline">$h_{\mu\nu}^{\rm TT}$</span>
+と同型（速度 <span
+class="math inline"><em>c</em></span>、スピン2偏極）。</p>
+<ul>
+<li><p><strong>Monitoring rate <span
+class="math inline"><em>Γ</em>(<em>x</em>)</span></strong><br />
+情報の連続測位レート（単位 <span
+class="math inline">s<sup>−1</sup></span>）。勾配が加速度を与える: <span
+class="math inline"><strong>a</strong> =  − <em>α</em><sub><em>m</em></sub>∇<em>Γ</em>(<em>x</em>)</span>。</p></li>
+<li><p><strong>Information potential <span
+class="math inline">$\Phi_{\rm FDB}$</span></strong><br />
+<span class="math inline"><em>Γ</em></span>
+を畳み込んで得る有効ポテンシャル。外縁では <span
+class="math inline">1/<em>r</em></span> 形となり、平坦回転・BTFR
+を与える。</p></li>
+<li><p><strong>Waveguide (導波路)</strong><br />
+銀河–ボイド界面で ULE‑EM が全反射し、フラックス保存が球面 <span
+class="math inline">1/<em>r</em><sup>2</sup></span> から円筒 <span
+class="math inline">1/<em>r</em></span> に切り替わる幾何。</p></li>
+<li><p><strong>Evanescent depth <span
+class="math inline"><em>δ</em></span></strong> / <strong>Leak length
+<span class="math inline">$\lambda_{\rm eff}$</span></strong><br />
+界面へのしみ出し距離 / 有効漏洩長。 <span
+class="math inline">$\lambda_{\rm eff}^{-1}=\lambda_C^{-1}+L_{\rm
+wg}^{-1}$</span>。</p></li>
+<li><p><strong>H1 ratio (strong lens)</strong><br />
+<span
+class="math inline"><em>R</em> ≡ <em>θ</em><sub><em>E</em></sub>′<em>c</em><sup>2</sup>/(2<em>π</em><em>v</em><sub><em>c</em></sub><sup>2</sup>)</span>,
+<span
+class="math inline"><em>θ</em><sub><em>E</em></sub>′ = <em>θ</em><sub><em>E</em></sub><em>D</em><sub><em>s</em></sub>/<em>D</em><sub><em>l</em><em>s</em></sub></span>,
+<span class="math inline">$v_c=\sqrt{2}\sigma$</span>. 分母は常に <span
+class="math inline">2<em>π</em><em>v</em><sub><em>c</em></sub><sup>2</sup></span>（σ軸なら
+<span
+class="math inline">4<em>π</em><em>σ</em><sup>2</sup></span>）。</p></li>
+<li><p><strong>BTFR (slope‑1 form)</strong><br />
+<span class="math inline">$y=\log_{10}v_{\rm flat}^4$</span>, <span
+class="math inline">$x=\log_{10}M_{\rm bar}$</span>; 直線 <span
+class="math inline"><em>y</em> = <em>x</em> + <em>b</em></span> で <span
+class="math inline"><em>b</em> = median(<em>y</em>−<em>x</em>)</span>。</p></li>
+<li><p><strong><span
+class="math inline"><em>Δ</em>AICc</span></strong><br />
+<span class="math inline">$\mathrm{AICc}\_{\rm FDB}-\mathrm{AICc}\_{\rm
+NFW}$</span>; 負が FDB 有利。外縁 <span
+class="math inline"><em>r</em> ≥ 2.5<em>R</em><sub><em>d</em></sub></span>
+を主指標に採用。</p></li>
+</ul>
+<p>付録や詳細は論文 PDF（main.pdf / main.ja.pdf）を参照。</p>
+</body>
+</html>

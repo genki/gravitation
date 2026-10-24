@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>FDB-Math-Notes</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-label">FDB wiki</span>
+  <span class="spacer">•</span>
+  <a href="https://github.com/genki/gravitation" class="pill">Repository</a>
+  <a href="https://github.com/genki/gravitation/wiki">Edit on Wiki</a>
+  <a href="https://github.com/genki/gravitation/releases/latest">Latest PDFs</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">FDB-Math-Notes</h1>
+</header>
+<h1 id="fdb-math-notesやさしめ補足">FDB Math Notes（やさしめ補足）</h1>
+<h2 id="proca-方程式と-yukawa-核">Proca 方程式と Yukawa 核</h2>
+<p>Lagrangian:</p>
+<p><span class="math display">$$
+\mathcal{L}= -\tfrac14 F_{\mu\nu}F^{\mu\nu}+\tfrac12\mu_\gamma^{2}A_\mu
+A^\mu - J_\mu A^\mu,\quad \mu_\gamma=m_\gamma c/\hbar .
+$$</span></p>
+<p>静電ポテンシャルは Yukawa 形 <span
+class="math inline"> ∝ <em>e</em><sup>−<em>r</em>/<em>λ</em><sub><em>C</em></sub></sup>/<em>r</em></span>
+で <span
+class="math inline"><em>λ</em><sub><em>C</em></sub> = ℏ/(<em>m</em><sub><em>γ</em></sub><em>c</em>)</span>。</p>
+<h2 id="wavefront-green-関数">Wavefront Green 関数</h2>
+<p>光円錐上にのみサポートを持つ前縁:</p>
+<p><span class="math display">$$
+G_{\rm front}(x,x')=\frac{1}{2\pi}\,\theta(t-t')\,\delta((x-x')^2).
+$$</span></p>
+<p>界面（波導）を通過する成分のみが informing tensor の核になる。</p>
+<h2 id="informing-tensor">Informing tensor</h2>
+<p>TT 射影付きで定義:</p>
+<p><span class="math display">$$
+I_{\mu\nu}(x)=\kappa(P_{\rm TT})_{\mu\nu}{}^{\alpha\beta}\int
+d^4x'\,G_{\rm front}(x,x')\,T^{\rm (mat)}_{\alpha\beta}(x').
+$$</span></p>
+<p>真空では <span
+class="math inline">□<em>I</em><sub><em>μ</em><em>ν</em></sub> = 0, ∂<sup><em>μ</em></sup><em>I</em><sub><em>μ</em><em>ν</em></sub> = 0, <em>I</em><sup><em>μ</em></sup><sub><em>μ</em></sub> = 0</span>
+→ GR の GW と同型（速度 <span
+class="math inline"><em>c</em></span>、偏極 = スピン2のみ）。</p>
+<h2 id="monitoring-rate-とドリフト">Monitoring rate とドリフト</h2>
+<p>連続測位の強さ <span
+class="math inline"><em>Γ</em>(<em>x</em>)</span>
+を情報流強度に同一視し、</p>
+<p><span
+class="math display"><strong>a</strong>(<em>x</em>) =  − <em>α</em><sub><em>m</em></sub>∇<em>Γ</em>(<em>x</em>),   <em>Γ</em> ∝ <em>I</em>(<em>x</em>).</span></p>
+<p>波導幾何で <span class="math inline"><em>I</em> ∝ 1/<em>r</em></span>
+⇒ <span class="math inline">|<strong>a</strong>| ∝ 1/<em>r</em></span> ⇒
+<span class="math inline"><em>v</em> ≃ const</span>（平坦回転）。</p>
+<h2 id="情報ポテンシャル-phi_rm-fdb">情報ポテンシャル <span
+class="math inline">$\Phi_{\rm FDB}$</span></h2>
+<p><span class="math display">$$
+\Phi_{\rm FDB}(\mathbf{x}) = \int
+d^3x'\,K(\mathbf{x},\mathbf{x}')\,\rho(\mathbf{x}'),\qquad
+K_{\rm sphere}\approx \frac{e^{-r/\lambda}}{r},\quad
+K_{\rm disk}\sim \text{waveguide+loop強化}.
+$$</span></p>
+<p>銀河外縁では <span class="math inline">$K_{\rm disk}$</span> が 1/r
+力を支配し、BTFR/回転曲線を統一。</p>
+<h2 id="h1-ratioゼロ自由度">H1 ratio（ゼロ自由度）</h2>
+<p><span class="math display">$$
+R \equiv \frac{\theta_E' c^2}{2\pi v_c^2},\quad
+\theta_E'=\theta_E\frac{D_s}{D_{ls}},\quad
+v_c=\sqrt{2}\sigma .
+$$</span></p>
+<p>切片 <span
+class="math inline"><em>b</em><sub>0</sub> = log<sub>10</sub>(2<em>π</em>) − 2log<sub>10</sub><em>c</em></span>。中央値
+<span class="math inline"><em>m</em><sub><em>R</em></sub></span> と散布
+<span
+class="math inline"><em>s</em><sub><em>R</em></sub></span>（1.4826×MAD）だけを報告。</p>
+<h2 id="btfr傾き1">BTFR（傾き1）</h2>
+<p><span class="math inline">$x=\log_{10}M_{\rm bar},\ y=\log_{10}v_{\rm
+flat}^4$</span>; 直線 <span
+class="math inline"><em>y</em> = <em>x</em> + <em>b</em></span> で <span
+class="math inline"><em>b</em> = median(<em>y</em>−<em>x</em>)</span>。
+<span class="math inline">$\Delta v^2\equiv v_{\rm obs}^2-v_{\rm
+bar}^2$</span> が一定 → <span class="math inline">$L_0=GM_{\rm
+bar}/\Delta v^2$</span>。</p>
+<p>詳細は main.pdf / main.ja.pdf の各節・付録を参照。</p>
+</body>
+</html>

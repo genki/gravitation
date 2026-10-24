@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Informing-Tensor-EN</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-label">FDB wiki</span>
+  <span class="spacer">•</span>
+  <a href="https://github.com/genki/gravitation" class="pill">Repository</a>
+  <a href="https://github.com/genki/gravitation/wiki">Edit on Wiki</a>
+  <a href="https://github.com/genki/gravitation/releases/latest">Latest PDFs</a>
+</div>
+<header id="title-block-header">
+<h1 class="title">Informing-Tensor-EN</h1>
+</header>
+<h1 id="informing-tensor-in-fdb-theory-english-full-version">Informing
+Tensor in FDB Theory (English, full version)</h1>
+<h2 id="1-overview">1. Overview</h2>
+<p>In the FDB picture, gravity is not “curvature of spacetime” but
+<strong>information transport</strong> carried solely by the causal
+wavefront of ultra‑low‑energy EM (ULW‑EM). That carrier field is the
+<strong>informing tensor</strong> <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span>.</p>
+<ul>
+<li>Corresponds to the spin‑2 part of linearized GR (<span
+class="math inline"><em>h</em><sub><em>μ</em><em>ν</em></sub><sup>TT</sup></span>)</li>
+<li>Explicitly includes medium effects of the cosmic web and galactic
+evanescent layers on ULW‑EM wavefronts</li>
+</ul>
+<hr />
+<h2 id="2-basic-idea-two-layers">2. Basic idea (two layers)</h2>
+<ol type="1">
+<li><strong>Informing layer:</strong> Motion / inertial bias of matter
+is broadcast causally by ULW‑EM wavefronts; this is encoded in <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span>.</li>
+<li><strong>Potential layer:</strong> Static or accumulated parts of
+<span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span>
+build an “information potential” <span
+class="math inline"><em>Φ</em><sub>FDB</sub></span> whose gradient is
+the observed gravitational potential.</li>
+</ol>
+<p>Thus <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span>
+“tells” the state of sources, reconstituting the role of GR’s waves +
+weak‑field potential.</p>
+<hr />
+<h2 id="3-definition-building-the-informing-tensor">3. Definition:
+building the informing tensor</h2>
+<h3 id="31-matter-tensor-and-green-function">3.1 Matter tensor and Green
+function</h3>
+<p>Stress–energy of matter: <span
+class="math inline"><em>T</em><sub><em>α</em><em>β</em></sub><sup>(mat)</sup>(<em>x</em>)</span>.<br />
+For ULW‑EM (Proca‑type):</p>
+<p><span
+class="math display">(□+<em>μ</em><sup>2</sup>)<em>A</em><sub><em>μ</em></sub>(<em>x</em>) = <em>J</em><sub><em>μ</em></sub>(<em>x</em>)</span></p>
+<p>Solution with retarded Green function:</p>
+<p><span
+class="math display"><em>A</em><sub><em>μ</em></sub>(<em>x</em>) = ∫<em>d</em><sup>4</sup><em>x</em>′ <em>G</em><sub>ret</sub>(<em>x</em>,<em>x</em>′) <em>J</em><sub><em>μ</em></sub>(<em>x</em>′)</span></p>
+<p>Hadamard split:</p>
+<p><span
+class="math display"><em>G</em><sub>ret</sub> = <em>G</em><sub>front</sub> + <em>G</em><sub>tail</sub></span></p>
+<p>FDB: only the <strong>front</strong> part carries “gravitational”
+information. Minkowski, <span
+class="math inline"><em>μ</em> → 0</span>:</p>
+<p><span class="math display">$$ G_{\text{front}}(x,x') =
+\frac{1}{2\pi}\,\theta(t-t')\,\delta\!\big((x-x')^2\big) $$</span></p>
+<h3 id="32-tt-projection-and-definition">3.2 TT projection and
+definition</h3>
+<p>Introduce the transverse–traceless projector <span
+class="math inline"><em>P</em><sub>TT</sub></span> (spin‑2, trace‑free).
+Define</p>
+<p><span
+class="math display"><em>I</em><sub><em>μ</em><em>ν</em></sub>(<em>x</em>) ≡ <em>κ</em> (<em>P</em><sub>TT</sub>)<sub><em>μ</em><em>ν</em></sub><sup><em>α</em><em>β</em></sup>∫<em>d</em><sup>4</sup><em>x</em>′ <em>G</em><sub>front</sub>(<em>x</em>,<em>x</em>′) <em>T</em><sub><em>α</em><em>β</em></sub><sup>(mat)</sup>(<em>x</em>′)</span></p>
+<ul>
+<li><span class="math inline"><em>κ</em></span>: FDB coupling (maps to
+effective <span
+class="math inline"><em>G</em><sub>eff</sub></span>)</li>
+<li><span class="math inline"><em>P</em><sub>TT</sub></span>: keeps only
+the spin‑2 transverse traceless part</li>
+<li><span class="math inline"><em>G</em><sub>front</sub></span>: causal
+wavefront; support only on the light cone</li>
+</ul>
+<p>Embedded properties:</p>
+<ul>
+<li><strong>Causality:</strong> only light‑cone front contributes.</li>
+<li><strong>Spin‑2:</strong> only two GR‑like polarizations remain.</li>
+</ul>
+<hr />
+<h2 id="4-equations-of-motion-and-gr-correspondence">4. Equations of
+motion and GR correspondence</h2>
+<h3 id="41-vacuum">4.1 Vacuum</h3>
+<p><span
+class="math display">□<em>I</em><sub><em>μ</em><em>ν</em></sub> ≃ 0,  ∂<sup><em>μ</em></sup><em>I</em><sub><em>μ</em><em>ν</em></sub> = 0,  <em>I</em><sup><em>μ</em></sup><sub><em>μ</em></sub> = 0</span></p>
+<p>Same form as the linearized GR wave equation.</p>
+<h3 id="42-far-zone--quadrupole">4.2 Far zone &amp; quadrupole</h3>
+<p>With <span
+class="math inline">$G_{\text{front}}\sim\frac{1}{4\pi}\frac{\delta(t'-(t-r/c))}{r}$</span>:</p>
+<p><span class="math display">$$ I_{\mu\nu} \simeq \frac{\kappa}{4\pi
+r}(P_{\text{TT}})_{\mu\nu}{}^{\alpha\beta} \int d^3x'\,
+T^{\text{(mat)}}_{\alpha\beta}\left(t-\frac{r}{c},\mathbf{x}'\right)
+$$</span></p>
+<p>Mass quadrupole:</p>
+<p><span class="math display">$$ Q_{ij} = \int
+d^3x'\,\rho(t,\mathbf{x}')\left(x'_i
+x'_j-\tfrac13\delta_{ij}|\mathbf{x}'|^2\right) $$</span></p>
+<p>Far‑field TT part:</p>
+<p><span class="math display">$$ I_{ij}^{\text{TT}} \simeq
+\frac{2G_{\text{eff}}}{c^4 r}\,\frac{d^2
+Q_{ij}^{\text{TT}}}{dt^2}\bigg|_{t-r/c} $$</span></p>
+<p>Radiated power (informing radiation):</p>
+<p><span class="math display">$$ P =
+-\frac{G_{\text{eff}}}{5c^5}\Big\langle \dddot{Q}_{ij}\dddot{Q}_{ij}
+\Big\rangle $$</span></p>
+<p>→ Identical to GR quadrupole formula; binary pulsar decay is
+reproduced.</p>
+<hr />
+<h2 id="5-universality-of-notice-and-the-information-potential">5.
+“Universality of notice” and the information potential</h2>
+<h3 id="51-universality-distanceblind-front">5.1 Universality
+(distance‑blind front)</h3>
+<p>Because <span class="math inline"><em>G</em><sub>front</sub></span>
+lives on the light cone, the “notice” about source motion reaches near
+and far observers identically (up to light‑travel time). GR‑like
+universality is preserved.</p>
+<h3 id="52-link-to-the-potential-phi_textfdb">5.2 Link to the potential
+<span class="math inline"><em>Φ</em><sub>FDB</sub></span></h3>
+<p><span
+class="math display"><em>Φ</em><sub>FDB</sub>(<strong>x</strong>) = ∫<em>d</em><sup>3</sup><em>x</em>′ <em>K</em>(<strong>x</strong>,<strong>x</strong>′) <em>ρ</em>(<strong>x</strong>′)</span></p>
+<p>The kernel <span class="math inline"><em>K</em></span> includes
+static parts of <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span>,
+loop accumulation, reflections:</p>
+<ul>
+<li>Spherical systems: <span
+class="math inline"><em>K</em><sub>sphere</sub> ≈ <em>e</em><sup>−<em>r</em>/<em>λ</em></sup>/<em>r</em></span>
+(Newton/Yukawa‑like).</li>
+<li>Disks/filaments: waveguiding and loops amplify <span
+class="math inline"><em>K</em><sub>disk</sub></span>, producing flat
+rotation curves.</li>
+</ul>
+<hr />
+<h2 id="6-boundary-conditions-galactic-evanescent-layer">6. Boundary
+conditions: galactic evanescent layer</h2>
+<ul>
+<li>Static ultra‑long ULW‑EM modes are trapped in the disk’s evanescent
+zone → boost <span class="math inline"><em>Φ</em><sub>FDB</sub></span>
+locally.</li>
+<li>Faster modes transmit as informing radiation → consistent with
+LIGO/Virgo/KAGRA detections from distant binaries.</li>
+</ul>
+<p>Splitting modes this way lets FDB explain disk rotation (static)
+while allowing GW transparency (dynamic).</p>
+<hr />
+<h2 id="7-agreement-with--extension-beyond-gr">7. Agreement with /
+extension beyond GR</h2>
+<p><strong>Agrees</strong></p>
+<ul>
+<li>Wave equation &amp; spin‑2 polarization</li>
+<li>Quadrupole power formula (binary pulsar decay)</li>
+<li>Weak‑field solar‑system limit when <span
+class="math inline"><em>Φ</em><sub>FDB</sub></span> is identified
+appropriately</li>
+</ul>
+<p><strong>Extends</strong></p>
+<ul>
+<li>Explicit carrier: ULW‑EM front (medium‑aware)</li>
+<li>Geometry‑dependent kernel <span
+class="math inline"><em>K</em></span> (evanescent layer / cosmic web
+topology)</li>
+<li>Loop accumulation → DM‑like effects or effective negative pressure
+(cosmic acceleration) possible</li>
+</ul>
+<p><strong>Open issues</strong></p>
+<ul>
+<li>Full effective action for <span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span></li>
+<li>Exact <span class="math inline"><em>G</em><sub>front</sub></span> on
+cosmic‑web backgrounds</li>
+<li>Concrete <span
+class="math inline"><em>K</em>(<strong>x</strong>,<strong>x</strong>′)</span>
+for structure‑formation simulations</li>
+<li>Tests vs. Bullet Cluster, Lyman‑α forest, etc.</li>
+</ul>
+<hr />
+<h2 id="8-summary">8. Summary</h2>
+<ul>
+<li><span
+class="math inline"><em>I</em><sub><em>μ</em><em>ν</em></sub></span>:
+spin‑2 TT field of ULW‑EM causal fronts conveying <span
+class="math inline"><em>T</em><sup>(mat)</sup></span> information.</li>
+<li>Linear sector = GR gravity waves; static accumulation yields
+structure‑dependent <span
+class="math inline"><em>Φ</em><sub>FDB</sub></span> that can flatten
+galaxy rotation curves and allow cosmic acceleration.</li>
+<li>Serves as the FDB carrier of “gravitational notice,” a medium‑aware
+generalization of the GR wave tensor.</li>
+</ul>
+</body>
+</html>
